@@ -84,7 +84,7 @@
 							</div>
 							<div class="col-lg-4 col-md-6 col-12">
 								<div class="form-group">
-									<label>Address<span class="required">*</span>
+									<label>Address<span class="required"></span>
 									</label>
 									<textarea  name="address" id="address" class="form-control form-control-user" />{{old('address', isset($userDetail->user_detail->address)?$userDetail->user_detail->address:"")}}</textarea>
 									@if ($errors->has('address'))

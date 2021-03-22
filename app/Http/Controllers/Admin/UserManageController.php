@@ -214,7 +214,7 @@ class UserManageController extends Controller
                 $query->where('name','like', '%'.$request->search_keyword.'%');
             });
         })
-        ->with(['venue'])->where('user_id',$id)->sortable('id')->paginate(Config::get('constants.PAGINATION_NUMBER'));
+        ->with(['venue'])->where('bookings.user_id',$id)->sortable('id')->paginate(Config::get('constants.PAGINATION_NUMBER'));
 
         return view('admin.users.view_detail',compact('userDetail','bookings'));
     }

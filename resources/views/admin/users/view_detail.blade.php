@@ -85,7 +85,7 @@
 							<thead>
 								<tr>
 									<th>@sortablelink('id', 'UID')</th>
-                                    <th>@sortablelink('name', 'Venue Name')</th>
+                                    <th>@sortablelink('venue.name', 'Venue Name')</th>
                                     <th>@sortablelink('booking_name', 'Booking Name')</th>
                                     <th>@sortablelink('booking_email', 'Booking Email')</th>
                                     <th>@sortablelink('date', 'Booking Date')</th>
