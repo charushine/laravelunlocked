@@ -110,5 +110,75 @@
 			</div>
 		</div>
 	</div>
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<h1 class="h3 mb-0 text-gray-800">Latest Bookings</h1>
+	</div>
+	<div class="row">
+        <div class="col-xl-12 col-md-12">
+			<div class="card shadow mb-4">
+			<div class="card-header py-3">
+					<form class="form-inline float-left" id="search-form">
+						<div class="form-group">
+							<input type="text" class="form-control" data-model="User" data-searchcoulnm="first_name,last_name,email" id="search_keyword" name="search_keyword" placeholder="What are you looking for?">
+						</div>
+						<button type="submit" class="btn btn-primary ml-10">Search</button>
+					</form>
+					<div class="buttons-right">
+						<!-- <a class="m-0 font-weight-bold btn-department-add pull-right hover-white" href="{{route('exportuser')}}">Export <i class="fa fa-file-csv"></i></a> -->
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-hover dt-responsive nowrap">
+							<thead>
+								<tr>
+									<th>@sortablelink('id', 'UID')</th>
+
+									<th>@sortablelink('user.first_name', 'Customer Name')</th>
+                                    <th>@sortablelink('booking_name','Booking Name')</th>
+                                    <th>@sortablelink('booking_email','Booking Email')</th>
+                                    <th>@sortablelink('booking_date','Booking Date')</th>
+                                    <th>@sortablelink('status','Status')</th>
+									<th>@sortablelink('created_at', 'Created Date')</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								@foreach($bookings as $booking)
+								<tr>
+									<td>{{$booking->id}}</td>
+
+									<td><a href="{{route('user.details',[$booking->user->id])}}">{{$booking->user->first_name .' '.$booking->user->last_name}}</a></td>
+									<td>{{$booking->booking_name}}</td>
+									<td>{{$booking->booking_email}}</td>
+									<td>{{$booking->date}}</td>
+									<td>@if($booking->status == 1)
+											<a><h5><span class="badge badge-success">Approved</span></h5></a>
+										@elseif($booking->status == 2)
+											<a><h5><span class="badge badge-danger">Declined</span></h5></a>
+										@else
+										<h5><span class="badge badge-primary">New</span></h5>
+										@endif
+									</td>
+									<td>{{$booking->created_at ? change_date_format($booking->created_at) : 'N/A'}}</td>
+								</tr>
+
+							@endforeach
+							@if ($bookings->count() == 0)
+								<tr>
+									<td colspan="10" class="text-center text-dabger">No booking to display.</td>
+								</tr>
+							@endif
+							</tbody>
+						</table>
+						{{ $bookings->appends(request()->except('page'))->links() }}
+						<p>
+							Displaying {{$bookings->count()}} of {{ $bookings->total() }} booking(s).
+						</p>
+					</div>
+        		</div>
+			</div>
+        </div>
+	</div>
 </div>
 @endsection

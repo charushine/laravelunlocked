@@ -218,8 +218,8 @@ class OwnerManageController extends Controller
                 $query->where('booking_name','like', '%'.$request->search_keyword.'%')
                 ->orWhere('date', 'like', '%'.$request->search_keyword.'%')
                 ->orWhere('booking_email', 'like', '%'.$request->search_keyword.'%')
-                    ->orWhereHas('user', function( $query ) use ( $request ){
-                        $query->where('first_name','like', '%'.$request->search_keyword.'%')
+                    ->orWhereHas('user', function( $qa ) use ( $request ){
+                        $qa->where('first_name','like', '%'.$request->search_keyword.'%')
                         ->orWhere('last_name', 'like', '%'.$request->search_keyword.'%')
                         ->orWhere('email', 'like', '%'.$request->search_keyword.'%');
                     });

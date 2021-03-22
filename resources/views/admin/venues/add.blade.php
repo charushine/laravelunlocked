@@ -21,17 +21,17 @@
 			<div class="card">
 				<div class="card-body pt-2 pb-3 manageClinicSection">
 					<h5 class="mt-3 mb-4">
-						Update Venue Detail
+						Add Venue Detail
 						<a href="{{route('venues.list')}}" class="float-right"><i data-feather="x"></i></a>
 					</h5>
-					<form action="{{route('venue.update')}}" method="post" class="user" id="edit_venue_form" enctype="multipart/form-data">@csrf
-						<input type="hidden" name="edit_record_id" value="{{$venueDetail->id}}">
+					<form action="" method="post" class="user" id="edit_venue_form" enctype="multipart/form-data">@csrf
+
 						<div class="row">
 							<div class="col-lg-4 col-md-6 col-12">
 								<div class="form-group">
 									<label>Name<span class="required">*</span>
 									</label>
-									<input type="text" name="name" id="name" value="{{old('name', $venueDetail->name)}}" class="form-control form-control-user" />
+									<input type="text" name="name" id="name" value="{{old('name')}}" class="form-control form-control-user" />
 									@if ($errors->has('name'))
 										<span class="text-danger">{{ $errors->first('name') }}</span>
 									@endif
@@ -41,7 +41,7 @@
 								<div class="form-group">
 									<label>Location<span class="required">*</span>
 									</label>
-									<input type="text" name="location" id="location" value="{{old('location', $venueDetail->location)}}" class="form-control form-control-user" />
+									<input type="text" name="location" id="location" value="{{old('location')}}" class="form-control form-control-user" />
 									@if ($errors->has('location'))
 										<span class="text-danger">{{ $errors->first('location') }}</span>
 									@endif
@@ -53,7 +53,7 @@
 								<div class="form-group">
 									<label>Contact<span class="required">*</span>
 									</label>
-									<input type="text" name="contact" id="contact"  value="{{old('contact', $venueDetail->contact)}}" class="form-control form-control-user" />
+									<input type="text" name="contact" id="contact"  value="{{old('contact')}}" class="form-control form-control-user" />
 									@if ($errors->has('contact'))
 										<span class="text-danger">{{ $errors->first('contact') }}</span>
 									@endif
@@ -63,7 +63,7 @@
 								<div class="form-group">
 									<label>Building Type<span class="required">*</span>
 									</label>
-									<input type="text" name="building_type" id="building_type"  value="{{old('building_type', $venueDetail->building_type)}}" class="form-control form-control-user" />
+									<input type="text" name="building_type" id="building_type"  value="{{old('building_type')}}" class="form-control form-control-user" />
 									@if ($errors->has('building_type'))
 										<span class="text-danger">{{ $errors->first('building_type') }}</span>
 									@endif
@@ -75,7 +75,7 @@
 								<div class="form-group">
 									<label>Total Room<span class="required">*</span>
 									</label>
-									<input type="number" name="total_room" id="total_room"  value="{{old('total_room', $venueDetail->total_room)}}" class="form-control form-control-user" />
+									<input type="number" name="total_room" id="total_room"  value="{{old('total_room')}}" class="form-control form-control-user" />
 									@if ($errors->has('total_room'))
 										<span class="text-danger">{{ $errors->first('total_room') }}</span>
 									@endif
@@ -85,7 +85,7 @@
 								<div class="form-group">
 									<label>Booking Price<span class="required">*</span>
 									</label>
-									<input type="number" name="booking_price" id="booking_price"  value="{{old('booking_price', $venueDetail->booking_price)}}" class="form-control form-control-user" />
+									<input type="number" name="booking_price" id="booking_price"  value="{{old('booking_price')}}" class="form-control form-control-user" />
 									@if ($errors->has('booking_price'))
 										<span class="text-danger">{{ $errors->first('booking_price') }}</span>
 									@endif
@@ -97,7 +97,7 @@
 								<div class="form-group">
 									<label>Amenities Detail<span class="required">*</span>
 									</label>
-									<textarea name="amenities_detail" id="amenities_detail"  class="form-control form-control-user" />{{old('amenities_detail', $venueDetail->amenities_detail)}}</textarea>
+									<textarea name="amenities_detail" id="amenities_detail"  class="form-control form-control-user" />{{old('amenities_detail')}}</textarea>
 									@if ($errors->has('amenities_detail'))
 										<span class="text-danger">{{ $errors->first('amenities_detail') }}</span>
 									@endif
@@ -107,7 +107,7 @@
 								<div class="form-group">
 									<label>Other Information<span class="required">*</span>
 									</label>
-									<textarea  name="other_information" id="other_information" class="form-control form-control-user" />{{old('other_information', $venueDetail->other_information)}}</textarea>
+									<textarea  name="other_information" id="other_information" class="form-control form-control-user" />{{old('other_information')}}</textarea>
 									@if ($errors->has('other_information'))
 										<span class="text-danger">{{ $errors->first('other_information') }}</span>
 									@endif
@@ -118,32 +118,14 @@
 							<div class="col-lg-4 col-md-6 col-12">
 								<div class="form-group">
 									<label for="document-0" class="document-label">Venue Images</label>
-									<input type="file" name="venue_image_name[]" id="venue_image_name" placeholder="Venue Image" value="{{old('venue_image_name' , isset($venueImages->name) ? $venueImages->name : '')}}"  class="form-control form-control-user" multiple/>
+									<input type="file" name="venue_image_name[]" id="venue_image_name" placeholder="Venue Image" value="{{old('venue_image_name'}}"  class="form-control form-control-user" multiple/>
 
 									@if ($errors->has('venue_image_name'))
 									<span class="text-danger">{{ $errors->first('venue_image_name') }}</span>
 									@endif
 								</div>
 							</div>
-							<div class="col-lg-4 col-md-6 col-12">
-								<div class="form-group">
-								@if($venueImages->count())
-									@foreach($venueImages as $key => $images)
-									@php
-										$type = explode(".",$images->name)[1];
-										$image = $GetCommon->createThumbnail(public_path('assets/venue/images/'.$images->name), $type, 175, 75);
-									@endphp
-										@if($image)
 
-											<a href="{{route('venue.delete', ['id' => $images->id, 'venue_id' => $images->venue_id,'name' => $images->name])}}" ><img class="img-profile mt30" style="padding-right:10px; padding-bottom:10px" src="{{ 'data:image/' .$type. ';base64,' .base64_encode($image) }}" width="100px" alt="Venue Image"></a>
-
-										@endif
-									@endforeach
-								@else
-									<img class="img-profile mt30" src="{{asset('images/not-found.png')}}" alt="Image not available">
-								@endif
-								</div>
-							</div>
 						</div>
 						<div class="row">
 							<div class="col-lg-4 col-md-6 col-12">
@@ -152,10 +134,10 @@
 									</label>
 									<div class="input-group">
 										<div id="radioBtn" class="btn-group">
-										    <a class="btn btn-success btn-sm {{ old('status', $venueDetail->status) == '1' ? 'active' : 'notActive'}}" data-toggle="status" data-title="1">Enabled</a>
-											<a class="btn btn-danger btn-sm {{ old('status', $venueDetail->status) == '0' ? 'active' : 'notActive'}}" data-toggle="status" data-title="0">Disabled</a>
+										    <a class="btn btn-success btn-sm {{ old('status') ? old('status') == '1' ? 'active' : 'notActive' : 'active'}}" data-toggle="status" data-title="1">Enabled</a>
+											<a class="btn btn-danger btn-sm {{ old('status') == '0' ? 'active' : 'notActive'}}" data-toggle="status" data-title="0">Disabled</a>
 										</div>
-										<input type="hidden" name="status" id="status" value="{{ old('status',$venueDetail->status) == '1' ? '1' : '0'}}">
+										<input type="hidden" name="status" id="status" value="1">
 									</div>
 									@if ($errors->has('status'))
 									<span class="text-danger">{{ $errors->first('status') }}</span>
@@ -165,7 +147,8 @@
 						</div>
 						<div class="mt-1 mb-1">
 							<div class="text-left d-print-none mt-4">
-								<button type="submit" id="edit-genre-btn" class="btn btn-primary">Update</button>
+								<button type="submit" name="action" value="saveadd" class="btn btn-primary">Save & Add New</button>
+								<button type="submit"  name="action" id="edit-genre-btn" value="save" class="btn btn-primary">Save</button>
 								<a href="{{route('venues.list')}}" class="btn btn-light">Cancel</a>
 							</div>
 						</div>

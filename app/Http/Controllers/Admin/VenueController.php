@@ -31,7 +31,6 @@ class VenueController extends Controller
         {
             $keyword = '';
         }
-        // join('users','venues.user_id','users.id')->
         $data = Venue::when($request->search_keyword, function($q) use($request){
             $q->where('name', 'like', '%'.$request->search_keyword.'%')
             ->orWhere('location', 'like', '%'.$request->search_keyword.'%')
@@ -231,6 +230,20 @@ class VenueController extends Controller
     public function view_detail($id,Request $request){
         $venueDetail = Venue::find($id);
         $venueImages = VenueImage::where('venue_id',$id)->get();
-        return view('admin.venues.view_detail',compact('venueDetail','venueImages'));
+
+        $bookings = Booking::when($request->search_keyword, function($q) use($request){
+            $q->where('booking_name', 'like', '%'.$request->search_keyword.'%')
+            ->orWhere('date', 'like', '%'.$request->search_keyword.'%')
+            ->orWhere('booking_email', 'like', '%'.$request->search_keyword.'%')
+            ->orWhere('status', 'like', '%'.$request->search_keyword.'%')
+            ->orWhere('id', $request->search_keyword)
+            ->orWhereHas('user', function( $query ) use ( $request ){
+                $query->where('first_name','like', '%'.$request->search_keyword.'%')
+                ->orWhere('last_name','like', '%'.$request->search_keyword.'%');
+            });
+        })
+        ->where('bookings.venue_id',$id)->sortable('id')->paginate(Config::get('constants.PAGINATION_NUMBER'));
+
+        return view('admin.venues.view_detail',compact('venueDetail','venueImages','bookings'));
     }
 }
