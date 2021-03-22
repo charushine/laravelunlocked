@@ -59,7 +59,7 @@ class AdminDashboardController extends Controller
             $events[] = [
                 'title' => $booking->booking_name,
                 'start' => $booking->date,
-                'url' => url('/admin/bookings/list')
+                // 'url' => url('/admin/bookings/list')
             ];
         }
         $bookingEvent = json_encode($events);
