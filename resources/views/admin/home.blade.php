@@ -79,7 +79,8 @@
         </div>
     </div>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Bookings</h1><a class="m-0 font-weight-bold btn-department-add  hover-white" href="{{route('booking.add')}}">Add New Booking <i class="fa fa-plus"></i></a>
+        <h1 class="h3 mb-0 text-gray-800">Bookings</h1>
+        <!-- <a class="m-0 font-weight-bold btn-department-add  hover-white" href="{{route('booking.add')}}">Add New Booking <i class="fa fa-plus"></i></a> -->
     </div>
     <div class="row">
         <div class="col-md-6 mb-4">
