@@ -25,7 +25,7 @@ class TemplateTableSeeder extends Seeder
                 <table role="presentation" border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tbody>
                 <tr>
-                <td class="logo" style="text-align: center; color: #fff;">&nbsp;Dragonfly</td>
+                <td class="logo" style="text-align: center; color: #fff;">&nbsp;Unlocked</td>
                 </tr>
                 </tbody>
                 </table>
@@ -46,7 +46,7 @@ class TemplateTableSeeder extends Seeder
                 <p style="text-align: left;">{{$token}}</p>
                 <p style="text-align: left;">If you did not initiate this request, please ignore this mail and the link will soon expire automatically.</p>
                 <p style="margin: 10px 0 0; text-align: left; color: #000000;">Thanks</p>
-                <p style="margin: 0px; text-align: left; color: #000000; font-weight: bold;">Dragonfly Team</p>
+                <p style="margin: 0px; text-align: left; color: #000000; font-weight: bold;">Unlocked Team</p>
                 </div>
                 </td>
                 </tr>
@@ -64,7 +64,7 @@ class TemplateTableSeeder extends Seeder
                 <tbody>
                 <tr>
                 <td style="text-align: center; margin: 0;">
-                <p style="margin: 0; font-size: 12px;">&copy; 2021 <a style="color: #141637;" href="http://dragonfly.shinedezign.pro/">Dragonfly</a>. All Rights Reserved</p>
+                <p style="margin: 0; font-size: 12px;">&copy; 2021 <a style="color: #141637;" >Unlocked</a>. All Rights Reserved</p>
                 </td>
                 </tr>
                 </tbody>
