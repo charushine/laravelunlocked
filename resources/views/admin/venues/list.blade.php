@@ -32,7 +32,7 @@
 						<button type="submit" class="btn btn-primary ml-10">Search</button>
 					</form>
 					<div class="buttons-right">
-						<!-- <a class="m-0 font-weight-bold btn-department-add pull-right hover-white" href="{{route('exportuser')}}">Export <i class="fa fa-file-csv"></i></a> -->
+						<a class="m-0 font-weight-bold btn-department-add pull-right hover-white" href="{{route('venue.add')}}">Add New Venue <i class="fa fa-plus"></i></a>
 					</div>
 				</div>
 				<div class="card-body">
@@ -41,14 +41,15 @@
 							<thead>
 								<tr>
 									<th>@sortablelink('id', 'UID')</th>
-									<th>@sortablelink('booking.id', 'Booking Count')</th>
+									<th>@sortablelink('id', 'Booking Count')</th>
 									<th>@sortablelink('user.id', 'Owner Name')</th>
 									<th>@sortablelink('name', 'Name')</th>
 									<th>@sortablelink('location', 'Location')</th>
 									<th>@sortablelink('contact', 'Contact')</th>
 									<th>@sortablelink('building_type', 'Building type')</th>
 									<th>@sortablelink('total_room', 'Total Room')</th>
-									<th>@sortablelink('booking_price', 'Booking Price')</th>						<th>@sortablelink('created_at', 'Created Date')</th>
+									<th>@sortablelink('booking_price', 'Booking Price')</th>
+									<th>@sortablelink('created_at', 'Created Date')</th>
 									<th>@sortablelink('is_deleted', 'Deleted')</th>
 									<th>@sortablelink('is_featured', 'Is Featured')</th>
 									<th>@sortablelink('status', 'Status')</th>
@@ -60,7 +61,7 @@
 								<tr>
 									<td>{{$row->id}}</td>
 									<td> {{$row->booking->count()}}</td>
-									<td><a href="{{route('owner.details',[$row->user->id])}}">{{$row->user->first_name ? $row->user->first_name : 'N/A' }}</a></td>
+									<td><a href="{{route('owner.details',[$row->user->id])}}">{{$row->user->first_name." ". $row->user->last_name }}</a></td>
 									<td>{{$row->name ? $row->name : 'N/A' }}</td>
 									<td>{{$row->location ? $row->location : 'N/A' }}</td>
 									<td>{{$row->contact ? $row->contact : 'N/A' }}</td>

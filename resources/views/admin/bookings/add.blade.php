@@ -46,7 +46,7 @@
 									<label>Select User<span class="required">*</span>
 									</label>
                                     <select class="form-control form-control-user" name="user_id" id="user_id">
-                                        <option value="">User</option>
+                                        <option value="">Select User</option>
                                         @foreach($users as $user)
                                             <option value="{{$user->id}}">{{$user->first_name ." ".$user->last_name}}</option>
                                         @endforeach

@@ -76,7 +76,7 @@
 								<tr>
 									<th>@sortablelink('id', 'UID')</th>
 									<th>@sortablelink('name', 'Venue Name')</th>
-									<th>@sortablelink('first_name', 'Customer Name')</th>
+									<th>@sortablelink('user.first_name', 'Customer Name')</th>
                                     <th>@sortablelink('booking_name','Booking Name')</th>
                                     <th>@sortablelink('booking_email','Booking Email')</th>
                                     <th>@sortablelink('booking_date','Booking Date')</th>
@@ -91,7 +91,7 @@
 									<td>{{$booking->id}}</td>
 									<td><a href="{{route('venue.details',[$bookings->id])}}">{{$bookings->name}}</a></td>
 									<td><a href="{{route('user.details',[$booking->user->id])}}">{{$booking->user->first_name .' '.$booking->user->last_name}}</a></td>
-									<td>{{$booking->booking_name}}</td>
+									<td><a href="{{route('booking.details',[$booking->id])}}">{{$booking->booking_name}}</a></td>
 									<td>{{$booking->booking_email}}</td>
 									<td>{{$booking->date}}</td>
 									<td>@if($booking->status == 1)

@@ -18,7 +18,7 @@
         <div class="col-xl-4 col-md-4">
 			<div class="card shadow mb-4">
 				<div class="card-body">
-				<!-- <img class="img-profile" src="{{ 'data:image/' .$userDetail->user_detail->imagetype. ';base64,' .base64_encode($userDetail->user_detail->profile_picture) }}"> -->
+
 					<ul class="list-group">
 						<li class="list-group-item d-flex justify-content-between align-items-center">
 							<strong>User Name</strong>
@@ -46,15 +46,15 @@
 					<ul class="list-group">
 						<li class="list-group-item d-flex justify-content-between align-items-center">
 							<strong>Address</strong>
-							<h5><span class="badge  badge-pill">{{$userDetail->user_detail->address}}</span></h5>
+							<h5><span class="badge  badge-pill">{{isset($userDetail->user_detail->address) ? $userDetail->user_detail->address :"N/A"}}</span></h5>
 						</li>
 						<li class="list-group-item d-flex justify-content-between align-items-center">
 							<strong>Contact</strong>
-							<h5><span class="badge  badge-pill">{{$userDetail->user_detail->mobile}}</span></h5>
+							<h5><span class="badge  badge-pill">{{isset($userDetail->user_detail->mobile) ? $userDetail->user_detail->mobile : "N/A"}}</span></h5>
 						</li>
 						<li class="list-group-item d-flex justify-content-between align-items-center">
 							<strong>Zipcode</strong>
-							<h5><span class="badge  badge-pill">{{$userDetail->user_detail->zipcode}}</span></h5>
+							<h5><span class="badge  badge-pill">{{isset($userDetail->user_detail->zipcode)? $userDetail->user_detail->zipcode :"N/A"}}</span></h5>
 						</li>
 					</ul>
 				</div>

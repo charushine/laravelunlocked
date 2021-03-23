@@ -54,10 +54,9 @@
 
 								<tr>
 									<td>{{$row->id}}</td>
-                                    <td>{{$row->venue->name ? $row->venue->name : 'N/A' }}</td>
+                                    <td><a href="{{route('venue.details',[$row->venue->id])}}">{{$row->venue->name ? $row->venue->name : 'N/A' }}</a></td>
                                     <td><a href="{{route('user.details',[$row->user->id])}}">{{$row->user->first_name ." ".$row->user->last_name }}</a></td>
-                                    <!-- <td><a href="{{route('user.details',[$row->user->id])}}">{{$row->user->last_name ? $row->user->last_name : 'N/A' }}</a></td> -->
-                                    <td>{{$row->booking_name ? $row->booking_name : 'N/A' }}</td>
+                        			<td>{{$row->booking_name ? $row->booking_name : 'N/A' }}</td>
                                     <td>{{$row->booking_email ? $row->booking_email : 'N/A' }}</td>
                                     <td>{{$row->date ? change_date_format($row->date) : 'N/A' }}</td>
 									<td>{{$row->created_at ? change_date_format($row->created_at) : 'N/A'}}</td>
@@ -79,6 +78,8 @@
 									<td style="display:flex">
 										<a class="anchorLess">
 											<a title="Click to Edit" href="{{route('booking.edit',[$row->id])}}" class="anchorLess"><i class="fas fa-edit info" aria-hidden="true" ></i>
+											</a>
+											<a title="Click to View" href="{{route('booking.details',[$row->id])}}" class="anchorLess"><i class="fas fa-eye primary" aria-hidden="true" ></i>
 											</a>
 											<!-- @if($row->is_deleted == 0)<a title="Click to Delete" href="{{route('booking.delete',[$row->id])}}" class="anchorLess delete-confirm"><i class="fas fa-trash danger" aria-hidden="true" ></i>
 											</a>

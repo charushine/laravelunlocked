@@ -74,6 +74,7 @@ Route::namespace('Admin')->prefix('admin')->middleware('admin', 'prevent-back-hi
 	Route::get('booking/edit/{id}', 'BookingController@edit_form')->name('booking.edit');
 	Route::post('booking/update', 'BookingController@update_record')->name('booking.update');
 	Route::get('booking/delete/{id}', 'BookingController@del_record')->name('booking.delete');
+	Route::get('booking/details/{id}', 'BookingController@view_detail')->name('booking.details');
 
 
 	// Venue Routes
@@ -82,6 +83,8 @@ Route::namespace('Admin')->prefix('admin')->middleware('admin', 'prevent-back-hi
 	Route::get('venue/delete', 'VenueController@deleteRecord')->name('venue.delete');
 	Route::get('venue/edit/{id}', 'VenueController@edit_form')->name('venue.edit');
 	Route::post('venue/update', 'VenueController@update_record')->name('venue.update');
+	Route::get('venue/add', 'VenueController@add_form')->name('venue.add');
+	Route::post('venue/create', 'VenueController@add_record')->name('venue.create');
 	Route::get('venue/details/{id}', 'VenueController@view_detail')->name('venue.details');
 
 	//Category & Subcategory Routes

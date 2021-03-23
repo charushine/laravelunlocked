@@ -95,7 +95,7 @@
 						<div class="row">
 							<div class="col-lg-4 col-md-6 col-12">
 								<div class="form-group">
-									<label>Amenities Detail<span class="required">*</span>
+									<label>Amenities Detail<span class="required"></span>
 									</label>
 									<textarea name="amenities_detail" id="amenities_detail"  class="form-control form-control-user" />{{old('amenities_detail', $venueDetail->amenities_detail)}}</textarea>
 									@if ($errors->has('amenities_detail'))
@@ -105,7 +105,7 @@
 							</div>
 							<div class="col-lg-4 col-md-6 col-12">
 								<div class="form-group">
-									<label>Other Information<span class="required">*</span>
+									<label>Other Information<span class="required"></span>
 									</label>
 									<textarea  name="other_information" id="other_information" class="form-control form-control-user" />{{old('other_information', $venueDetail->other_information)}}</textarea>
 									@if ($errors->has('other_information'))
@@ -129,6 +129,7 @@
 								<div class="form-group">
 								@if($venueImages->count())
 									@foreach($venueImages as $key => $images)
+
 									@php
 										$type = explode(".",$images->name)[1];
 										$image = $GetCommon->createThumbnail(public_path('assets/venue/images/'.$images->name), $type, 175, 75);
@@ -190,6 +191,10 @@
 					location: {
 						required: true,
 					},
+					contact: {
+						required: true,
+						number: true,
+					},
 					building_type :{
 						required: true,
 					},
@@ -198,10 +203,11 @@
 					},
 					total_room:{
 						required:true
-					}
-					'venue_image_name[]':{
-						extension: "jpg|jpeg|png|gif|svg"
-					}
+					},
+					"venue_image_name[]": {
+                         extension: "jpg|jpeg|png",
+
+                      }
 				},
 				// Specify validation error messages
 				messages: {
@@ -214,6 +220,10 @@
 					building_type: {
 						required: 'Building type is required',
 					},
+					contact:{
+						required: 'Contact no is required',
+						number: 'Contact must be digit only',
+					},
 					booking_price: {
 						required: 'Booking price is required',
 					},
@@ -221,7 +231,7 @@
 						required: 'Total room is required',
 					},
 					'venue_image_name[]':{
-							extension: 'Choose the image jpg,jpeg,png or svg format Only',
+						extension: 'Choose the image jpg,jpeg or png format Only',
 					}
 				},
 				submitHandler: function(form) {

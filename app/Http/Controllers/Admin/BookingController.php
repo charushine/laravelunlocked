@@ -225,4 +225,17 @@ class BookingController extends Controller
         }
     }
     /* End Method add_record */
+
+      /*
+    Method Name:    view_detail
+    Developer:      Shine Dezign
+    Created Date:   2021-03-23 (yyyy-mm-dd)
+    Purpose:        To get detail of Booking
+    Params:         [id]
+    */
+    public function view_detail($id,Request $request){
+        $bookingDetail = Booking::find($id);
+
+        return view('admin.bookings.view_detail',compact('bookingDetail'));
+    }
 }

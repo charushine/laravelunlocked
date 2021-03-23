@@ -149,7 +149,7 @@
 									<td>{{$booking->id}}</td>
 
 									<td><a href="{{route('user.details',[$booking->user->id])}}">{{$booking->user->first_name .' '.$booking->user->last_name}}</a></td>
-									<td>{{$booking->booking_name}}</td>
+									<td><a href="{{route('booking.details',[$booking->id])}}">{{$booking->booking_name}}</a></td>
 									<td>{{$booking->booking_email}}</td>
 									<td>{{$booking->date}}</td>
 									<td>@if($booking->status == 1)

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use App\Venue;
 use App\Booking;
+use App\User;
 use File,Str;
 use App\VenueImage;
 
@@ -54,6 +55,97 @@ class VenueController extends Controller
     /* End Method getList */
 
     /*
+    Method Name:    add_form
+    Developer:      Shine Dezign
+    Created Date:   2021-03-22 (yyyy-mm-dd)
+    Purpose:        Form to add venue details
+    Params:         []
+    */
+    public function add_form(){
+        $owners = User::Role("Owner")->where('is_deleted',0)->get();
+    	return view('admin.venues.add',compact('owners'));
+    }
+    /* End Method add_form */
+
+     /*
+    Method Name:    add_record
+    Developer:      Shine Dezign
+    Created Date:   2021-03-22 (yyyy-mm-dd)
+    Purpose:        To add venue
+    Params:         [name, location, building_type, total_room,booking_price,contact,venue_image_name[], status]
+    */
+    public function add_record(Request $request){
+
+        $request->validate([
+            'name' => 'required|string',
+            'location' => 'required|string',
+            'user_id' => 'required',
+            'building_type' => 'required',
+            'total_room' => 'required|numeric',
+            'booking_price' => 'required|numeric',
+            'contact' => 'required|numeric',
+            'status' => 'required',
+            'venue_image_name[]' => 'image|mimes:jpeg,png,jpg,svg',
+        ],[
+            'venue_image_name.mimes' => 'Choose the image jpg,jpeg,png or svg format Only',
+            'venue_image_name.image' => 'Choose the image Only',
+            'user_id.required' => 'Owner name is required',
+        ]);
+        try {
+            $imgArr = [];
+
+            $data =[
+                'name' => $request->name,
+                'user_id' => $request->user_id,
+                'location' => $request->location,
+                'building_type' => $request->building_type,
+                'total_room' => $request->total_room,
+                'booking_price' => $request->booking_price,
+                'contact' => $request->contact,
+                'amenities_detail' => $request->amenities_detail,
+                'other_information' => $request->other_information,
+                'status' => $request->status,
+            ];
+            $record = Venue::create($data);
+
+            $venueId = $record->id;
+            if($venueId){
+
+                if($request->file('venue_image_name')) {
+
+                    $venuImg = $request->file('venue_image_name');
+                    $uploadpath = public_path().'/assets/venue/images/';
+                    foreach($venuImg as $key => $img){
+                        $file = $img;
+                        $orignlname = $img->getClientOriginalName();
+                        $extension = $file->getClientOriginalExtension();
+                        $slug = Str::slug($request->name);
+                        $documentname = $slug."-".$orignlname;
+
+                        $image_path = $uploadpath.'/'.$documentname; // Value is not URL but directory file path
+
+                        $imgArr[] =  ['venue_id' => $venueId, 'name'=> $documentname ,'status' => 1 ];
+                        $file->move($uploadpath, $documentname);
+                    }
+                    if(count($imgArr)){
+                        VenueImage::insert($imgArr);
+                    }
+
+                }
+
+                $routes = ($request->action == 'saveadd') ? 'venues.add' : 'venues.list';
+        		return redirect()->route($routes)->with('status', 'success')->with('message', 'Venue '.Config::get('constants.SUCCESS.CREATE_DONE'));
+        	}
+            return redirect()
+                    ->back()->with('status', 'error')
+                    ->with('message', Config::get('constants.ERROR.OOPS_ERROR'));
+        } catch ( \Exception $e ) {
+            return redirect()->back()->with('status', 'error')->with('message', $e->getMessage());
+        }
+    }
+    /* End Method add_record */
+
+    /*
     Method Name:    edit_form
     Developer:      Shine Dezign
     Created Date:   2021-03-11 (yyyy-mm-dd)
@@ -74,8 +166,8 @@ class VenueController extends Controller
     Method Name:    update_record
     Developer:      Shine Dezign
     Created Date:   2021-03-08 (yyyy-mm-dd)
-    Purpose:        To update user details
-    Params:         [edit_record_id, first_name, last_name, email, role, status]
+    Purpose:        To update venue details
+    Params:         [edit_record_id, name, location, building_type, total_room,booking_price,contact,venue_image_name[], status]
     */
     public function update_record(Request $request){
         $postData = $request->all();
@@ -92,7 +184,7 @@ class VenueController extends Controller
             'venue_image_name[]' => 'image|mimes:jpeg,png,jpg,svg',
         ],[
             'venue_image_name.mimes' => 'Choose the image jpg,jpeg,png or svg format Only',
-            'venue_image_name.name' => 'Choose the image Only',
+            'venue_image_name.image' => 'Choose the image Only',
         ]);
 
         try {

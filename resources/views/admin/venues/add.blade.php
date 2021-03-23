@@ -1,4 +1,4 @@
-@inject('GetCommon', 'App\Traits\GetCommon')
+
 @extends('admin.layouts.cmlayout')
 @section('body')
 <div class="container-fluid">
@@ -24,7 +24,7 @@
 						Add Venue Detail
 						<a href="{{route('venues.list')}}" class="float-right"><i data-feather="x"></i></a>
 					</h5>
-					<form action="" method="post" class="user" id="edit_venue_form" enctype="multipart/form-data">@csrf
+					<form action="{{route('venue.create')}}" method="post" class="user" id="add_venue_form" enctype="multipart/form-data">@csrf
 
 						<div class="row">
 							<div class="col-lg-4 col-md-6 col-12">
@@ -39,14 +39,20 @@
 							</div>
 							<div class="col-lg-4 col-md-6 col-12">
 								<div class="form-group">
-									<label>Location<span class="required">*</span>
+									<label>Owner<span class="required">*</span>
 									</label>
-									<input type="text" name="location" id="location" value="{{old('location')}}" class="form-control form-control-user" />
-									@if ($errors->has('location'))
-										<span class="text-danger">{{ $errors->first('location') }}</span>
+									<select class="form-control form-control-user" name="user_id" id="user_id">
+									<option value="">Select Owner</option>
+									@foreach($owners as $owner)
+										<option  value="{{$owner->id}}">{{$owner->first_name." ".$owner->last_name}}</option>
+									@endforeach
+									</select>
+									@if ($errors->has('user_id'))
+										<span class="text-danger">{{ $errors->first('user_id') }}</span>
 									@endif
 								</div>
 							</div>
+
 						</div>
 						<div class="row">
 							<div class="col-lg-4 col-md-6 col-12">
@@ -61,14 +67,15 @@
 							</div>
 							<div class="col-lg-4 col-md-6 col-12">
 								<div class="form-group">
-									<label>Building Type<span class="required">*</span>
+									<label>Location<span class="required">*</span>
 									</label>
-									<input type="text" name="building_type" id="building_type"  value="{{old('building_type')}}" class="form-control form-control-user" />
-									@if ($errors->has('building_type'))
-										<span class="text-danger">{{ $errors->first('building_type') }}</span>
+									<input type="text" name="location" id="location" value="{{old('location')}}" class="form-control form-control-user" />
+									@if ($errors->has('location'))
+										<span class="text-danger">{{ $errors->first('location') }}</span>
 									@endif
 								</div>
 							</div>
+
 						</div>
 						<div class="row">
 							<div class="col-lg-4 col-md-6 col-12">
@@ -83,19 +90,20 @@
 							</div>
 							<div class="col-lg-4 col-md-6 col-12">
 								<div class="form-group">
-									<label>Booking Price<span class="required">*</span>
+									<label>Building Type<span class="required">*</span>
 									</label>
-									<input type="number" name="booking_price" id="booking_price"  value="{{old('booking_price')}}" class="form-control form-control-user" />
-									@if ($errors->has('booking_price'))
-										<span class="text-danger">{{ $errors->first('booking_price') }}</span>
+									<input type="text" name="building_type" id="building_type"  value="{{old('building_type')}}" class="form-control form-control-user" />
+									@if ($errors->has('building_type'))
+										<span class="text-danger">{{ $errors->first('building_type') }}</span>
 									@endif
 								</div>
 							</div>
+
 						</div>
 						<div class="row">
 							<div class="col-lg-4 col-md-6 col-12">
 								<div class="form-group">
-									<label>Amenities Detail<span class="required">*</span>
+									<label>Amenities Detail<span class="required"></span>
 									</label>
 									<textarea name="amenities_detail" id="amenities_detail"  class="form-control form-control-user" />{{old('amenities_detail')}}</textarea>
 									@if ($errors->has('amenities_detail'))
@@ -105,7 +113,30 @@
 							</div>
 							<div class="col-lg-4 col-md-6 col-12">
 								<div class="form-group">
-									<label>Other Information<span class="required">*</span>
+									<label>Booking Price<span class="required">*</span>
+									</label>
+									<input type="number" name="booking_price" id="booking_price"  value="{{old('booking_price')}}" class="form-control form-control-user" />
+									@if ($errors->has('booking_price'))
+										<span class="text-danger">{{ $errors->first('booking_price') }}</span>
+									@endif
+								</div>
+							</div>
+
+						</div>
+						<div class="row">
+							<div class="col-lg-4 col-md-6 col-12">
+								<div class="form-group">
+									<label for="document-0" class="document-label">Venue Images</label>
+									<input type="file" name="venue_image_name[]" id="venue_image_name" placeholder="Venue Image" value="{{old('venue_image_name')}}"  class="form-control form-control-user" multiple/>
+
+									@if ($errors->has('venue_image_name'))
+									<span class="text-danger">{{ $errors->first('venue_image_name') }}</span>
+									@endif
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-6 col-12">
+								<div class="form-group">
+									<label>Other Information<span class="required"></span>
 									</label>
 									<textarea  name="other_information" id="other_information" class="form-control form-control-user" />{{old('other_information')}}</textarea>
 									@if ($errors->has('other_information'))
@@ -113,19 +144,6 @@
 									@endif
 								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-4 col-md-6 col-12">
-								<div class="form-group">
-									<label for="document-0" class="document-label">Venue Images</label>
-									<input type="file" name="venue_image_name[]" id="venue_image_name" placeholder="Venue Image" value="{{old('venue_image_name'}}"  class="form-control form-control-user" multiple/>
-
-									@if ($errors->has('venue_image_name'))
-									<span class="text-danger">{{ $errors->first('venue_image_name') }}</span>
-									@endif
-								</div>
-							</div>
-
 						</div>
 						<div class="row">
 							<div class="col-lg-4 col-md-6 col-12">
@@ -163,33 +181,45 @@
 	@section('scripts')
 	<script>
 		$( document ).ready(function() {
-			$("form[id='edit_venue_form']").validate({
+			$("form[id='add_venue_form']").validate({
 				// Specify validation rules
 				ignore: '',
 				rules: {
 					name: {
 						required: true,
 					},
+					user_id: {
+						required: true,
+					},
 					location: {
 						required: true,
+					},
+					contact: {
+						required: true,
+						number: true,
 					},
 					building_type :{
 						required: true,
 					},
+
 					booking_price:{
 						required: true,
 					},
 					total_room:{
 						required:true
-					}
-					'venue_image_name[]':{
-						extension: "jpg|jpeg|png|gif|svg"
+					},
+					"venue_image_name[]": {
+						extension: "jpg|jpeg|png",
+
 					}
 				},
 				// Specify validation error messages
 				messages: {
 					name: {
 						required: 'Venue name is required',
+					},
+					user_id: {
+						required: 'Owner name is required',
 					},
 					location: {
 						required: 'Location is required',
@@ -199,6 +229,10 @@
 					},
 					booking_price: {
 						required: 'Booking price is required',
+					},
+					contact:{
+						required: 'Contact no is required',
+						number: 'Contact must be digit only',
 					},
 					total_room: {
 						required: 'Total room is required',
