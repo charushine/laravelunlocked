@@ -40,7 +40,7 @@
 									<th>@sortablelink('email', 'Email')</th>
 									<th>@sortablelink('status', 'Status')</th>
 									<th>@sortablelink('created_at', 'Created Date')</th>
-									<th>@sortablelink('is_deleted', 'Deleted')</th>
+									<!-- <th>@sortablelink('is_deleted', 'Deleted')</th> -->
 									<th style="min-width:200px">Action</th>
 
 								</tr>
@@ -60,12 +60,7 @@
 									@endif
 									</td>
 									<td>{{$row->created_at ? change_date_format($row->created_at) : 'N/A'}}</td>
-									<td>@if($row->is_deleted == 1)
-										<a title="Click to Recover" href="{{route('owner.delete',['id' => $row->id, 'is_deleted' => 0])}}" class="tableLink"><i class="fas fa-toggle-off danger"></i></a>
-									@else
-									<a title="Click to Delete" href="{{route('owner.delete',['id' => $row->id, 'is_deleted' => 1])}}" class="tableLink"><i class="fas fa-toggle-on success"></i></a>
-									@endif
-									</td>
+
 									<td style="">
 										<a class="anchorLess">
 											<a title="Click to Edit" href="{{route('owner.edit',[$row->id])}}" class="anchorLess"><i class="fas fa-edit info" aria-hidden="true" ></i></a>
@@ -74,6 +69,12 @@
 											&nbsp;
 											<a title="Click to view Detail" href="{{route('owner.details',[$row->id])}}" class="anchorLess"><i class="fas fa-eye primary" aria-hidden="true" ></i>
 											</a>
+											&nbsp;
+											@if($row->is_deleted == 1)
+												<a title="Click to Recover" href="{{route('owner.delete',['id' => $row->id, 'is_deleted' => 0])}}" class="tableLink"><i class="fas fa-trash-restore info"></i></a>
+											@else
+												<a title="Click to Delete" href="{{route('owner.delete',['id' => $row->id, 'is_deleted' => 1])}}" class="tableLink"><i class="fas fa-trash danger"></i></a>
+											@endif
 										</a>
 									</td>
 

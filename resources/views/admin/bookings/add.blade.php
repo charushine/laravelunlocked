@@ -135,6 +135,9 @@
 					booking_name: {
 						required: true,
 					},
+					user_id: {
+						required: true,
+					},
 					booking_email: {
 						required: true,
 						email: true,
@@ -151,6 +154,9 @@
 					booking_name: {
 						required: 'Booking name is required',
 					},
+					user_id: {
+						required: 'User name is required',
+					},
 					booking_email: {
 						required: 'Booking email is required',
 					},
@@ -158,7 +164,7 @@
 						required: 'Date is required',
 					},
 					venue_id: {
-						required: 'Venue field is required',
+						required: 'Venue name is required',
 					},
 				},
 				submitHandler: function(form) {

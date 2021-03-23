@@ -36,9 +36,8 @@
 							<tr>
 								<th>@sortablelink('id', 'UID')</th>
 								<th>@sortablelink('title', 'Title')</th>
-								<th >@sortablelink('content', 'Content')</th>
 								<th>@sortablelink('created_at', 'Created Date')</th>
-								<th>@sortablelink('is_deleted', 'Deleted')</th>
+								<!-- <th>@sortablelink('is_deleted', 'Deleted')</th> -->
 								<th>@sortablelink('status', 'Status')</th>
 								<th>Action</th>
 							</tr>
@@ -48,15 +47,14 @@
 							<tr>
 								<td>{{$row->id}}</td>
 								<td>{{$row->title ? $row->title : 'N/A' }}</td>
-								<!-- <td style="max-width: 50px;">{{$row->content ? $row->content : 'N/A' }}</td> -->
-								<td>dssf</td>
+
 								<td>{{$row->created_at ? change_date_format($row->created_at) : 'N/A'}}</td>
-								<td>@if($row->is_deleted == 0)
+								<!-- <td>@if($row->is_deleted == 0)
 										<a><h5><span class="badge badge-success">No</span></h5></a>
 									@else
 											<a><h5><span class="badge badge-danger">Yes</span></h5></a>
 									@endif
-								</td>
+								</td> -->
 								<td>
 									@if($row->status == 0)
 										<a title="Click to Enable" href="{{route('owner.status', ['id' => $row->id, 'status' => 1])}}" class="tableLink"><i class="fas fa-toggle-off danger"></i></a>
@@ -66,19 +64,20 @@
 								</td>
 								<td><a class="anchorLess">
 										<a title="Click to Edit" href="{{route('blog.edit',[$row->id])}}" class="anchorLess"><i class="fas fa-edit info" aria-hidden="true" ></i></a>
+										<a title="Click to Delete" href="{{route('blog.delete',[$row->id])}}" class="anchorLess"><i class="fas fa-trash danger" aria-hidden="true" ></i></a>
 								</td>
 							</tr>
 						@endforeach
 							@if ($data->count() == 0)
 								<tr>
-									<td colspan="10" class="text-center text-danger">No booking to display.</td>
+									<td colspan="10" class="text-center text-danger">No blog to display.</td>
 								</tr>
 								@endif
 						</tbody>
 					</table>
 					{{ $data->appends(request()->except('page'))->links() }}
 						<p>
-							Displaying {{$data->count()}} of {{ $data->total() }} booking(s).
+							Displaying {{$data->count()}} of {{ $data->total() }} blogs(s).
 						</p>
 					</div>
 				</div>

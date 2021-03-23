@@ -1,3 +1,4 @@
+@inject('GetCommon', 'App\Traits\GetCommon')
 @extends('admin.layouts.cmlayout')
 @section('body')
 <div class="container-fluid">
@@ -63,7 +64,6 @@
 							<div class="col-lg-4 col-md-6 col-12">
 								<div class="form-group">
 								@if($blogDetail->cover_photo != "")
-
 									@php
 										$type = explode(".",$blogDetail->cover_photo)[1];
 										$image = $GetCommon->createThumbnail(public_path('assets/blog/images/'.$blogDetail->cover_photo), $type, 175, 75);
@@ -121,7 +121,7 @@
 			content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
 		});
 
-		jQuery("form[id='add_blog_form']").validate({
+		jQuery("form[id='update_blog_form']").validate({
 				// Specify validation rules
 				ignore: '',
 				rules: {
@@ -132,7 +132,7 @@
 						required: true,
 					},
 					cover_photo:{
-						extension: "jpg|jpeg|png|gif|svg"
+						extension: "jpg|jpeg|png"
 					}
 				},
 				// Specify validation error messages
@@ -144,7 +144,7 @@
 						required: 'Content field is required',
 					}
 					cover_photo: {
-						extension: 'Choose the image jpg,jpeg,png or svg format Only',
+						extension: 'Choose the image jpg,jpeg or png format Only',
 					}
 				},
 				submitHandler: function(form) {

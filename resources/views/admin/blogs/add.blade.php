@@ -40,8 +40,7 @@
                         <div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
 								<div class="form-group">
-									<label>Content<span class="required">*</span>
-									</label>
+									<label>Content<span class="required">*</span></label>
 									<textarea name="content" id="content" value="{{old('content')}}" class="form-control form-control-user editor" ></textarea>
 									@if ($errors->has('content'))
 										<span class="text-danger">{{ $errors->first('content') }}</span>
@@ -53,7 +52,7 @@
 							<div class="col-lg-4 col-md-6 col-12">
 								<div class="form-group">
 									<label for="document-0" class="document-label">Cover Photo</label>
-									<input type="file" name="cover_photo" id="cover_photo" placeholder="Cover Photo" value="{{old('cover_photo')}}"  class="form-control form-control-user"/>
+									<input type="file" name="cover_photo" id="cover_photo"  value="{{old('cover_photo')}}"  class="form-control form-control-user"/>
 									@if ($errors->has('cover_photo'))
 										<span class="text-danger">{{ $errors->first('cover_photo') }}</span>
 									@endif
@@ -113,8 +112,8 @@
 					content: {
 						required: true,
 					},
-					cover_photo:{
-						extension: "jpg|jpeg|png|gif|svg"
+					cover_photo: {
+						extension: "jpg|jpeg|png",
 					}
 				},
 				// Specify validation error messages
@@ -124,9 +123,9 @@
 					},
 					content: {
 						required: 'Content field is required',
-					}
+					},
 					cover_photo: {
-						extension: 'Choose the image jpg,jpeg,png or svg format Only',
+						extension: 'Choose the image jpg,jpeg,or png format Only',
 					}
 				},
 				submitHandler: function(form) {

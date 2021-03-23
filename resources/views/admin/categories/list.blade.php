@@ -37,7 +37,7 @@
 									<th>@sortablelink('parent_id', 'Parent')</th>
 									<th>@sortablelink('name', 'Name')</th>
 									<th>@sortablelink('created_at', 'Created Date')</th>
-									<th>@sortablelink('is_deleted', 'Deleted')</th>
+									<!-- <th>@sortablelink('is_deleted', 'Deleted')</th> -->
 									<th>@sortablelink('status', "Status")</th>
 									<th>Action</th>
 								</tr>
@@ -48,11 +48,6 @@
                                         <td>{{$row->parent != null ? $row->parent->name : "N/A"}}</td>
                                         <td>{{$row->name }}</td>
 										<td>{{$row->created_at ? change_date_format($row->created_at) : 'N/A'}}</td>
-										<td>@if($row->is_deleted == 0)
-											<a><h5><span class="badge badge-success">No</span></h5></a>
-										@else
-											<a><h5><span class="badge badge-danger">Yes</span></h5></a>
-										@endif</td>
                                         <td>
 										@if($row->status == 0)
 											<a title="Click to Enable" href="{{route('category.status', ['id' => $row->id, 'status' => 1])}}" class="tableLink"><i class="fas fa-toggle-off danger"></i></a>
@@ -62,8 +57,12 @@
 										</td>
 										<td>
 											<a class="anchorLess">
-												<a title="Click to Edit" href="{{route('category.edit',[$row->id])}}" class="anchorLess"><i class="fas fa-edit info" aria-hidden="true" ></i></a>
-												@if($row->is_deleted == 0)<a title="Click to Delete" href="{{route('category.delete',[$row->id])}}" class="anchorLess"><i class="fas fa-trash danger" aria-hidden="true" ></i></a>@endif
+												<a title="Click to Edit" href="{{route('category.edit',[$row->id])}}" class="anchorLess"><i class="fas fa-edit primary" aria-hidden="true" ></i></a>
+												@if($row->is_deleted == 1)
+													<a title="Click to Recover" href="{{route('category.delete',['id' => $row->id, 'is_deleted' => 0])}}" class="anchorLess"><i class="fas fa-trash-restore info" aria-hidden="true" ></i></a>
+												@else
+												<a title="Click to Delete" href="{{route('category.delete',['id' => $row->id, 'is_deleted' => 1])}}" class="tableLink"><i class="fas fa-trash danger"></i></a>
+												@endif
 											</a>
 										</td>
                                     </tr>
