@@ -36,8 +36,8 @@
 							<tr>
 								<th>@sortablelink('id', 'UID')</th>
 								<th>@sortablelink('title', 'Title')</th>
+								<th>@sortablelink('publish_date', 'Publish Date')</th>
 								<th>@sortablelink('created_at', 'Created Date')</th>
-								<!-- <th>@sortablelink('is_deleted', 'Deleted')</th> -->
 								<th>@sortablelink('status', 'Status')</th>
 								<th>Action</th>
 							</tr>
@@ -47,14 +47,8 @@
 							<tr>
 								<td>{{$row->id}}</td>
 								<td>{{$row->title ? $row->title : 'N/A' }}</td>
-
+								<td>{{$row->publish_date ? date('d M,Y - g:i A', strtotime($row->publish_date)) : "N/A"}}</td>
 								<td>{{$row->created_at ? change_date_format($row->created_at) : 'N/A'}}</td>
-								<!-- <td>@if($row->is_deleted == 0)
-										<a><h5><span class="badge badge-success">No</span></h5></a>
-									@else
-											<a><h5><span class="badge badge-danger">Yes</span></h5></a>
-									@endif
-								</td> -->
 								<td>
 									@if($row->status == 0)
 										<a title="Click to Enable" href="{{route('owner.status', ['id' => $row->id, 'status' => 1])}}" class="tableLink"><i class="fas fa-toggle-off danger"></i></a>

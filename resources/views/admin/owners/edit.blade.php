@@ -122,6 +122,7 @@
 		</div>
 		<!-- end row -->
 	</div>
+</div>
 	<!-- container-fluid -->
 	@endsection
 	@section('scripts')

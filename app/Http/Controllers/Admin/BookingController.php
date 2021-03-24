@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
-use App\Booking;
-use App\User;
-use App\Venue;
+use App\{Booking, User, Venue};
+use DB;
 
 class BookingController extends Controller
 {
@@ -23,12 +22,12 @@ class BookingController extends Controller
     Params:
     */
     public function getList(Request $request){
+        //  DB::enableQueryLog();
         $start = $end =  '';
 
         if($request->has('search_keyword') && $request->search_keyword != '')
         {
             $keyword = $request->search_keyword;
-
         }
         else
         {
@@ -46,27 +45,24 @@ class BookingController extends Controller
         {
             $daterange = '';
         }
-
         $data = Booking::when($request->search_keyword, function($q) use($request){
-            $q->where('booking_name', 'like', '%'.$request->search_keyword.'%')
-            ->orWhere('date', 'like', '%'.$request->search_keyword.'%')
-            ->orWhere('booking_email', 'like', '%'.$request->search_keyword.'%')
-            ->orWhere('status', 'like', '%'.$request->search_keyword.'%')
-            ->orWhere('id', $request->search_keyword)
-            ->orWhereHas('venue', function( $query ) use ( $request ){
-                $query->where('name','like', '%'.$request->search_keyword.'%');
-            })
-            ->orWhereHas('user', function( $qu ) use ( $request ){
-                $qu->where('first_name','like', '%'.$request->search_keyword.'%')
-                  ->orWhere('last_name','like', '%'.$request->search_keyword.'%');
+            $q->where(function ($quer) use ($request) {
+                $quer->where('booking_name', 'like', '%'.$request->search_keyword.'%')
+                ->orWhere('booking_email', 'like', '%'.$request->search_keyword.'%')
+                ->orWhere('status', 'like', '%'.$request->search_keyword.'%')
+                ->orWhere('id', $request->search_keyword)
+                ->orWhereHas('venue', function( $query ) use ( $request ){
+                    $query->where('name','like', '%'.$request->search_keyword.'%');
+                })
+                ->orWhereHas('user', function( $qu ) use ( $request ){
+                    $qu->whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", '%'.$request->search_keyword.'%');
+                });
             });
-        })
-        ->when($daterange != '', function ($q) use ($start, $end)
+        })->when($daterange != '', function ($query) use ($start, $end)
         {
-            $q->whereBetween('date', [$start, $end]);
+            $query->whereBetween('date', [$start, $end]);
 
         })->sortable('id')->paginate(Config::get('constants.PAGINATION_NUMBER'));
-
         return view('admin.bookings.list', compact('data','daterange','keyword'));
     }
     /* End Method getList */

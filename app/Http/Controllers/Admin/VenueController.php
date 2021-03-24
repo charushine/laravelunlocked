@@ -22,11 +22,9 @@ class VenueController extends Controller
     Params:
     */
     public function getList(Request $request){
-        // dd($request->sort);
         if($request->has('search_keyword') && $request->search_keyword != '')
         {
             $keyword = $request->search_keyword;
-
         }
         else
         {
@@ -42,8 +40,7 @@ class VenueController extends Controller
             ->orWhere('status', 'like', '%'.$request->search_keyword.'%')
             ->orWhere('id', $request->search_keyword)
             ->orWhereHas('user', function( $query ) use ( $request ){
-                $query->where('first_name','like', '%'.$request->search_keyword.'%')
-                ->orWhere('last_name','like', '%'.$request->search_keyword.'%');
+                $query->whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", '%'.$request->search_keyword.'%');
             });
         })->sortable('id')->paginate(Config::get('constants.PAGINATION_NUMBER'));
 
@@ -330,8 +327,8 @@ class VenueController extends Controller
             ->orWhere('status', 'like', '%'.$request->search_keyword.'%')
             ->orWhere('id', $request->search_keyword)
             ->orWhereHas('user', function( $query ) use ( $request ){
-                $query->where('first_name','like', '%'.$request->search_keyword.'%')
-                ->orWhere('last_name','like', '%'.$request->search_keyword.'%');
+                $query->whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", '%'.$request->search_keyword.'%');
+
             });
         })
         ->where('bookings.venue_id',$id)->sortable('id')->paginate(Config::get('constants.PAGINATION_NUMBER'));

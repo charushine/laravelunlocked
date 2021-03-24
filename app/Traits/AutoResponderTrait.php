@@ -1,5 +1,5 @@
 <?php
- 
+
 namespace App\Traits;
 
 use Illuminate\Support\Facades\Mail;
@@ -13,14 +13,14 @@ use App\EmailLog;
 use App\Role;
 use Spatie\Permission\Models\Permission;
 use Crypt;
- 
+
 trait AutoResponderTrait {
- 
+
     public function getAdminRoles($roles) {
  		$roles = Role::whereNotIn('name', $roles)->get(['name']);
  		return $roles;
     }
- 
+
     public function get_template_by_name($name) {
  		$template = AutoResponder::where('template_name', $name)->first(['id', 'template_name','subject','template']);
  		return $template;
@@ -35,7 +35,7 @@ trait AutoResponderTrait {
         $permissions = Permission::where('group_name', $name)->get(['id', 'name']);
         return $permissions;
    }
-    
+
     public function email_log_create($to, $template_id, $template_name) {
         $data = array(
             'to_email' => $to,
@@ -53,7 +53,7 @@ trait AutoResponderTrait {
   }
 
     public function send_mail($to, $subject, $email_body){
-        
+
         $smtp = $this->get_smtp_info();
         // $password = Crypt::decrypt($smtp->password);
         $password = $smtp->password;
@@ -61,10 +61,10 @@ trait AutoResponderTrait {
         $transport = (new Swift_SmtpTransport($smtp->host, $smtp->port, $smtp->encryption ))
         ->setUsername($smtp->username)
         ->setPassword($password);
-        
+
         // Create the Mailer using your created Transport
         $mailer = new Swift_Mailer($transport);
-        
+
         // Create a message
         $message = (new Swift_Message($subject))
         ->setFrom([$smtp->from_email => $smtp->from_name])
@@ -76,5 +76,5 @@ trait AutoResponderTrait {
         return $result;
 
     }
- 
+
 }

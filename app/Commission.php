@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 
-class Blog extends Model
+class Commission extends Model
 {
     use Sortable;
 
@@ -15,22 +15,9 @@ class Blog extends Model
      * @var array
      */
     protected $fillable = [
-        'title',
-		'content',
-        'cover_photo',
-        'publish_date',
+        'commission_percentage',
 		'created_at',
 		'updated_at',
-        'is_deleted',
-		'status',
-    ];
-
-    public $sortable = [
-		'id',
-        'title',
-        'content',
-        'publish_date',
-		'created_at',
 		'status',
     ];
 }

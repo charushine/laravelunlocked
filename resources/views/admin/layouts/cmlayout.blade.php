@@ -41,31 +41,46 @@
 					<span>Users</span>
 				</a>
 			</li>
-			<!-- <li class="nav-item">
+			<li class="nav-item">
 				<a class="nav-link" href="{{route('owners.list')}}">	<i class="fas fa-users"></i>
 					<span>Venue Owners</span>
 				</a>
-			</li> -->
-			<!-- <li class="nav-item">
+			</li>
+			<li class="nav-item">
 				<a class="nav-link" href="{{route('venues.list')}}">	<i class="fas fa-users"></i>
 					<span>Venues</span>
 				</a>
-			</li> -->
-			<!-- <li class="nav-item">
+			</li>
+			<li class="nav-item">
 				<a class="nav-link" href="{{route('bookings.list')}}">	<i class="fas fa-users"></i>
 					<span>Bookings</span>
 				</a>
-			</li> -->
-			<!-- <li class="nav-item">
+			</li>
+			<li class="nav-item">
 				<a class="nav-link" href="{{route('categories.list')}}">	<i class="fas fa-users"></i>
 					<span>Categories</span>
 				</a>
-			</li> -->
-			<!-- <li class="nav-item">
+			</li>
+			<li class="nav-item">
 				<a class="nav-link" href="{{route('blogs.list')}}">	<i class="fas fa-users"></i>
 					<span>Blogs</span>
 				</a>
-			</li> -->
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{{route('commission.add')}}">	<i class="fas fa-users"></i>
+					<span>Commissions</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{{route('ratings.list')}}">	<i class="fas fa-users"></i>
+					<span>Ratings</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{{route('cms-pages.list')}}">	<i class="fas fa-users"></i>
+					<span>CMS Pages</span>
+				</a>
+			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="{{route('autoresponder.list')}}">	<i class="fas fa-envelope"></i>
 					<span>Email Templates</span>

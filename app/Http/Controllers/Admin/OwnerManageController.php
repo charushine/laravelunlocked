@@ -212,22 +212,6 @@ class OwnerManageController extends Controller
     public function view_detail($id, Request $request){
         $ownerDetail = User::role('Owner')->find($id);
         // DB::enableQueryLog();
-    //     $venuesBooking = Venue::where('name','like','%'.$request->search_keyword.'%')
-    //            ->orWhereHas('user', function($q) use ($request){
-    //                 return $q->where('first_name','like', '%'.$request->search_keyword.'%');
-    //            })
-    //            ->orWhereHas('booking', function($q) use ($request){
-    //                 return $q->where('booking_name','like', '%'.$request->search_keyword);
-    //            })->where('user_id',$id)->sortable('id')->paginate(Config::get('constants.PAGINATION_NUMBER'));
-
-    // //     $venuesBooking =  Venue::whereHas('booking', function($q) use ($request)
-    // // {
-    // //     $q->where('booking_name', 'like', '%'.$request->search_keyword.'%');
-
-    // // })->when($request->search_keyword, function($q) use($request){
-    // //         $q->orWhere('name', 'like', '%'.$request->search_keyword.'%')
-    // //         ->orWhere('id', $request->search_keyword);
-    // // })->sortable('id')->paginate(Config::get('constants.PAGINATION_NUMBER'));
 
         $venuesBooking = Venue::when($request->search_keyword, function($q) use($request){
             $q->where('name', 'like', '%'.$request->search_keyword.'%')
@@ -247,8 +231,6 @@ class OwnerManageController extends Controller
         })
         ->with(['booking'])->where('user_id',$id)->sortable('id')->paginate(Config::get('constants.PAGINATION_NUMBER'));
 
-        // select * from `venues` where `name` like ? or exists (select * from `users` where `venues`.`user_id` = `users`.`id` and `first_name` like ?) or exists (select * from `bookings` where `venues`.`id` = `bookings`.`venue_id` and `booking_name` like ?) and `user_id` = ? order by `venues`.`id` asc limit 20 offset 0
-        // dump($venuesBooking);
         // dd(DB::getQueryLog());
 
         return view('admin.owners.view_detail',compact('ownerDetail','venuesBooking'));

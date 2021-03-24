@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 
-class Blog extends Model
+class RatingReview extends Model
 {
     use Sortable;
 
@@ -15,22 +15,28 @@ class Blog extends Model
      * @var array
      */
     protected $fillable = [
-        'title',
-		'content',
-        'cover_photo',
-        'publish_date',
+        'venue_id',
+        'user_id',
+		'rating',
+		'review',
 		'created_at',
 		'updated_at',
-        'is_deleted',
+		'status',
+    ];
+    public $sortable = [
+		'id',
+        'rating',
+        'review',
+		'created_at',
 		'status',
     ];
 
-    public $sortable = [
-		'id',
-        'title',
-        'content',
-        'publish_date',
-		'created_at',
-		'status',
-    ];
+    public function venue()
+    {
+      return $this->belongsTo(Venue::class);
+    }
+    public function user()
+    {
+      return $this->belongsTo(User::class);
+    }
 }

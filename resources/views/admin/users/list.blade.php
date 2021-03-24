@@ -26,7 +26,7 @@
 						<button type="submit" class="btn btn-primary ml-10">Search</button>
 					</form>
 					<div class="buttons-right">
-						<!-- <a class="m-0 font-weight-bold btn-department-add pull-right hover-white" href="{{route('exportuser')}}">Export <i class="fa fa-file-csv"></i></a> -->
+						<a class="m-0 font-weight-bold btn-department-add pull-right hover-white" href="{{route('exportuser')}}">Export <i class="fa fa-file-csv"></i></a>
 					</div>
 				</div>
 				<div class="card-body">

@@ -37,6 +37,18 @@
 								</div>
 							</div>
                         </div>
+						<div class="row">
+							<div class="col-lg-4 col-md-6 col-12">
+								<div class="form-group">
+									<label>Publish Date<span class="required">*</span>
+									</label>
+                                   <input type="text" name="publish_date" id="publish_date" value="{{old('publish_date')}}" class="form-control form-control-user datetimepicker" autocomplete="off"/>
+                                    @if ($errors->has('publish_date'))
+                                        <span class="text-danger">{{ $errors->first('publish_date') }}</span>
+                                    @endif
+								</div>
+							</div>
+                        </div>
                         <div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
 								<div class="form-group">
@@ -89,9 +101,12 @@
 		</div>
 		<!-- end row -->
 	</div>
+	</div>
 	<!-- container-fluid -->
 	@endsection
 	@section('scripts')
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 	<script src="https://cdn.tiny.cloud/1/g2adjiwgk9zbu2xzir736ppgxzuciishwhkpnplf46rni4g8/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 	<script>
 	jQuery( document ).ready(function() {
@@ -136,5 +151,11 @@
 		jQuery("form input[type=submit]").click(function(e) {
 				tinymce.triggerSave();
 		  	});
+
+		jQuery('.datetimepicker').datetimepicker({
+			minDate : 0,
+			mask:true
+		});
+
     </script>
 	@stop

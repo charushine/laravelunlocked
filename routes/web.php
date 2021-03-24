@@ -65,6 +65,8 @@ Route::namespace('Admin')->prefix('admin')->middleware('admin', 'prevent-back-hi
 	Route::get('owner/status/update', 'OwnerManageController@change_status')->name('owner.status');
 	Route::get('owner/details/{id}', 'OwnerManageController@view_detail')->name('owner.details');
 	Route::get('owner/confirm', 'OwnerManageController@confirm_request')->name('owner.confirm');
+	Route::get('owner/csv', 'ExportController@exportOwner')->name('exportowner');
+
 
 	// Booking Routes
 	Route::get('bookings/list', 'BookingController@getList')->name('bookings.list');
@@ -94,7 +96,7 @@ Route::namespace('Admin')->prefix('admin')->middleware('admin', 'prevent-back-hi
 	Route::get('category/status/update', 'CategoryController@change_status')->name('category.status');
 	Route::get('category/edit/{id}', 'CategoryController@edit_form')->name('category.edit');
 	Route::post('category/update', 'CategoryController@update_record')->name('category.update');
-	Route::get('category/delete/{id}', 'CategoryController@del_record')->name('category.delete');
+	Route::get('category/delete', 'CategoryController@del_record')->name('category.delete');
 
 	//Blog Routes
 	Route::get('blogs/list', 'BlogController@getList')->name('blogs.list');
@@ -102,6 +104,25 @@ Route::namespace('Admin')->prefix('admin')->middleware('admin', 'prevent-back-hi
 	Route::post('blog/create', 'BlogController@add_record')->name('blog.create');
 	Route::get('blog/edit/{id}', 'BlogController@edit_form')->name('blog.edit');
 	Route::post('blog/update', 'BlogController@update_record')->name('blog.update');
+	Route::get('blog/delete/{id}', 'BlogController@del_record')->name('blog.delete');
+
+	//Commission Routes
+	Route::get('commission/add', 'CommissionController@add_form')->name('commission.add');
+	Route::post('commission/create', 'CommissionController@add_record')->name('commission.create');
+
+	//Rating & Review Routes
+	Route::get('ratings/list', 'RatingController@getList')->name('ratings.list');
+	Route::get('rating/status/update', 'RatingController@change_status')->name('rating.status');
+	// CMS Page Routes
+
+	Route::get('cms-pages/list', 'CmsPageController@getList')->name('cms-pages.list');
+	Route::get('cms-pages/add', 'CmsPageController@add_form')->name('cms-pages.add');
+	Route::post('cms-pages/create', 'CmsPageController@create_record')->name('cms-pages.create');
+	Route::get('cms-pages/edit/{id}', 'CmsPageController@edit_form')->name('cms-pages.edit');
+	Route::post('cms-pages/update', 'CmsPageController@update_record')->name('cms-pages.update');
+	Route::get('cms-pages/status/update', 'CmsPageController@change_status')->name('cms-pages.status');
+	Route::get('cms-pages/delete/{id}', 'CmsPageController@del_record')->name('cms-pages.delete');
+	Route::get('cms-pages/show/{id}', 'CmsPageController@show')->name('cms-pages.show');
 
 	//Permission Routes
 

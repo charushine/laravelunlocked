@@ -76,10 +76,10 @@
 								<tr>
 									<th>@sortablelink('id', 'UID')</th>
 									<th>@sortablelink('name', 'Venue Name')</th>
-									<th>@sortablelink('user.first_name', 'Customer Name')</th>
-                                    <th>@sortablelink('booking_name','Booking Name')</th>
-                                    <th>@sortablelink('booking_email','Booking Email')</th>
-                                    <th>@sortablelink('booking_date','Booking Date')</th>
+									<th>Customer Name</th>
+                                    <th>Booking Name</th>
+                                    <th>Booking Email</th>
+                                    <th>Booking Date</th>
                                     <th>@sortablelink('status','Status')</th>
 									<th>@sortablelink('created_at', 'Created Date')</th>
 								</tr>

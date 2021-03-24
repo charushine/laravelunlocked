@@ -39,6 +39,19 @@ trait CommonTrait
         $users = User::role('User')->select('id', 'first_name', 'last_name', 'email', 'status','created_at')->orderBy('id', 'asc')->get()->toArray();
         return $users;
     }
+    /* End Method getOwners */
+    /*
+    Method Name:    getOwners
+    Developer:      Shine Dezign
+    Created Date:   2021-03-05 (yyyy-mm-dd)
+    Purpose:        To get list of all users
+    Params:         []
+    */
+    public function getOwners()
+    {
+        $owners = User::role('Owner')->select('id', 'first_name', 'last_name', 'email', 'status','created_at')->orderBy('id', 'asc')->get()->toArray();
+        return $owners;
+    }
     /* End Method getUsers */
 
     /*

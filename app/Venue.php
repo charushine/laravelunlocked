@@ -60,4 +60,10 @@ class Venue extends Model
 	{
 	   return $this->hasOne(VenueImage::class);
 	}
+    public function rating_reviews()
+	{
+	   return $this->hasMany(RatingReview::class);
+	}
+
+
 }

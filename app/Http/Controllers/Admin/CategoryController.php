@@ -157,13 +157,19 @@ class CategoryController extends Controller
     Purpose:        To delete category by id[delete all category related with parent id]
     Params:         [id]
     */
-    public function del_record($id){
+    public function del_record(Request $request){
         try {
-            $category = Category::where('id',$id)->orWhere('parent_id',$id)->update(['is_deleted' => 1]);
+            $getData = $request->all();
+            $category = Category::where('id',$getData['id'])->orWhere('parent_id',$getData['id'])->update(['is_deleted' => $getData['is_deleted']]);
+            if($getData['is_deleted'] == 0){
+                $status = 'RECOVER_DONE';
+            }else{
+                $status = 'DELETE_DONE';
+            }
             // $category->is_deleted = 1;
             // $category->save();
 
-        	return redirect()->back()->with('status', 'success')->with('message', 'Category details '.Config::get('constants.SUCCESS.DELETE_DONE'));
+        	return redirect()->back()->with('status', 'success')->with('message', 'Category details '.Config::get('constants.SUCCESS.'.$status));
         }catch(Exception $ex){
             return redirect()->back()->with('status', 'error')->with('message', $ex->getMessage());
         }

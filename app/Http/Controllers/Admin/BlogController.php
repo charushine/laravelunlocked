@@ -54,10 +54,8 @@ class BlogController extends Controller
         $request->validate([
             'title' => 'required',
             'content' => 'required',
-            'cover_photo' => 'image|mimes:jpeg,png,jpg,svg',
+            'cover_photo' => 'image|mimes:jpeg,png,jpg',
             'status' => 'required',
-        ],[
-            'cover_photo.image' => 'Choose the image jpg,jpeg,png or svg format Only'
         ]);
         try {
             $coverPhoto = '';
@@ -79,6 +77,7 @@ class BlogController extends Controller
                 'title' => $request->title,
                 'content' => $request->content,
                 'cover_photo' => $coverPhoto,
+                'publish_date' => $request->publish_date,
                 'status' => $request->status
             ];
             $record = Blog::create($data);
@@ -105,6 +104,7 @@ class BlogController extends Controller
     public function edit_form($id){
 
         $blogDetail = Blog::find($id);
+
         if(!$blogDetail)
             return redirect()->route('blogs.list');
     	return view('admin.blogs.edit',compact('blogDetail'));
@@ -125,10 +125,10 @@ class BlogController extends Controller
         $request->validate([
             'title' => '',
             'content' => 'required',
-            'cover_photo' => 'image|mimes:jpeg,png,jpg,svg',
+            'cover_photo' => 'image|mimes:jpeg,png,jpg',
             'status' => 'required',
         ],[
-            'cover_photo.image' => 'Choose the image jpg,jpeg,png or svg format Only'
+            'cover_photo.mimes' => 'Choose the image jpg,jpeg or png format Only'
         ]);
 
         try {
@@ -153,6 +153,7 @@ class BlogController extends Controller
             $blogs->title = $postData['title'];
             $blogs->content = $postData['content'];
             $blogs->cover_photo = $blogPhoto;
+            $blogs->publish_date = $request->publish_date;
             $blogs->status = $postData['status'];
             $blogs->push();
 
@@ -162,4 +163,21 @@ class BlogController extends Controller
         }
     }
     /* End Method update_record */
+
+    /*
+    Method Name:    del_record
+    Developer:      Shine Dezign
+    Created Date:   2021-03-23 (yyyy-mm-dd)
+    Purpose:        To delete any blog by id
+    Params:         [id]
+    */
+    public function del_record($id){
+        try {
+            Blog::where('id',$id)->delete();
+        	return redirect()->back()->with('status', 'success')->with('message', 'Blog details '.Config::get('constants.SUCCESS.DELETE_DONE'));
+        }catch(Exception $ex){
+            return redirect()->back()->with('status', 'error')->with('message', $ex->getMessage());
+        }
+    }
+     /* End Method del_record */
 }

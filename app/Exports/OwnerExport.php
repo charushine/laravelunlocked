@@ -6,7 +6,7 @@ use App\Traits\CommonTrait;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class CsvExport implements FromCollection, WithHeadings
+class OwnerExport implements FromCollection, WithHeadings
 {
     Use CommonTrait;
     public function headings(): array {
@@ -20,6 +20,7 @@ class CsvExport implements FromCollection, WithHeadings
     */
     public function collection()
     {
-        return collect($this->getUsers());
+
+        return collect($this->getOwners());
     }
 }
