@@ -27,10 +27,13 @@
 				<div class="card-header py-3">
 					<form class="form-inline float-left" id="search-form">
 						<div class="form-group">
-							<input type="text" class="form-control" data-model="User" data-searchcoulnm="first_name,last_name,email" id="search_keyword" value="{{$keyword}}" name="search_keyword" placeholder="What are you looking for?">
+							<input type="text" class="form-control" data-model="User"  id="search_keyword" value="{{$keyword}}" name="search_keyword" placeholder="What are you looking for?">
 						</div>
 						<button type="submit" class="btn btn-primary ml-10">Search</button>
 					</form>
+					<div class="buttons-right">
+						<a class=" font-weight-bold btn-department-add pull-right hover-white" href="{{route('exportvenue')}}">Export <i class="fa fa-file-csv"></i></a>&nbsp;&nbsp;
+					</div>
 					<div class="buttons-right">
 						<a class="m-0 font-weight-bold btn-department-add pull-right hover-white" href="{{route('venue.add')}}">Add New Venue <i class="fa fa-plus"></i></a>
 					</div>

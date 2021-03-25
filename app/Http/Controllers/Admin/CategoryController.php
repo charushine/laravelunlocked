@@ -6,19 +6,26 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use App\Category;
-use DB;
+use Str, File;
 
 class CategoryController extends Controller
 {
        /*
     Method Name:    getList
     Developer:      Shine Dezign
-    Created Date:   2021-03-15 (yyyy-mm-dd)
+    Created Date:   2021-03-17 (yyyy-mm-dd)
     Purpose:        To get list of all Categories && Sub caetegories
     Params:
     */
     public function getList(Request $request){
-
+        if($request->has('search_keyword') && $request->search_keyword != '')
+        {
+            $keyword = $request->search_keyword;
+        }
+        else
+        {
+            $keyword = '';
+        }
         $data = Category::when($request->search_keyword, function($q) use($request){
             $q->where('id', $request->search_keyword)
             ->orWhere('name', $request->search_keyword)
@@ -27,7 +34,7 @@ class CategoryController extends Controller
             });
         })->with(['parent'])->sortable('id')->paginate(Config::get('constants.PAGINATION_NUMBER'));
 
-        return view('admin.categories.list',compact('data'));
+        return view('admin.categories.list',compact('data','keyword'));
     }
 
     /* End Method getList */
@@ -58,12 +65,31 @@ class CategoryController extends Controller
         $request->validate([
             'parent_id' => '',
             'name' => 'required|string|unique:categories,name',
+            'image' => 'required|image|mimes:jpeg,png,jpg',
             'status' => 'required',
+        ],[
+            'name.unique' => 'Category name has already been taken.'
         ]);
         try {
+            $categoryImg = '';
+
+            if($request->hasFile('image'))
+            {
+                $categoryPhoto = $request->file('image');
+                $uploadpath = public_path().'/assets/category/images/';
+
+                    $file = $categoryPhoto;
+                    $orignlname = $file->getClientOriginalName();
+                    $extension = $file->getClientOriginalExtension();
+                    $slug = Str::slug($request->name);
+                    $categoryImg = $slug."-".$orignlname;
+                    $image_path = $uploadpath.'/'.$categoryImg; // Value is not URL but directory file path
+                    $file->move($uploadpath, $categoryImg);
+            }
             $data =[
                 'parent_id' => $request->parent_id,
                 'name' => $request->name,
+                'image' => $categoryImg,
                 'status' => $request->status,
             ];
             $record = Category::create($data);
@@ -131,15 +157,34 @@ class CategoryController extends Controller
         $request->validate([
             'parent_id' => '',
             'name' => 'required|string|unique:categories,name,'.$id,
+            'image' => 'image|mimes:jpeg,png,jpg',
             'status' => 'required'
         ],[
             'name.unique' => 'Category name has already been taken.'
         ]);
 
         try {
+            $categoryImg = $request->category_old_image;
+            if($request->hasFile('image'))
+            {
+                $uploadpath = public_path().'/assets/category/images/';
+                $file = $request->file('image');
+                $orignlname = $file->getClientOriginalName();
+                $image_path = $uploadpath.'/'.$request->category_old_image; // Value is not URL but directory file path
+                if(File::exists($image_path))
+                {
+                    File::delete($image_path);
+                }
+                $extension = $file->getClientOriginalExtension();
+                $slug = Str::slug($request->name);
+                $categoryImg = $slug.'-'.$orignlname;
+                $file->move($uploadpath, $categoryImg);
+            }
+
             $categories = Category::findOrFail($id);
             $categories->parent_id = $postData['parent_id'];
             $categories->name = $postData['name'];
+            $categories->image = $categoryImg;
             $categories->status = $postData['status'];
             $categories->push();
 

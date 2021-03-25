@@ -25,11 +25,19 @@ class CmsPageController extends Controller
     */
     public function getList(Request $request)
     {
+        if($request->has('search_keyword') && $request->search_keyword != '')
+        {
+            $keyword = $request->search_keyword;
+        }
+        else
+        {
+            $keyword = '';
+        }
         $data = CmsPage::when($request->search_keyword, function($q) use($request)
         {
             $q->where('name', 'like', '%'.$request->search_keyword.'%');
         })->orderBy('id', 'desc')->paginate(Config::get('constants.PAGINATION_NUMBER'));
-        return view('admin.cms-pages.list', compact('data'));
+        return view('admin.cms-pages.list', compact('data','keyword'));
     }
     /* End Method getList */
 

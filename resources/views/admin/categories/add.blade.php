@@ -54,6 +54,17 @@
 								</div>
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-lg-4 col-md-6 col-12">
+								<div class="form-group">
+									<label for="document-0" class="document-label">Category Image<span class="required">*</span></label>
+									<input type="file" name="image" id="image"  value="{{old('image')}}"  class="form-control form-control-user"/>
+									@if ($errors->has('image'))
+										<span class="text-danger">{{ $errors->first('image') }}</span>
+									@endif
+								</div>
+							</div>
+                        </div>
                         <div class="row">
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="form-group">
@@ -71,7 +82,6 @@
                                 </div>
                             </div>
                         </div>
-
 
 						<div class="mt-1 mb-1">
 							<div class="text-left d-print-none mt-4">
@@ -101,12 +111,20 @@
 					name: {
 						required: true,
 					},
+					image: {
+						required: true,
+						extension: "jpg|jpeg|png",
+					}
 				},
 				// Specify validation error messages
 				messages: {
 					name: {
 						required: 'Category name is required',
 					},
+					image: {
+						required: 'Category image is required',
+						extension: 'Choose the image jpg,jpeg,or png format Only',
+					}
 				},
 				submitHandler: function(form) {
 					form.submit();

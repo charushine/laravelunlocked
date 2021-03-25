@@ -57,6 +57,9 @@ Route::namespace('Admin')->prefix('admin')->middleware('admin', 'prevent-back-hi
 
 	// Manage Owners Routes
 	Route::get('owners/list', 'OwnerManageController@getList')->name('owners.list');
+	Route::get('owner/add', 'OwnerManageController@add_form')->name('owner.add');
+	Route::post('owner/create', 'OwnerManageController@add_record')->name('owner.create');
+
 	Route::get('owner/delete', 'OwnerManageController@del_record')->name('owner.delete');
 	Route::get('owner/edit/{id}', 'OwnerManageController@edit_form')->name('owner.edit');
 	Route::post('owner/update', 'OwnerManageController@update_record')->name('owner.update');
@@ -67,6 +70,16 @@ Route::namespace('Admin')->prefix('admin')->middleware('admin', 'prevent-back-hi
 	Route::get('owner/confirm', 'OwnerManageController@confirm_request')->name('owner.confirm');
 	Route::get('owner/csv', 'ExportController@exportOwner')->name('exportowner');
 
+	// Venue Routes
+	Route::get('venues/list', 'VenueController@getList')->name('venues.list');
+	Route::get('venue/status/update', 'VenueController@change_status')->name('venue.status');
+	Route::get('venue/delete', 'VenueController@deleteRecord')->name('venue.delete');
+	Route::get('venue/edit/{id}', 'VenueController@edit_form')->name('venue.edit');
+	Route::post('venue/update', 'VenueController@update_record')->name('venue.update');
+	Route::get('venue/add', 'VenueController@add_form')->name('venue.add');
+	Route::post('venue/create', 'VenueController@add_record')->name('venue.create');
+	Route::get('venue/details/{id}', 'VenueController@view_detail')->name('venue.details');
+	Route::get('venue/csv', 'ExportController@exportVenue')->name('exportvenue');
 
 	// Booking Routes
 	Route::get('bookings/list', 'BookingController@getList')->name('bookings.list');
@@ -77,17 +90,7 @@ Route::namespace('Admin')->prefix('admin')->middleware('admin', 'prevent-back-hi
 	Route::post('booking/update', 'BookingController@update_record')->name('booking.update');
 	Route::get('booking/delete/{id}', 'BookingController@del_record')->name('booking.delete');
 	Route::get('booking/details/{id}', 'BookingController@view_detail')->name('booking.details');
-
-
-	// Venue Routes
-	Route::get('venues/list', 'VenueController@getList')->name('venues.list');
-	Route::get('venue/status/update', 'VenueController@change_status')->name('venue.status');
-	Route::get('venue/delete', 'VenueController@deleteRecord')->name('venue.delete');
-	Route::get('venue/edit/{id}', 'VenueController@edit_form')->name('venue.edit');
-	Route::post('venue/update', 'VenueController@update_record')->name('venue.update');
-	Route::get('venue/add', 'VenueController@add_form')->name('venue.add');
-	Route::post('venue/create', 'VenueController@add_record')->name('venue.create');
-	Route::get('venue/details/{id}', 'VenueController@view_detail')->name('venue.details');
+	Route::get('booking/csv', 'ExportController@exportBooking')->name('exportbooking');
 
 	//Category & Subcategory Routes
 	Route::get('categories/list', 'CategoryController@getList')->name('categories.list');
@@ -113,6 +116,7 @@ Route::namespace('Admin')->prefix('admin')->middleware('admin', 'prevent-back-hi
 	//Rating & Review Routes
 	Route::get('ratings/list', 'RatingController@getList')->name('ratings.list');
 	Route::get('rating/status/update', 'RatingController@change_status')->name('rating.status');
+
 	// CMS Page Routes
 
 	Route::get('cms-pages/list', 'CmsPageController@getList')->name('cms-pages.list');
@@ -123,6 +127,16 @@ Route::namespace('Admin')->prefix('admin')->middleware('admin', 'prevent-back-hi
 	Route::get('cms-pages/status/update', 'CmsPageController@change_status')->name('cms-pages.status');
 	Route::get('cms-pages/delete/{id}', 'CmsPageController@del_record')->name('cms-pages.delete');
 	Route::get('cms-pages/show/{id}', 'CmsPageController@show')->name('cms-pages.show');
+
+	//Testimonials Routes
+
+	Route::get('testimonial/list', 'TestimonialController@getList')->name('testimonial.list');
+	Route::get('testimonial/add', 'TestimonialController@add_form')->name('testimonial.add');
+	Route::post('testimonial/create', 'TestimonialController@create_record')->name('testimonial.create');
+	Route::get('testimonial/edit/{id}', 'TestimonialController@edit_form')->name('testimonial.edit');
+	Route::post('testimonial/update', 'TestimonialController@update_record')->name('testimonial.update');
+	Route::get('testimonial/delete/{id}', 'TestimonialController@del_record')->name('testimonial.delete');
+	Route::get('testimonial/status/update', 'TestimonialController@change_status')->name('testimonial.status');
 
 	//Permission Routes
 

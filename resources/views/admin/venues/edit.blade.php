@@ -141,7 +141,7 @@
 										@endif
 									@endforeach
 								@else
-									<img class="img-profile mt30" src="{{asset('images/not-found.png')}}" alt="Image not available">
+									<img class="img-profile mt30" src="{{asset('backend/images/not-available.png')}}" alt="Image not available">
 								@endif
 								</div>
 							</div>

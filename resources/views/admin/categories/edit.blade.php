@@ -1,3 +1,4 @@
+@inject('GetCommon', 'App\Traits\GetCommon')
 @extends('admin.layouts.cmlayout')
 @section('body')
 <div class="container-fluid">
@@ -54,6 +55,35 @@
 								</div>
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-lg-4 col-md-6 col-12">
+								<div class="form-group">
+									<label for="document-0" class="document-label">Category Image<span class="required"></span></label>
+									<input type="file" name="image" id="image" placeholder="Category Image" value="{{old('image',$categoryDetail->image)}}"  class="form-control form-control-user"/>
+									<input type="hidden" name="category_old_image"value="{{ $categoryDetail->image}}" />
+									@if ($errors->has('image'))
+										<span class="text-danger">{{ $errors->first('image') }}</span>
+									@endif
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-6 col-12">
+								<div class="form-group">
+								@if($categoryDetail->image != "")
+									@php
+										$type = explode(".",$categoryDetail->image)[1];
+										$image = $GetCommon->createThumbnail(public_path('assets/category/images/'.$categoryDetail->image), $type, 175, 75);
+									@endphp
+										@if($image)
+
+											<img class="img-profile mt30" style="padding-right:10px; padding-bottom:10px" src="{{ 'data:image/' .$type. ';base64,' .base64_encode($image) }}" width="100px" alt="Category Image">
+
+										@endif
+								@else
+									<img class="img-profile mt30" src="{{asset('images/not-found.png')}}" alt="Image not available">
+								@endif
+								</div>
+							</div>
+                        </div>
                         <div class="row">
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="form-group">
@@ -90,21 +120,24 @@
 	<script>
 
 	jQuery( document ).ready(function() {
-
 			$("form[id='update_category_form']").validate({
 				// Specify validation rules
 				ignore: '',
 				rules: {
-
 					name: {
 						required: true,
+					},
+					image:{
+						extension: "jpg|jpeg|png"
 					},
 				},
 				// Specify validation error messages
 				messages: {
-
 					name: {
 						required: 'Category name is required',
+					},
+					image: {
+						extension: 'Choose the image jpg,jpeg or png format Only',
 					},
 				},
 				submitHandler: function(form) {

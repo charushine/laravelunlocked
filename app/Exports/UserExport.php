@@ -11,7 +11,7 @@ class UserExport implements FromCollection, WithHeadings
     Use CommonTrait;
     public function headings(): array {
       return [
-         "Id","Firstname","Lastname","email","status","created"
+         "Id","Firstname","Lastname","Email","Contact","Address","Zipcode","Status","Created"
       ];
     }
 

@@ -30,7 +30,6 @@ class OwnerManageController extends Controller
         if($request->has('search_keyword') && $request->search_keyword != '')
         {
             $keyword = $request->search_keyword;
-
         }
         else
         {
@@ -50,6 +49,69 @@ class OwnerManageController extends Controller
         return view('admin.owners.list', compact('data','keyword'));
     }
     /* End Method getList */
+
+    /*
+    Method Name:    add_form
+    Developer:      Shine Dezign
+    Created Date:   2021-03-25 (yyyy-mm-dd)
+    Purpose:        Form to add owner details
+    Params:         [id]
+    */
+    public function add_form(){
+    	return view('admin.owners.add');
+    }
+    /* End Method add_form */
+
+            /*
+    Method Name:    add_record
+    Developer:      Shine Dezign
+    Created Date:   2021-03-09 (yyyy-mm-dd)
+    Purpose:        To update owner details
+    Params:         [edit_record_id, first_name, last_name, email, role, address, zipcode, mobile, status]
+    */
+    public function add_record(Request $request){
+
+        $request->validate([
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required_with:password_confirmation|string|confirmed',
+            'address' => '',
+            'zipcode' => 'required|numeric',
+            'mobile' => 'required|numeric',
+            'status' => 'required'
+        ], [
+            'password.required' => 'Password is required',
+            'password.confirmed' => 'Confirmed Password not matched with password'
+        ]);
+        try {
+            $data = [
+                    'first_name' =>$request->first_name,
+                    'last_name' =>$request->last_name,
+                    'password' => bcrypt($request->password),
+                    'email' =>$request->email,
+                    'status' => 1,
+            ];
+            $user = User::create($data);
+            if($user){
+                $user->syncRoles("Owner");
+                $details = [
+                    'user_id' => $user->id,
+                    'address' => $request->address,
+                    'zipcode' => $request->zipcode,
+                    'mobile' => $request->mobile,
+                ];
+                $result = UserDetails::create($details);
+                if($result){
+                    return redirect()->route('owners.list')->with('status', 'success')->with('message', 'Owner '.Config::get('constants.SUCCESS.CREATE_DONE'));
+                }
+            }
+            return redirect()->back()->with('status', 'error')->with('message', Config::get('constants.ERROR.OOPS_ERROR'));
+        } catch ( \Exception $e ) {
+            return redirect()->back()->with('status', 'error')->with('message', $e->getMessage());
+        }
+    }
+    /* End Method add_record */
 
      /*
     Method Name:    del_record
@@ -101,7 +163,7 @@ class OwnerManageController extends Controller
     }
        /* End Method edit_form */
 
-            /*
+    /*
     Method Name:    update_record
     Developer:      Shine Dezign
     Created Date:   2021-03-09 (yyyy-mm-dd)

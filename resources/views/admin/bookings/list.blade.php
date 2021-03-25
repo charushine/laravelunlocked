@@ -29,6 +29,9 @@
 						<button type="submit" class="btn btn-primary ml-10">Search</button>
 					</form>
 					<div class="buttons-right">
+						<a class="m-0 font-weight-bold btn-department-add pull-right hover-white" href="{{route('exportbooking')}}">Export <i class="fa fa-file-csv"></i></a>&nbsp;
+					</div>
+					<div class="buttons-right">
 						<a class="m-0 font-weight-bold btn-department-add pull-right hover-white" href="{{route('booking.add')}}">Add New Booking <i class="fa fa-plus"></i></a>
 					</div>
 				</div>

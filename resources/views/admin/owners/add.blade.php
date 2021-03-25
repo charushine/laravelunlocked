@@ -20,17 +20,17 @@
 			<div class="card">
 				<div class="card-body pt-2 pb-3 manageClinicSection">
 					<h5 class="mt-3 mb-4">
-						Update Owner Detail
+						Add Owner Detail
 						<a href="{{route('owners.list')}}" class="float-right"><i data-feather="x"></i></a>
 					</h5>
-					<form action="{{route('owner.update')}}" method="post" class="user" id="edit_user_form" enctype="multipart/form-data">@csrf
-						<input type="hidden" name="edit_record_id" value="{{$ownerDetail->id}}">
+					<form action="{{route('owner.create')}}" method="post" class="user" id="add_owner_form" enctype="multipart/form-data">@csrf
+
 						<div class="row">
 							<div class="col-lg-4 col-md-6 col-12">
 								<div class="form-group">
 									<label>First Name<span class="required">*</span>
 									</label>
-									<input type="text" name="first_name" id="first_name" value="{{old('first_name', $ownerDetail->first_name)}}" class="form-control form-control-user" />
+									<input type="text" name="first_name" id="first_name" value="{{old('first_name')}}" class="form-control form-control-user" />
 									@if ($errors->has('first_name'))
 										<span class="text-danger">{{ $errors->first('first_name') }}</span>
 									@endif
@@ -40,7 +40,7 @@
 								<div class="form-group">
 									<label>Last Name<span class="required">*</span>
 									</label>
-									<input type="text" name="last_name" id="last_name" value="{{old('last_name', $ownerDetail->last_name)}}" class="form-control form-control-user" />
+									<input type="text" name="last_name" id="last_name" value="{{old('last_name')}}" class="form-control form-control-user" />
 									@if ($errors->has('last_name'))
 										<span class="text-danger">{{ $errors->first('last_name') }}</span>
 									@endif
@@ -52,7 +52,7 @@
 								<div class="form-group">
 									<label>Email<span class="required">*</span>
 									</label>
-									<input type="text" name="email" id="email"  value="{{old('email', $ownerDetail->email)}}" class="form-control form-control-user" />
+									<input type="text" name="email" id="email"  value="{{old('email')}}" class="form-control form-control-user" />
 									@if ($errors->has('email'))
 										<span class="text-danger">{{ $errors->first('email') }}</span>
 									@endif
@@ -62,7 +62,7 @@
 							<div class="form-group">
 									<label>Contact No.<span class="required">*</span>
 									</label>
-									<input type="number" name="mobile" id="mobile"  value="{{old('mobile', isset($ownerDetail->user_detail->mobile)?$ownerDetail->user_detail->mobile:"")}}" class="form-control form-control-user" />
+									<input type="number" name="mobile" id="mobile"  value="{{old('mobile')}}" class="form-control form-control-user" />
 									@if ($errors->has('mobile'))
 										<span class="text-danger">{{ $errors->first('mobile') }}</span>
 									@endif
@@ -70,11 +70,31 @@
 							</div>
 						</div>
 						<div class="row">
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="form-group">
+                                    <label>Password<span class="required">*</span></label>
+                                    <input type="password" name="password" id="password" value="{{old('password')}}" class="form-control form-control-user"  />
+                                    @if ($errors->has('password'))
+                                    <span class="text-danger">{{ $errors->first('password') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="form-group">
+                                    <label>Confirm Password<span class="required">*</span></label>
+                                    <input type="password" name="password_confirmation" id="password_confirmation" value="{{old('password_confirmation')}}" class="form-control form-control-user"  />
+                                    @if ($errors->has('password_confirmation'))
+                                    <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+						<div class="row">
 							<div class="col-lg-4 col-md-6 col-12">
 								<div class="form-group">
 									<label>Zipcode<span class="required">*</span>
 									</label>
-									<input type="text" name="zipcode" id="zipcode"  value="{{old('zipcode', isset($ownerDetail->user_detail->zipcode) ? $ownerDetail->user_detail->zipcode:"")}}" class="form-control form-control-user" />
+									<input type="text" name="zipcode" id="zipcode"  value="{{old('zipcode')}}" class="form-control form-control-user" />
 									@if ($errors->has('zipcode'))
 										<span class="text-danger">{{ $errors->first('zipcode') }}</span>
 									@endif
@@ -84,7 +104,7 @@
 							<div class="form-group">
 									<label>Address<span class="required"></span>
 									</label>
-									<textarea  name="address" id="address" class="form-control form-control-user" />{{old('address', isset($ownerDetail->user_detail->address)?$ownerDetail->user_detail->address:"")}}</textarea>
+									<textarea  name="address" id="address" class="form-control form-control-user" />{{old('address')}}</textarea>
 									@if ($errors->has('address'))
 										<span class="text-danger">{{ $errors->first('address') }}</span>
 									@endif
@@ -99,10 +119,10 @@
 									</label>
 									<div class="input-group">
 										<div id="radioBtn" class="btn-group">
-										    <a class="btn btn-success btn-sm {{ old('status', $ownerDetail->status) == '1' ? 'active' : 'notActive'}}" data-toggle="status" data-title="1">Enabled</a>
-											<a class="btn btn-danger btn-sm {{ old('status', $ownerDetail->status) == '0' ? 'active' : 'notActive'}}" data-toggle="status" data-title="0">Disabled</a>
+										    <a class="btn btn-success btn-sm {{ old('status') ? old('status') == '1' ? 'active' : 'notActive' : 'active'}}" data-toggle="status" data-title="1">Enabled</a>
+											<a class="btn btn-danger btn-sm {{ old('status') == '0' ? 'active' : 'notActive'}}" data-toggle="status" data-title="0">Disabled</a>
 										</div>
-										<input type="hidden" name="status" id="status" value="{{ old('status',$ownerDetail->status) == '1' ? '1' : '0'}}">
+										<input type="hidden" name="status" id="status" value="1">
 									</div>
 									@if ($errors->has('status'))
 									<span class="text-danger">{{ $errors->first('status') }}</span>
@@ -112,7 +132,8 @@
 						</div>
 						<div class="mt-1 mb-1">
 							<div class="text-left d-print-none mt-4">
-								<button type="submit" id="edit-genre-btn" class="btn btn-primary">Update</button>
+								<button type="submit" name="action" value="saveadd" class="btn btn-primary">Save & Add New</button>
+								<button type="submit"  name="action" id="edit-genre-btn" value="save" class="btn btn-primary">Save</button>
 								<a href="{{route('owners.list')}}" class="btn btn-light">Cancel</a>
 							</div>
 						</div>
@@ -128,7 +149,7 @@
 	@section('scripts')
 	<script>
 		$( document ).ready(function() {
-			$("form[id='edit_user_form']").validate({
+			$("form[id='add_owner_form']").validate({
 				// Specify validation rules
 				ignore: '',
 				rules: {
@@ -143,6 +164,14 @@
 					email: {
 						required: true,
 						email: true,
+					},
+					password : {
+						required: true,
+						minlength : 6
+                	},
+               		 password_confirmation : {
+						required: true,
+						equalTo : "#password"
 					},
 					mobile: {
 						required: true,
@@ -168,6 +197,14 @@
 						required: 'Email address is required',
 						email: 'Provide a valid email address',
 					},
+					password: {
+						required: 'Password field is required',
+						minlength: 'Please enter minimum 6 length password'
+					},
+					password_confirmation: {
+						required: 'Confirm Password field is required',
+						equalTo : "Confirm Password must be same as password"
+					},
 					mobile:{
 						required: 'Contact no is required',
 						number: 'Contact must be number only',
@@ -176,7 +213,6 @@
 						required: 'Zipcode is required',
 						number: 'Zipcode must be number only
 					},
-
 				},
 				submitHandler: function(form) {
 					form.submit();

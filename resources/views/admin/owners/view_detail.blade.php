@@ -61,7 +61,7 @@
 			<div class="card-header py-3">
 					<form class="form-inline float-left" id="search-form">
 						<div class="form-group">
-							<input type="text" class="form-control" data-model="User" data-searchcoulnm="first_name,last_name,email" id="search_keyword" name="search_keyword" placeholder="What are you looking for?">
+							<input type="text" class="form-control" data-model="User" id="search_keyword" name="search_keyword" placeholder="What are you looking for?">
 						</div>
 						<button type="submit" class="btn btn-primary ml-10">Search</button>
 					</form>

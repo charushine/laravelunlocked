@@ -6,12 +6,12 @@ use App\Traits\CommonTrait;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class OwnerExport implements FromCollection, WithHeadings
+class BookingExport implements FromCollection, WithHeadings
 {
     Use CommonTrait;
     public function headings(): array {
       return [
-         "Id","Firstname","Lastname","Email","Contact","Address","Zipcode","Status","Created"
+         "Id","Venue Name","Customer Name","Booking Name","Booking Email","Booking Date","Status","Created"
       ];
     }
 
@@ -20,7 +20,6 @@ class OwnerExport implements FromCollection, WithHeadings
     */
     public function collection()
     {
-
-        return collect($this->getOwners());
+        return collect($this->getBookings());
     }
 }

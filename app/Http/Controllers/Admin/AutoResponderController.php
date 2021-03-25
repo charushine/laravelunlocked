@@ -24,6 +24,14 @@ class AutoResponderController extends Controller
     */
     public function getList(Request $request)
     {
+        if($request->has('search_keyword') && $request->search_keyword != '')
+        {
+            $keyword = $request->search_keyword;
+        }
+        else
+        {
+            $keyword = '';
+        }
         $data = AutoResponder::when($request->search_keyword, function ($q) use ($request)
         {
             $q->where('template_name', 'like', '%' . $request->search_keyword . '%')
@@ -32,7 +40,7 @@ class AutoResponderController extends Controller
         })
             ->sortable('id')
             ->paginate(Config::get('constants.PAGINATION_NUMBER'));
-        return view('admin.autoresponder.list', compact('data'));
+        return view('admin.autoresponder.list', compact('data','keyword'));
     }
     /* End Method getList */
 

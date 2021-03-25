@@ -28,7 +28,6 @@
 				<div class="card-body pt-2 pb-3 manageClinicSection">
 					<h5 class="mt-3 mb-4">
 						Add Commission Detail
-						<!-- <a href="{{route('blogs.list')}}" class="float-right"><i data-feather="x"></i></a> -->
 					</h5>
 					<form action="{{route('commission.create')}}" method="post" class="user" id="add_commission_form" enctype="multipart/form-data">@csrf
 						<input type="hidden" name="edit_record_id" value="{{isset($commission) ? $commission->id : ''}}">
@@ -37,7 +36,7 @@
 								<div class="form-group">
 									<label>Commission(%)<span class="required">*</span>
 									</label>
-                                   <input type="number" name="commission_percentage" id="commission_percentage" value="{{old('commission_percentage',isset($commission) ? $commission->commission_percentage : '')}}" class="form-control form-control-user" />
+                                   <input type="number" max="100"  name="commission_percentage" id="commission_percentage" value="{{old('commission_percentage',isset($commission) ? $commission->commission_percentage : '')}}" class="form-control form-control-user" />
                                     @if ($errors->has('commission_percentage'))
                                         <span class="text-danger">{{ $errors->first('commission_percentage') }}</span>
                                     @endif

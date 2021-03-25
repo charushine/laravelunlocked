@@ -82,6 +82,11 @@
 				</a>
 			</li>
 			<li class="nav-item">
+				<a class="nav-link" href="{{route('testimonial.list')}}">	<i class="fas fa-users"></i>
+					<span>Testimonials</span>
+				</a>
+			</li>
+			<li class="nav-item">
 				<a class="nav-link" href="{{route('autoresponder.list')}}">	<i class="fas fa-envelope"></i>
 					<span>Email Templates</span>
 				</a>

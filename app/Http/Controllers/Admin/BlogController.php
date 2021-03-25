@@ -19,13 +19,21 @@ class BlogController extends Controller
     Params:
     */
     public function getList(Request $request){
+        if($request->has('search_keyword') && $request->search_keyword != '')
+        {
+            $keyword = $request->search_keyword;
+        }
+        else
+        {
+            $keyword = '';
+        }
         $data = Blog::when($request->search_keyword, function($q) use($request){
             $q->where('title', 'like', '%'.$request->search_keyword.'%')
             ->orWhere('id', $request->search_keyword)
             ->orWhere('content', 'like', '%'.$request->search_keyword.'%');
         })->sortable('id')->paginate(Config::get('constants.PAGINATION_NUMBER'));
 
-        return view('admin.blogs.list',compact('data'));
+        return view('admin.blogs.list',compact('data','keyword'));
     }
     /* End Method getList */
 

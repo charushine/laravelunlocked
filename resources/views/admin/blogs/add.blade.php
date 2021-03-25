@@ -40,7 +40,7 @@
 						<div class="row">
 							<div class="col-lg-4 col-md-6 col-12">
 								<div class="form-group">
-									<label>Publish Date<span class="required">*</span>
+									<label>Publish Date<span class="required"></span>
 									</label>
                                    <input type="text" name="publish_date" id="publish_date" value="{{old('publish_date')}}" class="form-control form-control-user datetimepicker" autocomplete="off"/>
                                     @if ($errors->has('publish_date'))

@@ -13,7 +13,7 @@
 		{{ session()->get('message') }}
 		</div>
 		@endif
-		
+
 		@if(session()->get('status') == 'error')
 		<div class="alert alert-danger  alert-dismissible">
 		    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -29,7 +29,7 @@
 				<div class="card-header py-3">
 					<form class="form-inline float-left" id="search-form">
 						<div class="form-group">
-							<input type="text" class="form-control" id="search_keyword" name="search_keyword" placeholder="What are you looking for?">
+							<input type="text" class="form-control" value="{{$keyword}}" id="search_keyword" name="search_keyword" placeholder="What are you looking for?">
 						</div>
 						<button type="submit" class="btn btn-primary ml-10">Search</button>
 					</form>
