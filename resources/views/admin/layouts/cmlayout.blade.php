@@ -47,12 +47,12 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="{{route('venues.list')}}">	<i class="fas fa-users"></i>
+				<a class="nav-link" href="{{route('venues.list')}}">	<i class="fa fa-home"></i>
 					<span>Venues</span>
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="{{route('bookings.list')}}">	<i class="fas fa-users"></i>
+				<a class="nav-link" href="{{route('bookings.list')}}">	<i class="fa fa-list-alt" aria-hidden="true"></i>
 					<span>Bookings</span>
 				</a>
 			</li>
@@ -62,22 +62,22 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="{{route('blogs.list')}}">	<i class="fas fa-users"></i>
+				<a class="nav-link" href="{{route('blogs.list')}}">	<i class="fa fa-id-card" aria-hidden="true"></i>
 					<span>Blogs</span>
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="{{route('commission.add')}}">	<i class="fas fa-users"></i>
+				<a class="nav-link" href="{{route('commission.add')}}">	<i class="fa fa-usd" aria-hidden="true"></i>
 					<span>Commissions</span>
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="{{route('ratings.list')}}">	<i class="fas fa-users"></i>
+				<a class="nav-link" href="{{route('ratings.list')}}">	<i class="fa fa-star" aria-hidden="true"></i>
 					<span>Ratings</span>
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="{{route('cms-pages.list')}}">	<i class="fas fa-users"></i>
+				<a class="nav-link" href="{{route('cms-pages.list')}}">	<i class="fa fa-file" aria-hidden="true"></i>
 					<span>CMS Pages</span>
 				</a>
 			</li>
