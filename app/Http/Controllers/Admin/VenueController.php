@@ -82,9 +82,9 @@ class VenueController extends Controller
             'booking_price' => 'required|numeric',
             'contact' => 'required|numeric',
             'status' => 'required',
-            'venue_image_name[]' => 'image|mimes:jpeg,png,jpg,svg',
+            'venue_image_name[]' => 'image|mimes:jpeg,png,jpg',
         ],[
-            'venue_image_name.mimes' => 'Choose the image jpg,jpeg,png or svg format Only',
+            'venue_image_name.mimes' => 'Choose the image jpg,jpeg or png format Only',
             'venue_image_name.image' => 'Choose the image Only',
             'user_id.required' => 'Owner name is required',
         ]);
@@ -178,9 +178,9 @@ class VenueController extends Controller
             'booking_price' => 'required|numeric',
             'contact' => 'required|numeric',
             'status' => 'required',
-            'venue_image_name[]' => 'image|mimes:jpeg,png,jpg,svg',
+            'venue_image_name[]' => 'image|mimes:jpeg,png,jpg',
         ],[
-            'venue_image_name.mimes' => 'Choose the image jpg,jpeg,png or svg format Only',
+            'venue_image_name.mimes' => 'Choose the image jpg,jpeg or png format Only',
             'venue_image_name.image' => 'Choose the image Only',
         ]);
 

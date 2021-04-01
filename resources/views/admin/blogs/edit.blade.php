@@ -27,7 +27,7 @@
 					<form action="{{route('blog.update')}}" method="post" class="user" id="update_blog_form" enctype="multipart/form-data">@csrf
 						<input type="hidden" name="edit_record_id" value="{{$blogDetail->id}}">
 						<div class="row">
-						<div class="col-lg-4 col-md-6 col-12">
+						<div class="col-lg-6 col-md-6 col-12">
 							<div class="form-group">
 									<label>Title<span class="required">*</span>
 									</label>
@@ -39,7 +39,7 @@
 							</div>
                         </div>
 						<div class="row">
-							<div class="col-lg-4 col-md-6 col-12">
+							<div class="col-lg-6 col-md-6 col-12">
 								<div class="form-group">
 									<label>Publish Date<span class="required"></span>
 									</label>
@@ -51,7 +51,7 @@
 							</div>
                         </div>
                         <div class="row">
-							<div class="col-lg-4 col-md-6 col-12">
+							<div class="col-lg-6 col-md-6 col-12">
 								<div class="form-group">
 									<label>Content<span class="required">*</span>
 									</label>
@@ -63,7 +63,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-lg-4 col-md-6 col-12">
+							<div class="col-lg-6 col-md-6 col-12">
 								<div class="form-group">
 									<label for="document-0" class="document-label">Cover Photo</label>
 									<input type="file" name="cover_photo" id="cover_photo" placeholder="Cover Photo" value="{{old('cover_photo',$blogDetail->cover_photo)}}"  class="form-control form-control-user"/>
@@ -73,8 +73,8 @@
 									@endif
 								</div>
 							</div>
-							<div class="col-lg-4 col-md-6 col-12">
-								<div class="form-group">
+							<div class="col-lg-6 col-md-6 col-12 category-img">
+								<div class="form-group mt-4 pt-2">
 								@if($blogDetail->cover_photo != "")
 									@php
 										$type = explode(".",$blogDetail->cover_photo)[1];
@@ -92,7 +92,7 @@
 							</div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4 col-md-6 col-12">
+                            <div class="col-lg-6 col-md-6 col-12">
                                 <div class="form-group">
                                     <label>Status<span class="required">*</span></label>
                                     <div class="input-group">

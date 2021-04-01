@@ -66,8 +66,8 @@
 									@endif
 								</div>
 							</div>
-							<div class="col-lg-4 col-md-6 col-12">
-								<div class="form-group">
+							<div class="col-lg-4 col-md-6 col-12 category-img">
+								<div class="form-group mt-4 pt-2">
 								@if($categoryDetail->image != "")
 									@php
 										$type = explode(".",$categoryDetail->image)[1];
@@ -79,7 +79,7 @@
 
 										@endif
 								@else
-									<img class="img-profile mt30" src="{{asset('images/not-found.png')}}" alt="Image not available">
+									<img class="img-profile mt30" src="{{asset('backend/images/not-available.png')}}" alt="Image not available">
 								@endif
 								</div>
 							</div>

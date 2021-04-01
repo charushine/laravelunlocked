@@ -19,7 +19,7 @@
 	<div class="row mt-4">
 		<div class="col-md-12">
 			<div class="card">
-				<div class="card-body pt-2 pb-3 manageClinicSection">
+				<div class="card-body pt-2 pb-3 editVenueSection">
 					<h5 class="mt-3 mb-4">
 						Update Venue Detail
 						<a href="{{route('venues.list')}}" class="float-right"><i data-feather="x"></i></a>
@@ -125,23 +125,24 @@
 									@endif
 								</div>
 							</div>
-							<div class="col-lg-4 col-md-6 col-12">
+							<div class="col-lg-4 col-md-6 col-12 images-sections">
 								<div class="form-group">
 								@if($venueImages->count())
 									@foreach($venueImages as $key => $images)
-
 									@php
 										$type = explode(".",$images->name)[1];
 										$image = $GetCommon->createThumbnail(public_path('assets/venue/images/'.$images->name), $type, 175, 75);
 									@endphp
 										@if($image)
+											<div class="main-pic">
+												<img class="img-profile mt30" src="{{ 'data:image/' .$type. ';base64,' .base64_encode($image) }}" width="100px" alt="Venue Image">
 
-											<a href="{{route('venue.delete', ['id' => $images->id, 'venue_id' => $images->venue_id,'name' => $images->name])}}" ><img class="img-profile mt30" style="padding-right:10px; padding-bottom:10px" src="{{ 'data:image/' .$type. ';base64,' .base64_encode($image) }}" width="100px" alt="Venue Image"></a>
-
+												<a href="{{route('venue.delete', ['id' => $images->id, 'venue_id' => $images->venue_id,'name' => $images->name])}}">
+												<img src="{{asset('backend/images/cross-icon.png')}}" alt="Image" class="cross-section"></a></div>
 										@endif
 									@endforeach
 								@else
-									<img class="img-profile mt30" src="{{asset('backend/images/not-available.png')}}" alt="Image not available">
+									<img class="img-profile mt30" width="100" height="100" src="{{asset('backend/images/not-available.png')}}" alt="Image not available">
 								@endif
 								</div>
 							</div>

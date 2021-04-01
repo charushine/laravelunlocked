@@ -5,14 +5,14 @@
 		<h1 class="h3 mb-0 text-gray-800">Blogs List</h1>
 	</div>
 	<div class="flash-message">
-	@if(session()->has('status'))
-	    @if(session()->get('status') == 'error')
-		<div class="alert alert-danger  alert-dismissible">
-		    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			{{ session()->get('message') }}
-		</div>
+		@if(session()->has('status'))
+			@if(session()->get('status') == 'error')
+			<div class="alert alert-danger  alert-dismissible">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				{{ session()->get('message') }}
+			</div>
+			@endif
 		@endif
-	@endif
 	</div>
 	<!-- end .flash-message -->
 	<div class="row mt-4">
@@ -26,7 +26,7 @@
 					<form action="{{route('blog.create')}}" method="post" class="user" id="add_blog_form" enctype="multipart/form-data">@csrf
 						<!-- <input type="hidden" name="edit_record_id" value=""> -->
 						<div class="row">
-							<div class="col-lg-4 col-md-6 col-12">
+							<div class="col-lg-6 col-md-6 col-12">
 								<div class="form-group">
 									<label>Title<span class="required">*</span>
 									</label>
@@ -38,7 +38,7 @@
 							</div>
                         </div>
 						<div class="row">
-							<div class="col-lg-4 col-md-6 col-12">
+							<div class="col-lg-6 col-md-6 col-12">
 								<div class="form-group">
 									<label>Publish Date<span class="required"></span>
 									</label>
@@ -50,10 +50,11 @@
 							</div>
                         </div>
                         <div class="row">
-							<div class="col-lg-6 col-md-6 col-12">
+							<div class="col-lg-6 col-md-6 col-12 ">
+								<!-- main-contentt -->
 								<div class="form-group">
 									<label>Content<span class="required">*</span></label>
-									<textarea name="content" id="content" value="{{old('content')}}" class="form-control form-control-user editor" ></textarea>
+									<textarea name="content" id="content" class="form-control form-control-user editor" >{{old('content')}}</textarea>
 									@if ($errors->has('content'))
 										<span class="text-danger">{{ $errors->first('content') }}</span>
 									@endif
@@ -61,7 +62,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-lg-4 col-md-6 col-12">
+							<div class="col-lg-6 col-md-6 col-12">
 								<div class="form-group">
 									<label for="document-0" class="document-label">Cover Photo</label>
 									<input type="file" name="cover_photo" id="cover_photo"  value="{{old('cover_photo')}}"  class="form-control form-control-user"/>
@@ -72,7 +73,7 @@
 							</div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4 col-md-6 col-12">
+                            <div class="col-lg-6 col-md-6 col-12">
                                 <div class="form-group">
                                     <label>Status<span class="required">*</span></label>
                                     <div class="input-group">
@@ -101,7 +102,7 @@
 		</div>
 		<!-- end row -->
 	</div>
-	</div>
+</div>
 	<!-- container-fluid -->
 	@endsection
 	@section('scripts')
@@ -118,7 +119,15 @@
 		});
 
 			$("form[id='add_blog_form']").validate({
+				
 				// Specify validation rules
+				errorPlacement: function(error, element) {
+					if (element.is("textarea"))
+						error.insertAfter(element.next());
+					else
+							error.insertAfter(element);
+					},
+				
 				ignore: '',
 				rules: {
 					title: {
@@ -145,7 +154,8 @@
 				},
 				submitHandler: function(form) {
 					form.submit();
-				}
+				},
+					
 			});
 		});
 		jQuery("form input[type=submit]").click(function(e) {

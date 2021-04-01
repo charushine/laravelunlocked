@@ -4,8 +4,9 @@ namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\OwnerMiddleware;
 use App\Http\Middleware\UserMiddleware;
-use App\Http\Middleware\CompanyMiddleware;
+
 
 class Kernel extends HttpKernel
 {
@@ -68,7 +69,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 		'admin' => AdminMiddleware::class,
 		'user' => UserMiddleware::class,
-		'company' => CompanyMiddleware::class,
+		'owner' => OwnerMiddleware::class,
+	
 		//'json.response' => \App\Http\Middleware\ForceJsonResponse::class,
 		'cors' => \App\Http\Middleware\Cors::class,
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,

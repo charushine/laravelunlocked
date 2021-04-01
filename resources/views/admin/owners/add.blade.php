@@ -112,24 +112,26 @@
 							</div>
 						</div>
 
-						<div class="row">
+						<!-- <div class="row">
 							<div class="col-lg-4 col-md-6 col-12">
 								<div class="form-group">
 									<label>Status<span class="required">*</span>
 									</label>
 									<div class="input-group">
 										<div id="radioBtn" class="btn-group">
-										    <a class="btn btn-success btn-sm {{ old('status') ? old('status') == '1' ? 'active' : 'notActive' : 'active'}}" data-toggle="status" data-title="1">Enabled</a>
+											<a class="btn btn-success btn-sm {{  old('status') == '1' ? 'active' : (old('status') =='0' ? 'notActive' : 'active') }}" data-toggle="status" data-title="1">Enabled</a>
+											
 											<a class="btn btn-danger btn-sm {{ old('status') == '0' ? 'active' : 'notActive'}}" data-toggle="status" data-title="0">Disabled</a>
 										</div>
-										<input type="hidden" name="status" id="status" value="1">
+										{{old('status')}}
+										<input type="hidden" name="status" id="status" value="{{old('status') == '1' ?'1' :'0'}}">
 									</div>
 									@if ($errors->has('status'))
 									<span class="text-danger">{{ $errors->first('status') }}</span>
 									@endif
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<div class="mt-1 mb-1">
 							<div class="text-left d-print-none mt-4">
 								<button type="submit" name="action" value="saveadd" class="btn btn-primary">Save & Add New</button>
@@ -211,7 +213,7 @@
 					},
 					zipcode:{
 						required: 'Zipcode is required',
-						number: 'Zipcode must be number only
+						number: 'Zipcode must be number only'
 					},
 				},
 				submitHandler: function(form) {

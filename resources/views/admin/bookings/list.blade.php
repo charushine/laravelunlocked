@@ -18,7 +18,7 @@
 	<div class="row">
         <div class="col-xl-12 col-md-12">
 			<div class="card shadow mb-4">
-				<div class="card-header py-3">
+				<div class="card-header booking-lst py-3">
 					<form class="form-inline float-left" id="search-form">
 						<div class="form-group">
 							<input type="text" class="form-control" data-model="User" value="{{$keyword}}" data-searchcoulnm="first_name,last_name,email" id="search_keyword" name="search_keyword" placeholder="What are you looking for?">

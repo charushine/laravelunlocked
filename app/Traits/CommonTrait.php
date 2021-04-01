@@ -38,7 +38,7 @@ trait CommonTrait
     {
         $users = User::role('User')
                     ->join("user_details",'users.id','=','user_details.user_id')
-                    ->select(DB::raw('users.id, first_name, last_name, email,mobile,address,zipcode, IF(users.status = 1,   "Active","Inactive") as owner_status,DATE_FORMAT(users.created_at, "%d-%b-%Y") as createdAt'))
+                    ->select(DB::raw('users.id, first_name, last_name, email,mobile,address,zipcode, IF(users.status = 1, "Active","Inactive") as owner_status,DATE_FORMAT(users.created_at, "%d-%b-%Y") as createdAt'))
                     ->orderBy('id', 'asc')
                     ->get()->toArray();
         return $users;

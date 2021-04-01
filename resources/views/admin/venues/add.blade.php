@@ -239,7 +239,7 @@
 						required: 'Total room is required',
 					},
 					'venue_image_name[]':{
-							extension: 'Choose the image jpg,jpeg,png or svg format Only',
+							extension: 'Choose the image jpg,jpeg or png format Only',
 					}
 				},
 				submitHandler: function(form) {

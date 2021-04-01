@@ -152,11 +152,22 @@
 							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
 							    <a class="dropdown-item text-center" href="javascript:void(0);">{{ $user->first_name.' '.$user->last_name}}<br><span style="font-size:12px;">Administrator</span></a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#" data-toggle="modal" data-target="#profileModal">	<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+							
+								@if (Auth()->user()->roles[0]->name == "User")
+									<a class="dropdown-item" href="{{route('detail.update')}}">	<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
 									Profile Setting</a>
+								@else
+									<a class="dropdown-item" href="#" data-toggle="modal" data-target="#profileModal">	<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+									Profile Setting</a>
+								@endif
 								<div class="dropdown-divider"></div>
+								@if (Auth()->user()->roles[0]->name == "User")
+									<a class="dropdown-item" href="{{route('change.password')}}" >	<i class="fa fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
+									Change Password</a>
+								@else
 								<a class="dropdown-item" href="#" data-toggle="modal" data-target="#changepassModal">	<i class="fa fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
 									Change Password</a>
+								@endif
 								<div class="dropdown-divider"></div>	<a class="dropdown-item" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 										{{ __('Logout') }}
 									</a>

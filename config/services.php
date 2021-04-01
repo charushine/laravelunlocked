@@ -34,5 +34,9 @@ return [
         'client_secret' => env('LINKEDIN_CLIENT_SECRET'),
         'redirect' => env('LINKEDIN_REDIRECT')
     ],
-
+   'google' => [
+        'client_id' => '795436823953-jl91nkm4cs7877jc76mrn1hv8agkj2ad.apps.googleusercontent.com',
+        'client_secret' => 'rUdWPpfvbmiMZrRdAOwtoRAL',
+        'redirect' => 'http://localhost:8000/auth/google/callback',
+    ],
 ];

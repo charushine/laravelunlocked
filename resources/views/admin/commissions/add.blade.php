@@ -72,7 +72,7 @@
 		</div>
 		<!-- end row -->
         <div class="col-md-6">
-			<div class="card">
+			<div class="card mb-4">
 				<div class="card-body pt-2 pb-3 manageClinicSection">
 					<h5 class="mt-3 mb-4">
 						Total Generated Commission

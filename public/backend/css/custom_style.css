@@ -547,3 +547,43 @@ th a{
 th a:hover{
     color: #4b5c2a;
 }
+
+/*---------1-04-2021 css start here---------*/
+
+.images-sections .main-pic {
+  border: 1px solid #000;
+   padding: 5px !important;margin-bottom: 20px; margin-right: 20px;position: relative;
+}
+.images-sections .img-profile{
+    height: 100px;
+    object-fit: cover;
+    width: 100px;
+}
+.images-sections .form-group {
+    display: flex;
+    justify-content: center;flex-wrap: wrap;
+}
+.venue-sec .img-profile {
+    margin-right: 15px;
+}
+.images-sections .main-pic:nth-child(4n) {
+    margin-right: 0;
+}
+.images-sections .main-pic:last-child{
+    margin-right: 0 !important;
+}
+.images-sections img.cross-section {
+ position: absolute;top: -10px;right: -10px;
+ background: #000;width: 22px;height: 22px;padding: 4px;border-radius: 50%;}
+.booking-lst .form-inline{width: 750px;}
+.booking-lst .form-inline .form-control {width: 100%;}
+.booking-lst .form-inline .form-group {flex: 0 0 40%;}
+.category-img .img-profile {max-width: 180px;margin-top: 0;}
+.main-contentt label#content-error {
+    position: absolute;
+    bottom: -16px;
+    left: 10px;
+}
+.main-contentt {
+    margin-bottom: 10px;
+}

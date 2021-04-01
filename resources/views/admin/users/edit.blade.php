@@ -76,7 +76,7 @@
 								<div class="form-group">
 									<label>Zipcode<span class="required">*</span>
 									</label>
-									<input type="text" name="zipcode" id="zipcode"  value="{{old('zipcode', isset($userDetail->user_detail->zipcode) ? $userDetail->user_detail->zipcode : "")}}" class="form-control form-control-user" />
+									<input type="number" name="zipcode" id="zipcode"  value="{{old('zipcode', isset($userDetail->user_detail->zipcode) ? $userDetail->user_detail->zipcode : "")}}" class="form-control form-control-user" />
 									@if ($errors->has('zipcode'))
 										<span class="text-danger">{{ $errors->first('zipcode') }}</span>
 									@endif
@@ -152,6 +152,7 @@
 					},
 					zipcode: {
 						required: true,
+						number: true,
 					},
 
 				},
@@ -159,11 +160,11 @@
 				messages: {
 					first_name: {
 						required: 'First name is required',
-						lettersonly: 'First name should contains letters only',
+						lettersonly: 'First name should contain letters only',
 					},
 					last_name: {
 						required: 'Last name is required',
-						lettersonly: 'Last name should contains letters only',
+						lettersonly: 'Last name should contain letters only',
 					},
 					email: {
 						required: 'Email address is required',
@@ -171,10 +172,11 @@
 					},
 					mobile:{
 						required: 'Contact no is required',
-						number: 'Contact must be digit only',
+						number: 'Contact must be number only',
 					},
 					zipcode:{
 						required: 'Zipcode is required',
+						number: 'Zipcode must be number only',
 					},
 
 				},

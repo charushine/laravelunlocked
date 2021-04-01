@@ -93,23 +93,27 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
+
+	<div class="row venue-sec">
 		<div class="col-xl-8 col-md-8">
 			<div class="card shadow mb-4">
-			<strong>Venue Images</strong>
 				<div class="card-body">
+			<strong>Venue Images</strong>
+				<div>
 				@if(count($venueImages))
 					@foreach($venueImages as $images)
 
-						<img class="img-profile mt30" style="padding-right:10px; padding-bottom:10px" src="{{asset('/assets/venue/images/'.$images->name)}}" width="100px" alt="Venue Image">
+						<img class="img-profile mt30" src="{{asset('/assets/venue/images/'.$images->name)}}" width="80px" height="80px" alt="Venue Image">
 					@endforeach
 				@else
 					<li class="list-group-item ">No Image</li>
 				@endif
 				</div>
+				</div>
 			</div>
 		</div>
 	</div>
+
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
 		<h1 class="h3 mb-0 text-gray-800">Latest Bookings</h1>
 	</div>

@@ -74,7 +74,7 @@
 								<div class="form-group">
 									<label>Zipcode<span class="required">*</span>
 									</label>
-									<input type="text" name="zipcode" id="zipcode"  value="{{old('zipcode', isset($ownerDetail->user_detail->zipcode) ? $ownerDetail->user_detail->zipcode:"")}}" class="form-control form-control-user" />
+									<input type="number" name="zipcode" id="zipcode"  value="{{old('zipcode', isset($ownerDetail->user_detail->zipcode) ? $ownerDetail->user_detail->zipcode:"")}}" class="form-control form-control-user" />
 									@if ($errors->has('zipcode'))
 										<span class="text-danger">{{ $errors->first('zipcode') }}</span>
 									@endif
@@ -174,7 +174,7 @@
 					},
 					zipcode:{
 						required: 'Zipcode is required',
-						number: 'Zipcode must be number only
+						number: 'Zipcode must be number only'
 					},
 
 				},
