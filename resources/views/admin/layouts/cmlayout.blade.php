@@ -57,7 +57,7 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="{{route('categories.list')}}">	<i class="fas fa-users"></i>
+				<a class="nav-link" href="{{route('categories.list')}}">	<i class="fa fa-list-alt" aria-hidden="true"></i>
 					<span>Categories</span>
 				</a>
 			</li>
@@ -67,7 +67,7 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="{{route('commission.add')}}">	<i class="fa fa-usd" aria-hidden="true"></i>
+				<a class="nav-link" href="{{route('commission.add')}}">	<i class="fa fa-percent" aria-hidden="true"></i>
 					<span>Commissions</span>
 				</a>
 			</li>

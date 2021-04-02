@@ -66,7 +66,7 @@ class TestimonialController extends Controller
             'user_post' => 'required|max:200',
             'location' => '',
             'message' => 'required|max:2500',
-            'image' => 'file|mimetypes:image/jpeg,image/png',
+            'image' => 'image|mimes:jpeg,png,jpg',
             'status' => 'required'
         ]);
         try
@@ -144,7 +144,7 @@ class TestimonialController extends Controller
             'user_post' => 'required|max:200',
             'location' => '',
             'message' => 'required|max:2500',
-            'image' => 'file|mimetypes:image/jpeg,image/png',
+            'image' => 'image|mimes:jpeg,png,jpg',
             'status' => 'required'
         ]);
         try

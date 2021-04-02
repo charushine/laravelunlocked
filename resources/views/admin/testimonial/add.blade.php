@@ -154,7 +154,7 @@
                     maxlength: 'Message should be less than 2500 characters ',
     			},
                 image: {
-                    extension: "Select valid input file format (only jpeg, jpeg and png allowed)"
+                    extension: "Choose the image jpg,jpeg,or png format Only"
                 },
     		},
     		submitHandler: function(form) {

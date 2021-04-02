@@ -102,32 +102,7 @@ class BookingController extends Controller
 
      /* End Method confirm_request */
 
-    /*
-    Method Name:    send_notification
-    Developer:      Shine Dezign
-    Created Date:   2021-03-25 (yyyy-mm-dd)
-    Purpose:        To Send email on APProve/Decline Booking request
-    Params:         []
-     */
-    function send_notification($btemplate,$email,$name){
-
-        $template = $this->get_template_by_name($btemplate);
-        $string_to_replace = array(
-            '{{$name}}',
-        );
-        $string_replace_with = array(
-            $name,
-        );
-        $newval = str_replace($string_to_replace, $string_replace_with, $template->template);
-        $logId = $this->email_log_create($email, $template->id, $btemplate);
-        $result = $this->send_mail($email, $template->subject, $newval);
-        if ($result)
-        {
-            $this->email_log_update($logId);
-            return;
-        }
-        return;
-    }
+   
 
      /* End Method confirm_request */
 
@@ -248,6 +223,8 @@ class BookingController extends Controller
 
             $record = Booking::create($data);
             if($record){
+                $user = User::find($request->user_id);
+                $this->send_notification("APPROVE_BOOKING",$user->email,$user->first_name);
                 $routes = ($request->action == 'saveadd') ? 'booking.add' : 'bookings.list';
         		return redirect()->route($routes)->with('status', 'success')->with('message', 'Booking '.Config::get('constants.SUCCESS.CREATE_DONE'));
         	}
@@ -271,5 +248,32 @@ class BookingController extends Controller
         $bookingDetail = Booking::find($id);
 
         return view('admin.bookings.view_detail',compact('bookingDetail'));
+    }
+
+     /*
+    Method Name:    send_notification
+    Developer:      Shine Dezign
+    Created Date:   2021-03-25 (yyyy-mm-dd)
+    Purpose:        To Send email on APProve/Decline Booking request
+    Params:         []
+     */
+    function send_notification($btemplate,$email,$name){
+
+        $template = $this->get_template_by_name($btemplate);
+        $string_to_replace = array(
+            '{{$name}}',
+        );
+        $string_replace_with = array(
+            $name,
+        );
+        $newval = str_replace($string_to_replace, $string_replace_with, $template->template);
+        $logId = $this->email_log_create($email, $template->id, $btemplate);
+        $result = $this->send_mail($email, $template->subject, $newval);
+        if ($result)
+        {
+            $this->email_log_update($logId);
+            return;
+        }
+        return;
     }
 }

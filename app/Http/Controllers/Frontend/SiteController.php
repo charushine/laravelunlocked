@@ -41,7 +41,7 @@ class SiteController extends Controller
     */
     public function getvenues(Request $request ,$keyword=""){
         // DB::enableQueryLog();
-        $offset = 1;
+        $offset = 10;
         if($request->page){
             $offset = $request->page;
         }
@@ -66,15 +66,9 @@ class SiteController extends Controller
               ->orWhere('is_featured', 'like', '%'.$keyword.'%')          
               ->orWhere('total_room', 'like', '%'.$keyword.'%')          
               ->orWhere('booking_price', 'like', '%'.$keyword.'%')         
-              ->orWhere('status', 'like', '%'.$keyword.'%');
-            //   ->whereDoesntHave('booking', function( $query ) use ( $request ){                 
-            //         $query->whereBetween('date', [$start, $end]);     
-            //     });                 
+              ->orWhere('status', 'like', '%'.$keyword.'%');                 
         })->where('status', 1)->orderBy('booking_price', 'asc')->take($offset)->get();
 
-          //   ->whereDoesntHave('booking', function( $query ) use ($start, $end){                 
-            //         $query->whereBetween('date', [$start, $end]);     
-            //     });   
         // dd(DB::getQueryLog());
         return view('showvenues',compact('venues'));
     }

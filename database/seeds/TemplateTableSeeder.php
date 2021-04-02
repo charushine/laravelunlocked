@@ -112,7 +112,7 @@ class TemplateTableSeeder extends Seeder
                 <p style="text-align: left; margin-top: 15px;">Your booking has been approved. Click on this link to booking again.</p>
                 <p style="margin-top: 15px;"><a class="btn btn-black" style="background-color: #244e45; padding: 5px 20px; color: #fff;" href="">Click here</a></p>
                 <p style="text-align: left; margin: 0px;">Or Copy the below link on your browser tab :</p>
-                <p style="text-align: left;">unlocked.com</p>
+                <p style="text-align: left;">unlocked</p>
                 <p style="text-align: left;"></p>
                 <p style="margin: 10px 0 0; text-align: left; color: #000000;">Thanks</p>
                 <p style="margin: 0px; text-align: left; color: #000000; font-weight: bold;">Unlocked Team</p>
@@ -181,7 +181,7 @@ class TemplateTableSeeder extends Seeder
                 <p style="text-align: left; margin-top: 15px;">Your booking has been declined due to some reasons. Click on this link to booking again.</p>
                 <p style="margin-top: 15px;"><a class="btn btn-black" style="background-color: #244e45; padding: 5px 20px; color: #fff;" href="">Click here</a></p>
                 <p style="text-align: left; margin: 0px;">Or Copy the below link on your browser tab :</p>
-                <p style="text-align: left;">unlocked.com</p>
+                <p style="text-align: left;">unlocked</p>
                 <p style="text-align: left;"></p>
                 <p style="margin: 10px 0 0; text-align: left; color: #000000;">Thanks</p>
                 <p style="margin: 0px; text-align: left; color: #000000; font-weight: bold;">Unlocked Team</p>

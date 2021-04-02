@@ -70,9 +70,9 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-4 col-md-6 col-12">
+                            <div class="col-lg-4 col-md-6 col-12 ">
                                 <div class="form-group">
-                                    <label>Old Image</label>
+                                    
                                     @if($record->image)
 										<p style="margin:0"></p>
 										@php
@@ -82,10 +82,10 @@
 										@if($image)
 											<img class="img-profile mt30" src="{{ 'data:image/' .$type. ';base64,' .base64_encode($image ) }}" alt="image">
 										@else
-											<img class="img-profile mt30" src="{{asset('backend/images/not-available.png')}}" alt="image not available">
+											<img class="img-profile mt30" height="100" width="100" src="{{asset('backend/images/not-available.png')}}" alt="image not available">
 										@endif
                                     @else
-                                    <p>N/A</p>
+                                    <img class="img-profile mt30" height="100" width="100" src="{{asset('backend/images/not-available.png')}}" alt="image not available">
                                     @endif
                                 </div>
                             </div>
@@ -172,7 +172,7 @@
                     maxlength: 'Message should be less than 2500 characters ',
     			},
                 image: {
-                    extension: "Select valid input file format (only jpeg, jpeg and png allowed)"
+                    extension: "Choose the image jpg,jpeg,or png format Only"
                 },
     		},
     		submitHandler: function(form) {

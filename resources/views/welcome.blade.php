@@ -38,9 +38,9 @@
     <div class="displayVenues">
         <img class="img-fluid rounded mb-4 mb-lg-0" src="{{asset('frontend/images/loader1.gif')}}" alt="">
     </div>
-    <button class="btn btn-info mb-4" type="button" id="loadmore">
+    <!-- <button class="btn btn-info mb-4" type="button" id="loadmore">
         Load More..
-    </button>
+    </button> -->
     <div class="row mb-4">
        <iframe width="100%" height="510" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src = "https://maps.google.com/maps?q=10.305385,77.923029&hl=es;z=14&amp;output=embed">
        </iframe>
