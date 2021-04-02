@@ -25,7 +25,7 @@
             <div class="input-group">
             <input type="text" class="form-control" placeholder="Search Venue" id="searchKeyword">
             <input type="text" class="form-control ml-1" placeholder="Start/End Date" id="daterange">
-            <!-- <input type="text" class="form-control ml-1" placeholder="No. of People" id="searchKeywod"> -->
+            <input type="text" class="form-control ml-1" placeholder="Price" id="price">
                 <div class="input-group-append">
                     <button class="btn btn-info" type="button" id="searchVenue">
                         <i class="fa fa-search"></i>
@@ -55,6 +55,7 @@
 <script>
 
 jQuery(document).ready(function() {
+    // alert($(location).attr('href'));
 jQuery.ajax({
     url: baseurl+ "/show_venue",
     success: function(data) {
@@ -69,9 +70,10 @@ jQuery.ajax({
     jQuery(document).on('click', '#searchVenue', function () {
         var searchKeyword = jQuery("#searchKeyword").val();
         var daterange = jQuery("#daterange").val();
+        var price = jQuery("#price").val();
         jQuery.ajax({
             url: baseurl+ "/show_venue/"+searchKeyword,
-            data:{daterange:daterange},
+            data:{daterange:daterange,price:price},
             success: function(data) {
             jQuery(".displayVenues").html(data);
         },  

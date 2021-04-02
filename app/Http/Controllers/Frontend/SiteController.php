@@ -40,11 +40,12 @@ class SiteController extends Controller
     Params:         [keyword]
     */
     public function getvenues(Request $request ,$keyword=""){
-        // DB::enableQueryLog();
+
         $offset = 10;
         if($request->page){
             $offset = $request->page;
         }
+        $start = $end = $price = '';
         if($request->has('daterange') && $request->daterange != '')
         {
             $daterange = $request->daterange;
@@ -56,6 +57,11 @@ class SiteController extends Controller
         {
             $daterange = '';
         }
+        if($request->price){
+            $price = $request->price;
+        }else{
+            $price="";
+        }
         $venues = Venue::when($keyword != "", function($q) use($keyword){
             $q->where('name', 'like', '%'.$keyword.'%')
               ->orWhere('location', 'like', '%'.$keyword.'%')        
@@ -66,10 +72,16 @@ class SiteController extends Controller
               ->orWhere('is_featured', 'like', '%'.$keyword.'%')          
               ->orWhere('total_room', 'like', '%'.$keyword.'%')          
               ->orWhere('booking_price', 'like', '%'.$keyword.'%')         
-              ->orWhere('status', 'like', '%'.$keyword.'%');                 
-        })->where('status', 1)->orderBy('booking_price', 'asc')->take($offset)->get();
-
-        // dd(DB::getQueryLog());
+              ->orWhere('status', 'like', '%'.$keyword.'%');                             
+        })->when($price != "", function($qe) use($price){
+                $qe->where("booking_price","<",$price);
+        })
+        ->when($daterange != "" ,function($qu) use($start, $end){
+            $qu->whereDoesntHave('booking', function( $query ) use ($start, $end){
+                $query->whereBetween('date', [$start, $end]);
+            });
+        })
+        ->where('status', 1)->orderBy('booking_price', 'asc')->take($offset)->get();
         return view('showvenues',compact('venues'));
     }
 
@@ -85,8 +97,9 @@ class SiteController extends Controller
         $venue =  Venue::find($id);
         return view('venuedetail',compact('venue'));
     }
-    
+
     function book_venue(Request $request){
+        
         $id = $request->id;
         return view('book_venue',compact('id'));
     }

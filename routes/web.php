@@ -41,6 +41,10 @@ Route::namespace('Frontend')->group(function () {
 	Route::get('/show_venue/{keyword?}', 'SiteController@getvenues'); 
 	Route::get('/venue-detail/{id}', 'SiteController@venue_detail')->name("venuedetail"); 
 	Route::get('/book-venue', 'SiteController@book_venue')->name("bookvenue"); 
+
+	//Rating Routes
+	Route::get('rating/add', 'RatingController@add_form')->name("rating.add"); 
+	Route::post('rating/create', 'RatingController@add_record')->name("rating.create"); 
 });
 
 Route::namespace('Frontend')->prefix('user')->middleware('XssSanitizer', 'user', 'prevent-back-history')->group(function () { 

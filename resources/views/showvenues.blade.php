@@ -10,11 +10,27 @@
                         @else
                             <img src="{{asset('frontend/images/download.png')}}">
                         @endif
-                        <!-- <h2 class="card-title">Card One</h2> -->
-                        <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, -->
-                        <!-- maxime minus quam molestias corporis quod, ea minima accusamus.</p> -->
-                    </div>
+                    </div> 
                     <div class="card-footer">
+                        <div class="pull-right"><h6 >${{$venue->booking_price}}</h6></div>
+                        <div class="pull-left">
+                            @php $ratings =""; $z= 1; $y= 0.5; @endphp
+
+                            @if($venue->rating_reviews->count() > 0 )
+                                @php $ratings = ($venue->rating_reviews->sum('rating')) / ($venue->rating_reviews->count()) @endphp               
+                            @endif
+
+                            @while ($z <= $ratings)
+									<i class="fa fa-star" style="color:green"></i>
+                                @php $z++ @endphp
+
+                            @endwhile
+                               
+                            @if(((float) $ratings + 0.5) == $z)
+                                <i class="fa fa-star-half-o" style="color:green"></i>
+                            @endif 
+                                 
+                        </div>&nbsp;&nbsp;
                         <a href="{{route('venuedetail',[$venue->id])}}" class="btn btn-primary btn-sm">More Info</a>
                     </div>
                 </div>
@@ -26,5 +42,6 @@
         </div>
     @endif
     </div>
+   
    
    
