@@ -82,7 +82,7 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="{{route('testimonial.list')}}">	<i class="fas fa-users"></i>
+				<a class="nav-link" href="{{route('testimonial.list')}}">	<i class="fa fa-quote-left" aria-hidden="true"></i>
 					<span>Testimonials</span>
 				</a>
 			</li>

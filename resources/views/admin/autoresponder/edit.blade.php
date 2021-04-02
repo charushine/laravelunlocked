@@ -53,7 +53,7 @@
 									<label>Template<span class="required">*</span>
 									</label>
 									<textarea name="template" id="template" class="form-control form-control-user editor">{{old('template', $record->template)}}</textarea>
-									<p>Use these tag for name: @{{$name}}, Email: @{{$email}}.</p>
+									<p>Use these tag for name: @{{$name}}, Email: @{{$email}}, Date: @{{$date}}.</p>
 									@if ($errors->has('template'))
 									<span class="text-danger">{{ $errors->first('template') }}</span>
 									@endif

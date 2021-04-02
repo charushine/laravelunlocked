@@ -91,7 +91,7 @@ class BookingController extends Controller
                 $status ="DECLINED_DONE";
                 $template = "DECLINE_BOOKING";
             }
-            $this->send_notification($template,$booking->user->email,$booking->user->first_name);
+            $this->send_notification($template,$booking->user->email,$booking->user->first_name,date('d F Y', strtotime($booking->date)));
 
             return redirect()->back()->with('status', 'success')->with('message', 'Booking '.Config::get('constants.SUCCESS.'.$status));
 
@@ -224,7 +224,8 @@ class BookingController extends Controller
             $record = Booking::create($data);
             if($record){
                 $user = User::find($request->user_id);
-                $this->send_notification("APPROVE_BOOKING",$user->email,$user->first_name);
+                $this->send_notification("COMPLETE_BOOKING",$user->email,$user->first_name,date('d F Y', strtotime($request->date)));
+
                 $routes = ($request->action == 'saveadd') ? 'booking.add' : 'bookings.list';
         		return redirect()->route($routes)->with('status', 'success')->with('message', 'Booking '.Config::get('constants.SUCCESS.CREATE_DONE'));
         	}
@@ -257,14 +258,16 @@ class BookingController extends Controller
     Purpose:        To Send email on APProve/Decline Booking request
     Params:         []
      */
-    function send_notification($btemplate,$email,$name){
-
+    function send_notification($btemplate,$email,$name,$date){
+      
         $template = $this->get_template_by_name($btemplate);
         $string_to_replace = array(
             '{{$name}}',
+            '{{$date}}'
         );
         $string_replace_with = array(
             $name,
+            $date
         );
         $newval = str_replace($string_to_replace, $string_replace_with, $template->template);
         $logId = $this->email_log_create($email, $template->id, $btemplate);
