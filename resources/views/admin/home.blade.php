@@ -29,7 +29,7 @@
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
-                    <a href="" class="anchor-link">
+                    <a href="{{route('owners.list')}}" class="anchor-link">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Owners</div>
@@ -46,7 +46,7 @@
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
-                    <a href="" class="anchor-link">
+                    <a href="{{route('venues.list')}}" class="anchor-link">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Venue</div>
@@ -63,7 +63,7 @@
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
-                    <a href="" class="anchor-link">
+                    <a href="{{route('venues.list')}}" class="anchor-link">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Featured Venue</div>

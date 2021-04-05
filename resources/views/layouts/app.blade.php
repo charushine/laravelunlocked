@@ -79,8 +79,11 @@
     var baseurl = $('meta[name="baseurl"]').prop('content');
     var token = $('meta[name="csrf-token"]').prop('content');
 </script>
+
   <script src="{{asset('frontend/vendor/jquery/jquery.min.js')}}"></script>
   <script src="{{asset('frontend/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  	<script src="{{asset('backend/js/jquery.validate.min.js')}}"></script>
+	<script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
   @yield('scripts')
 </body>
 

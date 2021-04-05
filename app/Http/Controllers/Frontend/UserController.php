@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\{User, UserDetails, PasswordReset};
+use App\{User, UserDetails, PasswordReset, Amenity, VenueAmenity, Venue};
 use Illuminate\Support\Facades\{Config, Auth, Validator, Hash, Crypt};
 use Illuminate\Support\{Collection, Str};
 use App\Traits\AutoResponderTrait;
@@ -44,6 +44,119 @@ class UserController extends Controller
         return view('user.dashboard',compact('userDetail'));
     }
     /* End Method index */
+
+     /*
+    Method Name:    add_form
+    Developer:      Shine Dezign
+    Created Date:   2021-03-22 (yyyy-mm-dd)
+    Purpose:        Form to add venue details
+    Params:         []
+    */
+    public function add_form(){
+        $amenities = Amenity::get();
+    	return view('user.venues.add',compact('amenities'));
+    }
+    /* End Method add_form */
+
+     /*
+    Method Name:    add_record
+    Developer:      Shine Dezign
+    Created Date:   2021-03-22 (yyyy-mm-dd)
+    Purpose:        To add venue
+    Params:         [name, location, building_type, total_room,booking_price,contact,venue_image_name[], status]
+    */
+    public function insert_record(Request $request){
+       
+       
+
+        $request->validate([
+            'name' => 'required|string',
+            'location' => 'required|string',
+          
+            'building_type' => 'required',
+            'total_room' => 'required|numeric',
+            'booking_price' => 'required|numeric',
+            'contact' => 'required|numeric',
+            'status' => 'required',
+            'venue_image_name[]' => 'image|mimes:jpeg,png,jpg',
+        ],[
+            'venue_image_name.mimes' => 'Choose the image jpg,jpeg or png format Only',
+            'venue_image_name.image' => 'Choose the image Only',
+            'user_id.required' => 'Owner name is required',
+        ]);
+        try {
+            $imgArr = [];
+
+            $data =[
+                'name' => $request->name,
+
+                'user_id' => 2,
+                // Auth::user()->id,
+                'location' => $request->location,
+                'building_type' => $request->building_type,
+                'total_room' => $request->total_room,
+                'booking_price' => $request->booking_price,
+                'contact' => $request->contact,
+               
+                'other_information' => $request->other_information,
+                'status' => $request->status,
+            ];
+            $record = Venue::create($data);
+            
+            $venueId = $record->id;
+            if($venueId){
+               
+                 $amenity_id  = implode(',', $request['amenity_id']);
+                  
+                 VenueAmenity::create(['venue_id'=>$venueId,'amenity_id' => $amenity_id]);
+
+                if($request->file('venue_image_name')) {
+
+                    $venuImg = $request->file('venue_image_name');
+                    $uploadpath = public_path().'/assets/venue/images/';
+                    foreach($venuImg as $key => $img){
+                        $file = $img;
+                        $orignlname = $img->getClientOriginalName();
+                        $extension = $file->getClientOriginalExtension();
+                        $slug = Str::slug($request->name);
+                        $documentname = $slug."-".$orignlname;
+
+                        $image_path = $uploadpath.'/'.$documentname; // Value is not URL but directory file path
+
+                        $imgArr[] =  ['venue_id' => $venueId, 'name'=> $documentname ,'status' => 1 ];
+                        $file->move($uploadpath, $documentname);
+                    }
+                    if(count($imgArr)){
+                        VenueImage::insert($imgArr);
+                    }
+
+                }
+
+                // $routes = ($request->action == 'saveadd') ? 'venues.add' : 'venues.list';
+        		return redirect()->back()->with('status', 'success')->with('message', 'Venue '.Config::get('constants.SUCCESS.CREATE_DONE'));
+        	}
+            return redirect()
+                    ->back()->with('status', 'error')
+                    ->with('message', Config::get('constants.ERROR.OOPS_ERROR'));
+        } catch ( \Exception $e ) {
+            return redirect()->back()->with('status', 'error')->with('message', $e->getMessage());
+        }
+    }
+    /* End Method add_record */
+
+
+    /*
+    Method Name:    index
+    Developer:      Shine Dezign
+    Created Date:   2021-04-05 (yyyy-mm-dd)
+    Purpose:        To display user's bookings
+    Params:         []
+    */
+    public function my_bookings(){
+        Booking::where("user_id",Auth::user()->id)->get();
+      
+    }
+
 
     /*
     Method Name:    edit_form
@@ -208,7 +321,7 @@ class UserController extends Controller
                 'password.required' => 'Password field is required',
                 'password.confirmed' => 'Confirm Password must be same as new password'
             ]
-    );
+        );
         try
         {
             $data = array(

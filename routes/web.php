@@ -44,7 +44,9 @@ Route::namespace('Frontend')->group(function () {
 
 	//Rating Routes
 	Route::get('rating/add', 'RatingController@add_form')->name("rating.add"); 
-	Route::post('rating/create', 'RatingController@add_record')->name("rating.create"); 
+	Route::post('rating/create', 'RatingController@add_record')->name("rating.create");
+	Route::get('venue/add', 'UserController@add_form')->name("venue.add");  
+	Route::post('venue/insert', 'UserController@insert_record')->name("venue.insert");  
 });
 
 Route::namespace('Frontend')->prefix('user')->middleware('XssSanitizer', 'user', 'prevent-back-history')->group(function () { 

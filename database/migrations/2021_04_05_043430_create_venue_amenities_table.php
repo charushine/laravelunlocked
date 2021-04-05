@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAmenitiesTable extends Migration
+class CreateVenueAmenitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class CreateAmenitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('amenities', function (Blueprint $table) {
+        Schema::create('venue_amenities', function (Blueprint $table) {
+            
             $table->bigIncrements('id');
-            $table->string("name")->nullable();
+            $table->unsignedBigInteger("venue_id");
+            $table->string("amenity_id");
             $table->tinyInteger('status')->default();
+            $table->foreign('venue_id')->references('id')->on('venues')->onDelete('cascade');
             $table->timestamps();
+       
         });
     }
 
@@ -28,6 +32,6 @@ class CreateAmenitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('amenities');
+        Schema::dropIfExists('venue_amenities');
     }
 }
