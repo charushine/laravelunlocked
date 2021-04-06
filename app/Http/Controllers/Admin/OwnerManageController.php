@@ -279,27 +279,22 @@ class OwnerManageController extends Controller
         $ownerDetail = User::role('Owner')->find($id);
         if(!$ownerDetail)
             return redirect()->route('owners.list');
-        // DB::enableQueryLog();
 
         $venuesBooking = Venue::when($request->search_keyword, function($q) use($request){
             $q->where('name', 'like', '%'.$request->search_keyword.'%')
             ->orWhere('id', $request->search_keyword)
 
-            ->whereHas('booking', function( $query ) use ( $request ){
+            ->orWhereHas('booking', function( $query ) use ( $request ){
                 $query->where('booking_name','like', '%'.$request->search_keyword.'%')
                 ->orWhere('date', 'like', '%'.$request->search_keyword.'%')
-
                 ->orWhere('booking_email', 'like', '%'.$request->search_keyword.'%')
-                    ->whereHas('user', function( $qa ) use ( $request ){
-                        $qa->where('first_name','like', '%'.$request->search_keyword.'%')
-                        ->orWhere('last_name', 'like', '%'.$request->search_keyword.'%')
-                        ->orWhere('email', 'like', '%'.$request->search_keyword.'%');
+
+                    ->orWhereHas('user', function( $qa ) use ( $request ){
+                        $qa->whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", '%'.$request->search_keyword.'%');
                     });
             });
         })
         ->with(['booking'])->where('user_id',$id)->sortable('id')->paginate(Config::get('constants.PAGINATION_NUMBER'));
-
-        // dd(DB::getQueryLog());
 
         return view('admin.owners.view_detail',compact('ownerDetail','venuesBooking'));
     }

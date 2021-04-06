@@ -40,24 +40,42 @@
     <div class="row">				
         <div class="col-md-4">
             <div class="form-group ">
-            <label>Building Type<span></span></label>
+            <label>Rating<span></span></label>
                 <div class="col-sm-10">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="rating" data-value="3">
-                        <i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i>
+                        <input class="form-check-input" type="checkbox" name="rating" data-value="5">
+                        <i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i>
                     </div>
                 </div> 
                 <div class="col-sm-10">
                     <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="rating" data-value="4">
+                        <i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i>
+                    </div>
+                </div> 
+                 <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="rating" data-value="3">
+                        <i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i>
+                    </div>
+                </div>   
+                <div class="col-sm-10">
+                    <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="rating" data-value="2">
+                        <i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i>
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="rating" data-value="1">
                         <i class="fa fa-star" style="color:green"></i>
                     </div>
-                </div>    
+                </div> 
             </div>
         </div>
          <div class="col-md-4">
             <div class="form-group ">
-            <label>Rating<span></span></label>
+            <label>Building Type<span></span></label>
                 <div class="col-sm-10">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="building_type" data-value="hotel"  value="dfgdf">
