@@ -57,9 +57,9 @@
 						<div class="row">
 							<div class="col-lg-4 col-md-6 col-12">
 								<div class="form-group">
-									<label>Contact<span class="required">*</span>
+									<label>Contact No.<span class="required">*</span>
 									</label>
-									<input type="text" name="contact" id="contact"  value="{{old('contact')}}" class="form-control form-control-user" />
+									<input type="text" name="contact" id="contact" minlength="10" maxlength="12"  value="{{old('contact')}}" class="form-control form-control-user" />
 									@if ($errors->has('contact'))
 										<span class="text-danger">{{ $errors->first('contact') }}</span>
 									@endif
@@ -198,6 +198,8 @@
 					contact: {
 						required: true,
 						number: true,
+						maxlength: 12,
+						minlength: 10,
 					},
 					building_type :{
 						required: true,
@@ -233,7 +235,9 @@
 					},
 					contact:{
 						required: 'Contact no is required',
-						number: 'Contact must be digit only',
+						number: 'Contact no must be digit only',
+						maxlength: 'Contact no should be of 10 to 12 digit',
+						minlength: 'Contact no should be of 10 to 12 digit',
 					},
 					total_room: {
 						required: 'Total room is required',

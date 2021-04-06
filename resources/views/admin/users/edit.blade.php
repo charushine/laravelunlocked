@@ -62,7 +62,7 @@
 								<div class="form-group">
 									<label>Contact No.<span class="required">*</span>
 									</label>
-									<input type="number" name="mobile" id="mobile"  value="{{old('mobile', isset($userDetail->user_detail->mobile) ? $userDetail->user_detail->mobile: "")}}" class="form-control form-control-user" />
+									<input type="number" name="mobile" id="mobile" minlength="10" maxlength="12"  value="{{old('mobile', isset($userDetail->user_detail->mobile) ? $userDetail->user_detail->mobile: "")}}" class="form-control form-control-user" />
 									@if ($errors->has('mobile'))
 										<span class="text-danger">{{ $errors->first('mobile') }}</span>
 									@endif
@@ -149,6 +149,8 @@
 					mobile: {
 						required: true,
 						number: true,
+						maxlength: 12,
+						minlength: 10,
 					},
 					zipcode: {
 						required: true,
@@ -172,7 +174,9 @@
 					},
 					mobile:{
 						required: 'Contact no is required',
-						number: 'Contact must be number only',
+						number: 'Contact no must be number only',
+						maxlength: 'Contact no should be of 10 to 12 digit',
+						minlength: 'Contact no should be of 10 to 12 digit',
 					},
 					zipcode:{
 						required: 'Zipcode is required',
