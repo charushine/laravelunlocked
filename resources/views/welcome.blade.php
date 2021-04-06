@@ -22,18 +22,62 @@
     <!-- Call to Action Well -->
     <div class="card text-white bg-secondary my-5 py-4 text-center">
         <div class="card-body">
+         <form id="venueSearch"> 
             <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search Venue" id="searchKeyword">
-            <input type="text" class="form-control ml-1" placeholder="Start/End Date" id="daterange">
-            <input type="text" class="form-control ml-1" placeholder="Price" id="price">
+                <input type="text" class="form-control" placeholder="Search Venue" id="searchKeyword" name="searchKeyword">
+                <input type="text" class="form-control ml-1" placeholder="Start/End Date" id="daterange" name="daterange">
+                <input type="text" class="form-control ml-1" placeholder="Price" id="price" name="price">
                 <div class="input-group-append">
                     <button class="btn btn-info" type="button" id="searchVenue">
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
             </div>
+            </form>
         </div>
     </div>
+
+    <div class="row">				
+        <div class="col-md-4">
+            <div class="form-group ">
+            <label>Building Type<span></span></label>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="rating" data-value="3">
+                        <i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i>
+                    </div>
+                </div> 
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="rating" data-value="2">
+                        <i class="fa fa-star" style="color:green"></i>
+                    </div>
+                </div>    
+            </div>
+        </div>
+         <div class="col-md-4">
+            <div class="form-group ">
+            <label>Rating<span></span></label>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="building_type" data-value="hotel"  value="dfgdf">
+                        <label class="form-check-label" for="">
+                           Hotel                      
+                        </label>
+                    </div>
+                </div> 
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="building_type" data-value="guestroom" value="dfdfgd">
+                        <label class="form-check-label" for="">
+                           Guest Room                          
+                        </label>
+                    </div>
+                </div>    
+            </div>
+        </div>					
+	</div>
+
     <!-- Content Row -->
     <div class="displayVenues">
         <img class="img-fluid rounded mb-4 mb-lg-0" src="{{asset('frontend/images/loader1.gif')}}" alt="">
@@ -55,7 +99,24 @@
 <script>
 
 jQuery(document).ready(function() {
-    // alert($(location).attr('href'));
+
+//  jQuery(document).on('click', '#searchVenue', function () {
+//     var datastring = jQuery("#venueSearch").serialize();
+//     jQuery.ajax({
+//             url: baseurl+ "/show_venue/",
+//             data:datastring,
+//             success: function(data) {
+//                 jQuery(".displayVenues").html(data);
+//         },  
+//         error: function (jqXHR, exception) {
+//         var msg = '';
+//             msg = 'Uncaught Error.\n' + jqXHR.responseText;
+//                 console.info(msg);
+//             }
+//         });
+//     });
+
+  
 jQuery.ajax({
     url: baseurl+ "/show_venue",
     success: function(data) {
@@ -67,13 +128,20 @@ jQuery.ajax({
             console.info(msg);
         }
     });
+
+  jQuery(document).on('click', 'input[name="rating"]', function() {      
+    jQuery('input[name="rating"]').not(this).prop('checked', false);      
+});
+
     jQuery(document).on('click', '#searchVenue', function () {
+        var rating = jQuery("input[name='rating']:checked").attr("data-value");
         var searchKeyword = jQuery("#searchKeyword").val();
         var daterange = jQuery("#daterange").val();
         var price = jQuery("#price").val();
+        
         jQuery.ajax({
             url: baseurl+ "/show_venue/"+searchKeyword,
-            data:{daterange:daterange,price:price},
+            data:{daterange:daterange,price:price,rating:rating},
             success: function(data) {
             jQuery(".displayVenues").html(data);
         },  

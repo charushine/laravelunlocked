@@ -144,6 +144,9 @@ class UserManageController extends Controller
     Params:         [id]
     */
     public function change_password($id){
+        $userDetail = User::role('User')->find($id);
+        if(!$userDetail)
+            return redirect()->route('users.list');
     	return view('admin.users.password', compact('id'));
     }
     /* End Method change_password */
@@ -203,6 +206,9 @@ class UserManageController extends Controller
     */
     public function view_detail($id,Request $request){
         $userDetail = User::role('User')->find($id);
+        
+        if(!$userDetail)
+            return redirect()->route('users.list');
 
         $bookings = Booking::when($request->search_keyword, function($q) use($request){
             $q->where('booking_name', 'like', '%'.$request->search_keyword.'%')

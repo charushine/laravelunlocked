@@ -61,7 +61,7 @@
 												@if($row->is_deleted == 1)
 													<a title="Click to Recover" href="{{route('category.delete',['id' => $row->id, 'is_deleted' => 0])}}" class="anchorLess"><i class="fas fa-trash-restore info" aria-hidden="true" ></i></a>
 												@else
-												<a title="Click to Delete" href="{{route('category.delete',['id' => $row->id, 'is_deleted' => 1])}}" class="tableLink"><i class="fas fa-trash danger"></i></a>
+												<a title="Click to Delete" href="{{route('category.delete',['id' => $row->id, 'is_deleted' => 1])}}" class="tableLink delete-confirm"><i class="fas fa-trash danger"></i></a>
 												@endif
 											</a>
 										</td>

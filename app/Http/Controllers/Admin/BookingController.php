@@ -115,9 +115,11 @@ class BookingController extends Controller
     */
     public function edit_form($id){
         $venues = Venue::get();
+
         $bookingDetail = Booking::find($id);
         if(!$bookingDetail)
             return redirect()->route('bookings.list');
+
     	return view('admin.bookings.edit',compact('bookingDetail','venues'));
     }
     /* End Method edit_form */
@@ -166,6 +168,11 @@ class BookingController extends Controller
     Params:         [id]
     */
     public function del_record($id){
+
+        $bookingDetail = Booking::find($id);
+        if(!$bookingDetail)
+            return redirect()->route('bookings.list');
+
         try {
             $booking = Booking::find($id);
             $booking->is_deleted = 1;
@@ -247,6 +254,9 @@ class BookingController extends Controller
     */
     public function view_detail($id,Request $request){
         $bookingDetail = Booking::find($id);
+    
+        if(!$bookingDetail)
+            return redirect()->route('bookings.list');
 
         return view('admin.bookings.view_detail',compact('bookingDetail'));
     }

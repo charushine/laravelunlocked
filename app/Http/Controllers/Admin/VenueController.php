@@ -151,9 +151,11 @@ class VenueController extends Controller
     */
     public function edit_form($id){
         $venueDetail = Venue::find($id);
-        $venueImages = VenueImage::where('venue_id',$id)->get();
+       
         if(!$venueDetail)
             return redirect()->route('venues.list');
+
+        $venueImages = VenueImage::where('venue_id',$id)->get();
 
     	return view('admin.venues.edit',compact('venueDetail','venueImages'));
     }
@@ -318,6 +320,10 @@ class VenueController extends Controller
     */
     public function view_detail($id,Request $request){
         $venueDetail = Venue::find($id);
+
+        if(!$venueDetail)
+            return redirect()->route('venues.list');
+
         $venueImages = VenueImage::where('venue_id',$id)->get();
 
         $bookings = Booking::when($request->search_keyword, function($q) use($request){

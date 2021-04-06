@@ -215,6 +215,10 @@ class OwnerManageController extends Controller
     Params:         [id]
     */
     public function change_password($id){
+        $ownerDetail = User::role('Owner')->find($id);
+        if(!$ownerDetail)
+            return redirect()->route('owners.list');
+
     	return view('admin.owners.password', compact('id'));
     }
     /* End Method change_password */
@@ -273,6 +277,8 @@ class OwnerManageController extends Controller
     */
     public function view_detail($id, Request $request){
         $ownerDetail = User::role('Owner')->find($id);
+        if(!$ownerDetail)
+            return redirect()->route('owners.list');
         // DB::enableQueryLog();
 
         $venuesBooking = Venue::when($request->search_keyword, function($q) use($request){

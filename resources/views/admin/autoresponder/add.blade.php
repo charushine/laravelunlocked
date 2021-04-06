@@ -135,7 +135,7 @@
 				}
 			});
 		});
-		$("form input[type=submit]").click(function(e) {
+		$("form button[type=submit]").click(function(e) {
 			tinymce.triggerSave();
 		});
 	</script>

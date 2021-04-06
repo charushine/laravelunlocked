@@ -49,7 +49,7 @@
                     <a href="{{route('venues.list')}}" class="anchor-link">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Venue</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Venues</div>
                                 <div class="h5 mb-0 font-weight-bold text-primary"><span>{{$venue_count}}</span></div>
                             </div>
                             <div class="col-auto">

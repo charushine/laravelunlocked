@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\{User, UserDetails, PasswordReset, Amenity, VenueAmenity, Venue};
+use App\{User, UserDetails, PasswordReset, Amenity, VenueAmenity, Venue, VenueImage};
 use Illuminate\Support\Facades\{Config, Auth, Validator, Hash, Crypt};
 use Illuminate\Support\{Collection, Str};
 use App\Traits\AutoResponderTrait;
@@ -67,7 +67,7 @@ class UserController extends Controller
     */
     public function insert_record(Request $request){
        
-       
+ 
 
         $request->validate([
             'name' => 'required|string',
@@ -77,7 +77,7 @@ class UserController extends Controller
             'total_room' => 'required|numeric',
             'booking_price' => 'required|numeric',
             'contact' => 'required|numeric',
-            'status' => 'required',
+            'status' => '',
             'venue_image_name[]' => 'image|mimes:jpeg,png,jpg',
         ],[
             'venue_image_name.mimes' => 'Choose the image jpg,jpeg or png format Only',
@@ -99,16 +99,17 @@ class UserController extends Controller
                 'contact' => $request->contact,
                
                 'other_information' => $request->other_information,
-                'status' => $request->status,
+                'status' => 1,
             ];
             $record = Venue::create($data);
             
             $venueId = $record->id;
             if($venueId){
                
-                 $amenity_id  = implode(',', $request['amenity_id']);
-                  
-                 VenueAmenity::create(['venue_id'=>$venueId,'amenity_id' => $amenity_id]);
+                if($request['amenity_id'] !=""){
+                    $amenity_id  = implode(',', $request['amenity_id']);                  
+                    VenueAmenity::create(['venue_id'=>$venueId,'amenity_id' => $amenity_id]);
+                }
 
                 if($request->file('venue_image_name')) {
 

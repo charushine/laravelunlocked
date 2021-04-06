@@ -75,7 +75,7 @@
 											@if($row->is_deleted == 1)
 												<a title="Click to Recover" href="{{route('owner.delete',['id' => $row->id, 'is_deleted' => 0])}}" class="tableLink"><i class="fas fa-trash-restore info"></i></a>
 											@else
-												<a title="Click to Delete" href="{{route('owner.delete',['id' => $row->id, 'is_deleted' => 1])}}" class="tableLink"><i class="fas fa-trash danger"></i></a>
+												<a title="Click to Delete" href="{{route('owner.delete',['id' => $row->id, 'is_deleted' => 1])}}" class="tableLink delete-confirm"><i class="fas fa-trash danger"></i></a>
 											@endif
 										</a>
 									</td>

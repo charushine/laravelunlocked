@@ -158,7 +158,7 @@
 					
 			});
 		});
-		jQuery("form input[type=submit]").click(function(e) {
+		jQuery("form button[type=submit]").click(function(e) {
 				tinymce.triggerSave();
 		  	});
 

@@ -97,8 +97,8 @@
 								@foreach($bookings as $key => $row)
 								<tr>
 									<td>{{$row->id}}</td>
-									<td>{{$row->venue->name ? $row->venue->name : 'N/A' }}</td>
-									<td>{{$row->booking_name ? $row->booking_name : 'N/A' }}</td>
+									<td><a href="{{route('venue.details',[$row->venue->id])}}">{{$row->venue->name ? $row->venue->name : 'N/A' }}</a></td>
+									<td><a href="{{route('booking.details',[$row->id])}}">{{$row->booking_name ? $row->booking_name : 'N/A' }}</a></td>
 									<td>{{$row->booking_email ? $row->booking_email : 'N/A' }}</td>
 									<td>{{$row->date ? change_date_format($row->date) : 'N/A' }}</td>
 									<td>@if($row->status == 1)

@@ -14,22 +14,22 @@
                     <div class="card-footer">
                         <div class="pull-right"><h6 >${{$venue->booking_price}}</h6></div>
                         <div class="pull-left">
+                        
                             @php $ratings =""; $z= 1; $y= 0.5; @endphp
-
-                            @if($venue->rating_reviews->count() > 0 )
-                                @php $ratings = ($venue->rating_reviews->sum('rating')) / ($venue->rating_reviews->count()) @endphp               
-                            @endif
+                           
+                            @if($venue->average_rating > 0 )
+                                @php $ratings = $venue->average_rating; @endphp               
 
                             @while ($z <= $ratings)
 									<i class="fa fa-star" style="color:green"></i>
                                 @php $z++ @endphp
-
                             @endwhile
-                               
-                            @if(((float) $ratings + 0.5) == $z)
-                                <i class="fa fa-star-half-o" style="color:green"></i>
-                            @endif 
-                                 
+                            
+                                @if(((float) $ratings + 0.5) == $z)
+                                    <i class="fa fa-star-half-o" style="color:green"></i>
+                                @endif   
+
+                             @endif                            
                         </div>&nbsp;&nbsp;
                         <a href="{{route('venuedetail',[$venue->id])}}" class="btn btn-primary btn-sm">More Info</a>
                     </div>

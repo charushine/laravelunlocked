@@ -137,6 +137,7 @@ class CategoryController extends Controller
         $categoryDetail = Category::find($id);
         if(!$categoryDetail)
             return redirect()->route('categories.list');
+            
     	return view('admin.categories.edit',compact('categoryDetail','pCategories'));
     }
     /* End Method edit_form */

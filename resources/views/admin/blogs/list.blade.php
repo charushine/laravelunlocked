@@ -58,7 +58,7 @@
 								</td>
 								<td><a class="anchorLess">
 										<a title="Click to Edit" href="{{route('blog.edit',[$row->id])}}" class="anchorLess"><i class="fas fa-edit info" aria-hidden="true" ></i></a>
-										<a title="Click to Delete" href="{{route('blog.delete',[$row->id])}}" class="anchorLess"><i class="fas fa-trash danger" aria-hidden="true" ></i></a>
+										<a title="Click to Delete" href="{{route('blog.delete',[$row->id])}}" class="anchorLess delete-confirm"><i class="fas fa-trash danger" aria-hidden="true" ></i></a>
 								</td>
 							</tr>
 						@endforeach

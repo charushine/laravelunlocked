@@ -53,15 +53,11 @@ class SiteController extends Controller
             $start = $daterang[0];
             $end = $daterang[1];
         }
-        else
-        {
-            $daterange = '';
-        }
-        if($request->price){
-            $price = $request->price;
-        }else{
-            $price="";
-        }
+        else{ $daterange = ''; }
+        if($request->price){ $price = $request->price; }else{$price="";}
+
+        if($request->rating){ $rating = $request->rating; } else {$rating="";}
+
         $venues = Venue::when($keyword != "", function($q) use($keyword){
             $q->where('name', 'like', '%'.$keyword.'%')
               ->orWhere('location', 'like', '%'.$keyword.'%')        
@@ -80,6 +76,9 @@ class SiteController extends Controller
             $qu->whereDoesntHave('booking', function( $query ) use ($start, $end){
                 $query->whereBetween('date', [$start, $end]);
             });
+        })
+        ->when($rating !="" ,function($qy) use($rating){             
+                $qy->where('average_rating', '<=',  $rating);  
         })
         ->where('status', 1)->orderBy('booking_price', 'asc')->take($offset)->get();
         return view('showvenues',compact('venues'));

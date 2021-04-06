@@ -24,7 +24,7 @@
 						Add Rating
 					</h5>
 					<form action="{{route('rating.create')}}" method="post" class="user" id="add_rating_form" enctype="multipart/form-data">@csrf
-						<input type="hidden" name="venue_id" id="venue_id" value="3">					
+						<input type="hidden" name="venue_id" id="venue_id" value="4">					
                         <div class="row">
 							<div class="col-lg-4 col-md-6 col-12">
 								<div class="form-group">
