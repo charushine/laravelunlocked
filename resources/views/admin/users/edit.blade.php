@@ -62,7 +62,7 @@
 								<div class="form-group">
 									<label>Contact No.<span class="required">*</span>
 									</label>
-									<input type="number" name="mobile" id="mobile" minlength="10" maxlength="12"  value="{{old('mobile', isset($userDetail->user_detail->mobile) ? $userDetail->user_detail->mobile: "")}}" class="form-control form-control-user" />
+									<input type="number" min="0" name="mobile" id="mobile" minlength="10" maxlength="12"  value="{{old('mobile', isset($userDetail->user_detail->mobile) ? $userDetail->user_detail->mobile: "")}}" class="form-control form-control-user" />
 									@if ($errors->has('mobile'))
 										<span class="text-danger">{{ $errors->first('mobile') }}</span>
 									@endif
@@ -76,7 +76,7 @@
 								<div class="form-group">
 									<label>Zipcode<span class="required">*</span>
 									</label>
-									<input type="number" name="zipcode" id="zipcode"  value="{{old('zipcode', isset($userDetail->user_detail->zipcode) ? $userDetail->user_detail->zipcode : "")}}" class="form-control form-control-user" />
+									<input type="number" min="0" name="zipcode" id="zipcode"  value="{{old('zipcode', isset($userDetail->user_detail->zipcode) ? $userDetail->user_detail->zipcode : "")}}" class="form-control form-control-user" />
 									@if ($errors->has('zipcode'))
 										<span class="text-danger">{{ $errors->first('zipcode') }}</span>
 									@endif

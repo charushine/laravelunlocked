@@ -74,7 +74,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string',
             'location' => 'required|string',
-          
+            'no_of_people' => 'required|numeric',
             'building_type' => 'required',
             'total_room' => 'required|numeric',
             'booking_price' => 'required|numeric',
@@ -98,6 +98,7 @@ class UserController extends Controller
                 'building_type' => $request->building_type,
                 'total_room' => $request->total_room,
                 'booking_price' => $request->booking_price,
+                'no_of_people' => $request->no_of_people,
                 'contact' => $request->contact,              
                 'other_information' => $request->other_information,
                 'status' => 1,

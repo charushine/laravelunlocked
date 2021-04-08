@@ -16,6 +16,7 @@ class UpdateVenueTable extends Migration
         Schema::table('venues', function (Blueprint $table) {
             
             $table->float("average_rating")->nullable()->after("booking_price");
+            $table->string("no_of_people")->nullable()->after("average_rating");
         });
     }
 

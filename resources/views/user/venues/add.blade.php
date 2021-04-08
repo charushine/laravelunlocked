@@ -89,9 +89,19 @@
 								<div class="form-group">
 									<label>Booking Price<span class="required">*</span>
 									</label>
-									<input type="number" name="booking_price" id="booking_price"  value="{{old('booking_price')}}" class="form-control form-control-user" />
+									<input type="number" minlength="1" min="0" name="booking_price" id="booking_price"  value="{{old('booking_price')}}" class="form-control form-control-user" />
 									@if ($errors->has('booking_price'))
 										<span class="text-danger">{{ $errors->first('booking_price') }}</span>
+									@endif
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-6 col-12">
+								<div class="form-group">
+									<label>No. of People<span class="required">*</span>
+									</label>
+									<input type="number" name="no_of_people" id="no_of_people"  value="{{old('no_of_people')}}" class="form-control form-control-user" />
+									@if ($errors->has('no_of_people'))
+										<span class="text-danger">{{ $errors->first('no_of_people') }}</span>
 									@endif
 								</div>
 							</div>
