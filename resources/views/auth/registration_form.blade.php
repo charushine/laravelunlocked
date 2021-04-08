@@ -107,7 +107,7 @@
                                  
                                     </div>
 									<button type="submit" class="btn btn-success" id="sign_up">Register</button>
-                                        <p class="noaccount-text font-fifteen text-center m-0 pt-3">Already registered <a href="">Log in</a></p>
+                                        <p class="noaccount-text font-fifteen text-center m-0 pt-3">Already registered <a href="{{route('login')}}">Log in</a></p>
 								</form>
 							</div>
 						</div>

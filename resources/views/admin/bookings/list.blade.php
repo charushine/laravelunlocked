@@ -40,9 +40,9 @@
 						<table class="table table-hover dt-responsive nowrap">
 							<thead>
 								<tr>
-									<th>@sortablelink('id', 'UID')</th>
+									<th>S.No</th>
                                     <th>@sortablelink('venue.name', 'Venue Name')</th>
-                                    <th>@sortablelink('user.first_name', 'Customer Name')</th>
+                                    <th>@sortablelink('user.first_name', 'User Name')</th>
                                     <!-- <th>@sortablelink('user.id', 'Customer LastName')</th> -->
                                     <th>@sortablelink('booking_name', 'Booking Name')</th>
                                     <th>@sortablelink('booking_email', 'Booking Email')</th>
@@ -53,12 +53,13 @@
 								</tr>
 							</thead>
 							<tbody>
+							@php $i = 1 @endphp
 								@foreach($data as $key => $row)
 
 								<tr>
-									<td>{{$row->id}}</td>
+									<td>{{$i++}}</td>
                                     <td><a href="{{route('venue.details',[$row->venue->id])}}">{{$row->venue->name ? $row->venue->name : 'N/A' }}</a></td>
-                                    <td><a href="{{route('user.details',[$row->user->id])}}">{{$row->user->first_name ." ".$row->user->last_name }}</a></td>
+                                    <td><a href="{{route('user.details',[$row->user->id])}}">{{ucfirst($row->user->first_name) ." ".ucfirst($row->user->last_name) }}</a></td>
                         			<td>{{$row->booking_name ? $row->booking_name : 'N/A' }}</td>
                                     <td>{{$row->booking_email ? $row->booking_email : 'N/A' }}</td>
                                     <td>{{$row->date ? change_date_format($row->date) : 'N/A' }}</td>

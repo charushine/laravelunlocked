@@ -34,7 +34,7 @@
 					<table class="table table-hover dt-responsive nowrap">
 						<thead>
 							<tr>
-								<th>@sortablelink('id', 'UID')</th>
+								<th>S.No</th>
 								<th>@sortablelink('title', 'Title')</th>
 								<th>@sortablelink('publish_date', 'Publish Date')</th>
 								<th>@sortablelink('created_at', 'Created Date')</th>
@@ -43,9 +43,11 @@
 							</tr>
 						</thead>
 						<tbody>
+						@php $i = 1 @endphp
 						@foreach($data as $key => $row)
 							<tr>
-								<td>{{$row->id}}</td>
+
+								<td>{{$i++}}</td>
 								<td>{{$row->title ? $row->title : 'N/A' }}</td>
 								<td>{{$row->publish_date ? date('d M,Y - g:i A', strtotime($row->publish_date)) : "N/A"}}</td>
 								<td>{{$row->created_at ? change_date_format($row->created_at) : 'N/A'}}</td>

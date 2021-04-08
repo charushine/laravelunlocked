@@ -34,6 +34,7 @@
 						<table class="table table-hover dt-responsive nowrap">
 							<thead>
 								<tr>
+									<th>S.No</th>
 									<th>@sortablelink('parent_id', 'Parent')</th>
 									<th>@sortablelink('name', 'Name')</th>
 									<th>@sortablelink('created_at', 'Created Date')</th>
@@ -43,8 +44,10 @@
 								</tr>
 							</thead>
 							<tbody>
+							@php $i = 1 @endphp
 								@foreach($data as $key => $row)
                                     <tr>
+										<td>{{$i++}}</td>
                                         <td>{{$row->parent != null ? $row->parent->name : "N/A"}}</td>
                                         <td>{{$row->name }}</td>
 										<td>{{$row->created_at ? change_date_format($row->created_at) : 'N/A'}}</td>

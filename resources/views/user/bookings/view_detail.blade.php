@@ -1,4 +1,4 @@
-@extends('admin.layouts.cmlayout')
+@extends('user.layouts.cmlayout')
 
 @section('body')
 <div class="container-fluid">
@@ -6,7 +6,7 @@
 		<h1 class="h3 mb-0 text-gray-800">Booking Detail</h1>
 	</div>
 	<div class="row">
-	<div class="col-xl-6 col-md-6">
+	<div class="col-xl-4 col-md-4">
 			<div class="card shadow mb-4">
 				<div class="card-body">
 
@@ -22,25 +22,21 @@
 						<li class="list-group-item d-flex justify-content-between align-items-center">
 							<strong>Status</strong>
 								@if($bookingDetail->status == 0)
-								<h5><span class="badge badge-primary badge-pill">New</span></h5>
+									<h5><span class="badge  badge-pill">New</span></h5>
 								@elseif($bookingDetail->status == 1)
-								<h5><span class="badge badge-success badge-pill">Approved</span></h5>
+									<h5><span class="badge  badge-pill">Approved</span></h5>
 								@else
-								<h5><span class="badge badge-danger badge-pill">Declined</span></h5>
+									<h5><span class="badge  badge-pill">Declined</span></h5>
 								@endif
 						</li>
 					</ul>
 				</div>
 			</div>
         </div>
-        <div class="col-xl-6 col-md-6">
+        <div class="col-xl-4 col-md-4">
 			<div class="card shadow mb-4">
 				<div class="card-body">
 					<ul class="list-group">
-					<li class="list-group-item d-flex justify-content-between align-items-center">
-							<strong>User Name</strong>
-							<h5><span class="badge  badge-pill">{{ucfirst($bookingDetail->user->first_name)." ".ucfirst($bookingDetail->user->last_name)}}</span></h5>
-						</li>
 						<li class="list-group-item d-flex justify-content-between align-items-center">
 							<strong>Venue</strong>
 							<h5><span class="badge  badge-pill">{{$bookingDetail->venue->name}}</span></h5>

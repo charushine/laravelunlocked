@@ -39,4 +39,10 @@ return [
         'client_secret' => 'rUdWPpfvbmiMZrRdAOwtoRAL',
         'redirect' => 'http://localhost:8000/auth/google/callback',
     ],
+    'facebook' => [
+        'client_id' => 'enter your client id',
+        'client_secret' => 'enter your secret key',
+        'redirect' => 'http://127.0.0.1:8000/callback/facebook',
+    ],
+    
 ];

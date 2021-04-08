@@ -57,4 +57,20 @@ class BookingController extends Controller
         })->where('user_id',Auth::user()->id)->sortable('id')->paginate(Config::get('constants.PAGINATION_NUMBER'));
         return view('user.bookings.list', compact('data','daterange','keyword'));
     }
+
+       /*
+    Method Name:    view_detail
+    Developer:      Shine Dezign
+    Created Date:   2021-04-07 (yyyy-mm-dd)
+    Purpose:        To get detail of Booking
+    Params:         [id]
+    */
+    public function view_detail($id,Request $request){
+        $bookingDetail = Booking::find($id);
+    
+        if(!$bookingDetail)
+            return redirect()->route('bookings.mybookings');
+
+        return view('user.bookings.view_detail',compact('bookingDetail'));
+    }
 }

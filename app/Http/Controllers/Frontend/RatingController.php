@@ -45,17 +45,17 @@ class RatingController extends Controller
                 'review' => $request->review,
                 'status' => 1
             ];
-            // $rating = RatingReview::where('user_id',2)->where('venue_id',$request->venue_id)->first();
-            // if($rating){
-            //     $record = RatingReview::where('user_id',2)
-            //                 ->where('venue_id',$request->venue_id)
-            //                 ->update(
-            //                     ['rating' => $request->rating,
-            //                     'review' => $request->review
-            //                 ]);
-            // }else{ 
+            $rating = RatingReview::where('user_id',2)->where('venue_id',$request->venue_id)->first();
+            if($rating){
+                $record = RatingReview::where('user_id',2)
+                            ->where('venue_id',$request->venue_id)
+                            ->update(
+                                ['rating' => $request->rating,
+                                'review' => $request->review
+                            ]);
+            }else{ 
                 $record = RatingReview::create($data);
-            // }
+            }
             if($record){
         		return redirect()->back()->with('status', 'success')->with('message', 'Rating '.Config::get('constants.SUCCESS.CREATE_DONE'));
         	}

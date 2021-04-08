@@ -15,14 +15,14 @@
 		@endif
 	</div> <!-- end .flash-message -->
 	<div class="row">
-        <div class="col-xl-4 col-md-4">
+        <div class="col-xl-6 col-md-6">
 			<div class="card shadow mb-4">
 				<div class="card-body">
 
 					<ul class="list-group">
 						<li class="list-group-item d-flex justify-content-between align-items-center">
 							<strong>Owner Name</strong>
-							<h5><span class="badge  badge-pill">{{$venueDetail->user->first_name}}</span></h5>
+							<h5><span class="badge  badge-pill">{{ucfirst($venueDetail->user->first_name)}}</span></h5>
 						</li>
 						<li class="list-group-item d-flex justify-content-between align-items-center">
 							<strong>Venue Name</strong>
@@ -45,7 +45,7 @@
 				</div>
 			</div>
         </div>
-		<div class="col-xl-4 col-md-4">
+		<div class="col-xl-6 col-md-6">
 			<div class="card shadow mb-4">
 				<div class="card-body">
 					<ul class="list-group">
@@ -72,7 +72,7 @@
         </div>
 	</div>
 	<div class="row">
-		<div class="col-xl-4 col-md-4">
+		<div class="col-xl-6 col-md-6">
 			<div class="card shadow mb-4">
 				<div class="card-body">
 				<strong>Amenities</strong>
@@ -82,7 +82,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xl-4 col-md-4">
+		<div class="col-xl-6 col-md-6">
 			<div class="card shadow mb-4">
 				<div class="card-body">
 				<strong>Other Information</strong>
@@ -95,7 +95,7 @@
 	</div>
 
 	<div class="row venue-sec">
-		<div class="col-xl-8 col-md-8">
+		<div class="col-xl-12 col-md-12">
 			<div class="card shadow mb-4">
 				<div class="card-body">
 			<strong>Venue Images</strong>
@@ -136,7 +136,7 @@
 						<table class="table table-hover dt-responsive nowrap">
 							<thead>
 								<tr>
-									<th>@sortablelink('id', 'UID')</th>
+									<th>S.No</th>
 
 									<th>@sortablelink('user.first_name', 'Customer Name')</th>
                                     <th>@sortablelink('booking_name','Booking Name')</th>
@@ -147,10 +147,10 @@
 								</tr>
 							</thead>
 							<tbody>
-
+								@php $i = 1 @endphp
 								@foreach($bookings as $booking)
 								<tr>
-									<td>{{$booking->id}}</td>
+									<td>{{$i++}}</td>
 
 									<td><a href="{{route('user.details',[$booking->user->id])}}">{{$booking->user->first_name .' '.$booking->user->last_name}}</a></td>
 									<td><a href="{{route('booking.details',[$booking->id])}}">{{$booking->booking_name}}</a></td>
@@ -170,7 +170,7 @@
 							@endforeach
 							@if ($bookings->count() == 0)
 								<tr>
-									<td colspan="10" class="text-center text-dabger">No booking to display.</td>
+									<td colspan="10" class="text-center text-danger">No booking to display.</td>
 								</tr>
 							@endif
 							</tbody>

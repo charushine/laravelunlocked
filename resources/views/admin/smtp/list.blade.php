@@ -34,7 +34,7 @@
 						<table class="table table-hover dt-responsive nowrap">
 							<thead>
 								<tr>
-									<th>@sortablelink('id', 'UID')</th>
+									<th>S.No</th>
 									<th>@sortablelink('host', 'Host Name')</th>
 									<th>Port</th>
 									<th>@sortablelink('username', 'Username')</th>
@@ -47,7 +47,7 @@
 							<tbody>
 							    @foreach($data as $key => $row)
 								<tr>
-									<td>{{$row->id}}</td>
+									<td>{{$key+1}}</td>
 									<td>{{ $row->host ? $row->host : 'N/A' }}</td>
 									<td>{{ $row->port ? $row->port : 'N/A' }}</td>
 									<td>{{ $row->username ? $row->username : 'N/A' }}</td>

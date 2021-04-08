@@ -85,12 +85,20 @@
 											<button type="submit" class="btn btn-custom" id="sign_in">
 												LOG IN
                                             </button>
-                                            <a href="{{ url('auth/google') }}"  class="btn btn-success ">
-                                                <strong>Login With Google</strong>
-                                            </a> 
+                                            
                                             <!-- <button class="btn btn-custom"> -->
 												<a href="{{ route('password.reset') }}" class="font-fourteen">Forgot my password</a>
 											<!-- </button> -->										
+                                        </div>                             
+									</div>
+                                    <div class="form-group row mt-3">
+										<div class="col-md-12 offset-md-2">
+											<a href="{{ url('auth/google') }}"  class="btn btn-success ">
+                                                <strong>Login With Google</strong>
+                                            </a> 
+                                            <a href=""  class="btn btn-info ">
+                                                <strong>Login With Facebook</strong>
+                                            </a> 									
                                         </div>                             
 									</div>
 								</form>

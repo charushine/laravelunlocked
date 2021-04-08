@@ -93,7 +93,36 @@
                     </div>
                 </div>    
             </div>
-        </div>					
+        </div>
+        <div class="col-md-4">
+            <div class="form-group ">
+            <label>Amenities<span></span></label>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="amenity[]" data-value="1"  value="1">
+                        <label class="form-check-label" for="">
+                           Air Conditioner                      
+                        </label>
+                    </div>
+                </div> 
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="amenity[]" data-value="2" value="2">
+                        <label class="form-check-label" for="">
+                           Parks                          
+                        </label>
+                    </div>
+                </div>  
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="amenity[]" data-value="3" value="3">
+                        <label class="form-check-label" for="">
+                           Community Parks                          
+                        </label>
+                    </div>
+                </div>  
+            </div>
+        </div>						
 	</div>
 
     <!-- Content Row -->
@@ -135,31 +164,42 @@ jQuery(document).ready(function() {
 //     });
 
   
-jQuery.ajax({
-    url: baseurl+ "/show_venue",
-    success: function(data) {
-        jQuery(".displayVenues").html(data);
-    },  
-    error: function (jqXHR, exception) {
-    var msg = '';
-        msg = 'Uncaught Error.\n' + jqXHR.responseText;
-            console.info(msg);
+    jQuery.ajax({
+        url: baseurl+ "/show_venue",
+        success: function(data) {
+            jQuery(".displayVenues").html(data);
+        },  
+        error: function (jqXHR, exception) {
+        var msg = '';
+            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                console.info(msg);
         }
     });
 
-  jQuery(document).on('click', 'input[name="rating"]', function() {      
-    jQuery('input[name="rating"]').not(this).prop('checked', false);      
-});
+    //add checked class on checked rating 
+    jQuery(document).on('click', 'input[name="rating"]', function() {      
+        jQuery('input[name="rating"]').not(this).prop('checked', false);      
+    });
 
+    //add checked class to checked amenities
+    // jQuery(document).on('click', 'input[name="amenity"]', function() {      
+    //     jQuery('input[name="amenity"]').prop('checked', false);      
+    // });
+
+    //Ajax request to filter data
     jQuery(document).on('click', '#searchVenue', function () {
+
+        var amenity = $("input[name='amenity[]']:checked")
+              .map(function(){return $(this).val();}).get();
+        alert(amenity);
         var rating = jQuery("input[name='rating']:checked").attr("data-value");
         var searchKeyword = jQuery("#searchKeyword").val();
         var daterange = jQuery("#daterange").val();
         var price = jQuery("#price").val();
-        
+
         jQuery.ajax({
             url: baseurl+ "/show_venue/"+searchKeyword,
-            data:{daterange:daterange,price:price,rating:rating},
+            data:{daterange:daterange,price:price,rating:rating,amenity:amenity},
             success: function(data) {
             jQuery(".displayVenues").html(data);
         },  
@@ -170,10 +210,12 @@ jQuery.ajax({
             }
         });
     });
-      var page = 1
+
+
+    //Read more functionality
+    var page = 1
       
     jQuery(document).on('click', '#loadmore', function () {   
-        
         page = page+1;
         var searchKeyword = jQuery("#searchKeyword").val();
         jQuery("#loadmore").html('Load More..<i class="fa fa-spinner fa-spin"></i>');
@@ -183,7 +225,6 @@ jQuery.ajax({
             success: function(data) {
             jQuery("#loadmore").html('Load More..');
             jQuery(".displayVenues").html(data);
-
         },  
         error: function (jqXHR, exception) {
         var msg = '';
@@ -192,7 +233,8 @@ jQuery.ajax({
             }
         });
     });
-        //daterange filter
+
+    //daterange filter
     jQuery("#daterange").daterangepicker({
 		format: 'YYYY-MM-DD',
 		autoclose:true,
@@ -208,7 +250,6 @@ jQuery.ajax({
 	jQuery('#daterange').on('cancel.daterangepicker', function(ev, picker) {
 		jQuery(this).val('');
 	});
-
 });
 </script>
 @stop

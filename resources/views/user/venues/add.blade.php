@@ -122,25 +122,26 @@
 						<div class="row">
 						@if($amenities->count() > 0 )
 							@foreach ($amenities as $key => $amenity)
-								<div class="col-md-2">
-									<div class="form-group ">
-										<div class="col-sm-10">
-											<div class="form-check">
-												<input class="form-check-input" type="checkbox" name="amenity_id[]" id="amenity_id{{$key}}" value="{{$amenity->id}}">
-												<label class="form-check-label" for="amenity_id{{$key}}">
-													{{$amenity->name}}
-												</label>
+
+									<div class="col-md-2">
+										<div class="form-group ">
+											<div class="col-sm-10">
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" name="amenity_id[]" id="amenity_id{{$key}}" value="{{$amenity->id}}" {{(in_array($amenity->id, $selectedAmenities)?"checked='checked'" : '')}}>
+													<label class="form-check-label" for="amenity_id{{$key}}">
+														{{$amenity->name}}
+													</label>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
 							@endforeach
 						@endif
 						</div>						
 						<div class="mt-1 mb-1">
 							<div class="text-left d-print-none mt-4">          
 								<button type="submit"  name="action" id="edit-genre-btn" value="save" class="btn btn-primary">Save</button>
-								<a href="#" class="btn btn-light">Cancel</a>
+								<a href="{{route('home')}}" class="btn btn-light">Cancel</a>
 							</div>
 						</div>
 					</form>

@@ -37,7 +37,7 @@
 						<table class="table table-hover dt-responsive nowrap">
 							<thead>
 								<tr>
-									<th>@sortablelink('id', 'UID')</th>
+									<th>S.No</th>
 									<th>@sortablelink('first_name', 'First Name')</th>
 									<th>@sortablelink('last_name', 'Last Name')</th>
 									<th>@sortablelink('email', 'Email')</th>
@@ -48,11 +48,12 @@
 								</tr>
 							</thead>
 							<tbody>
+							@php $i = 1 @endphp
 								@foreach($data as $key => $row)
 								<tr>
-									<td>{{$row->id}}</td>
-									<td>{{$row->first_name ? $row->first_name : 'N/A' }}</td>
-									<td>{{$row->last_name ? $row->last_name : 'N/A' }}</td>
+									<td>{{$i++}}</td>
+									<td>{{$row->first_name ? ucfirst($row->first_name) : 'N/A' }}</td>
+									<td>{{$row->last_name ? ucfirst($row->last_name) : 'N/A' }}</td>
 									<td>{{$row->email ? $row->email : 'N/A' }}</td>
 									<td>
 									@if($row->status == 0)

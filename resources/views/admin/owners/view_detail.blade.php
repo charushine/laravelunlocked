@@ -6,7 +6,7 @@
 		<h1 class="h3 mb-0 text-gray-800">Owner Detail</h1>
 	</div>
 	<div class="row">
-	<div class="col-xl-4 col-md-4">
+	<div class="col-xl-6 col-md-6">
 			<div class="card shadow mb-4">
 				<div class="card-body">
 
@@ -22,16 +22,16 @@
 						<li class="list-group-item d-flex justify-content-between align-items-center">
 							<strong>Status</strong>
 							@if($ownerDetail->status == "1")
-								<h5><span class="badge  badge-pill">Active</span></h5>
+								<h5><span class="badge badge-success  badge-pill">Active</span></h5>
 							@else
-								<h5><span class="badge  badge-pill">Inactive</span></h5>
+								<h5><span class="badge badge-danger  badge-pill">Inactive</span></h5>
 							@endif
 						</li>
 					</ul>
 				</div>
 			</div>
         </div>
-        <div class="col-xl-4 col-md-4">
+        <div class="col-xl-6 col-md-6">
 			<div class="card shadow mb-4">
 				<div class="card-body">
 					<ul class="list-group">
@@ -74,7 +74,7 @@
 						<table class="table table-hover dt-responsive nowrap">
 							<thead>
 								<tr>
-									<th>@sortablelink('id', 'UID')</th>
+									<th>S.No</th>
 									<th>@sortablelink('name', 'Venue Name')</th>
 									<th>Customer Name</th>
                                     <th>Booking Name</th>
@@ -85,10 +85,11 @@
 								</tr>
 							</thead>
 							<tbody>
+							@php $i = 1 @endphp
 							@foreach($venuesBooking as $key => $bookings)
 								@foreach($bookings->booking as $booking)
 								<tr>
-									<td>{{$booking->id}}</td>
+									<td>{{$i++}}</td>
 									<td><a href="{{route('venue.details',[$bookings->id])}}">{{$bookings->name}}</a></td>
 									<td><a href="{{route('user.details',[$booking->user->id])}}">{{$booking->user->first_name .' '.$booking->user->last_name}}</a></td>
 									<td><a href="{{route('booking.details',[$booking->id])}}">{{$booking->booking_name}}</a></td>
@@ -108,7 +109,7 @@
 							@endforeach
 							@if ($venuesBooking->count() == 0)
 								<tr>
-									<td colspan="10" class="text-center text-dabger">No booking to display.</td>
+									<td colspan="10" class="text-center text-danger">No booking to display.</td>
 								</tr>
 							@endif
 							</tbody>

@@ -58,11 +58,15 @@ class Venue extends Model
 	}
     public function venue_images()
 	{
-	   return $this->hasOne(VenueImage::class);
+	   return $this->hasMany(VenueImage::class);
 	}
     public function rating_reviews()
 	{
 	   return $this->hasMany(RatingReview::class);
+    }
+     public function venue_amenities()
+	{
+	   return $this->hasOne(VenueAmenity::class);
 	}
 
 

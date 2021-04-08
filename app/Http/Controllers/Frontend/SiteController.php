@@ -57,6 +57,8 @@ class SiteController extends Controller
         if($request->price){ $price = $request->price; }else{$price="";}
 
         if($request->rating){ $rating = $request->rating; } else {$rating="";}
+        
+        if($request->amenity){ $amenity = $request->amenity; } else {$amenity="";}
 
         $venues = Venue::when($keyword != "", function($q) use($keyword){
             $q->where('name', 'like', '%'.$keyword.'%')
@@ -78,9 +80,19 @@ class SiteController extends Controller
             });
         })
         ->when($rating !="" ,function($qy) use($rating){             
-                $qy->where('average_rating', '<=',  $rating);  
+                $qy->where('average_rating', '<',  ($rating + 1));  
         })
+        ->when($amenity !="" , function($amty) use($amenity){
+             $amty->whereHas('venue_amenities', function( $qury ) use ( $amenity ){
+                     $qury->where(function($qee) use($amenity) {
+                        foreach($amenity as $amenity) {
+                            $qee->whereRaw("find_in_set('".$amenity."',venue_amenities.amenity_id)");
+                        }
+                    });
+            });
+         })
         ->where('status', 1)->orderBy('booking_price', 'asc')->take($offset)->get();
+
         return view('showvenues',compact('venues'));
     }
 
@@ -96,7 +108,7 @@ class SiteController extends Controller
         $venue =  Venue::find($id);
         return view('venuedetail',compact('venue'));
     }
-
+    
     function book_venue(Request $request){
         
         $id = $request->id;

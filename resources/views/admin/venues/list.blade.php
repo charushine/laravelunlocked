@@ -43,7 +43,7 @@
 						<table class="table table-hover dt-responsive nowrap">
 							<thead>
 								<tr>
-									<th>@sortablelink('id', 'UID')</th>
+									<th>S.No</th>
 									<th>@sortablelink('id', 'Booking Count')</th>
 									<th>@sortablelink('user.id', 'Owner Name')</th>
 									<th>@sortablelink('name', 'Name')</th>
@@ -60,11 +60,12 @@
 								</tr>
 							</thead>
 							<tbody>
+							@php $i = 1 @endphp
 								@foreach($data as $key => $row)
 								<tr>
-									<td>{{$row->id}}</td>
+									<td>{{$i++}}</td>
 									<td> {{$row->booking->count()}}</td>
-									<td><a href="{{route('owner.details',[$row->user->id])}}">{{$row->user->first_name." ". $row->user->last_name }}</a></td>
+									<td><a href="{{route('owner.details',[$row->user->id])}}">{{ucfirst($row->user->first_name)." ". ucfirst($row->user->last_name) }}</a></td>
 									<td>{{$row->name ? $row->name : 'N/A' }}</td>
 									<td>{{$row->location ? $row->location : 'N/A' }}</td>
 									<td>{{$row->contact ? $row->contact : 'N/A' }}</td>

@@ -37,7 +37,7 @@
 			<!-- Divider -->
 			<hr class="sidebar-divider">
 			<li class="nav-item">
-				<a class="nav-link" href="">	<i class="fas fa-users"></i>
+				<a class="nav-link" href="{{route('bookings.mybookings')}}">	<i class="fas fa-users"></i>
 					<span>My Bookings</span>
 				</a>
 			</li>	

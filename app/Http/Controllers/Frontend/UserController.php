@@ -54,7 +54,11 @@ class UserController extends Controller
     */
     public function add_form(){
         $amenities = Amenity::get();
-    	return view('user.venues.add',compact('amenities'));
+      
+        $venuAmenities = VenueAmenity::where("venue_id" ,3)->first();      
+        $selectedAmenities = explode(',',$venuAmenities->amenity_id);
+    
+    	return view('user.venues.add',compact('amenities','selectedAmenities'));
     }
     /* End Method add_form */
 
@@ -67,8 +71,6 @@ class UserController extends Controller
     */
     public function insert_record(Request $request){
        
- 
-
         $request->validate([
             'name' => 'required|string',
             'location' => 'required|string',
@@ -96,8 +98,7 @@ class UserController extends Controller
                 'building_type' => $request->building_type,
                 'total_room' => $request->total_room,
                 'booking_price' => $request->booking_price,
-                'contact' => $request->contact,
-               
+                'contact' => $request->contact,              
                 'other_information' => $request->other_information,
                 'status' => 1,
             ];
@@ -130,9 +131,7 @@ class UserController extends Controller
                     if(count($imgArr)){
                         VenueImage::insert($imgArr);
                     }
-
                 }
-
                 // $routes = ($request->action == 'saveadd') ? 'venues.add' : 'venues.list';
         		return redirect()->back()->with('status', 'success')->with('message', 'Venue '.Config::get('constants.SUCCESS.CREATE_DONE'));
         	}

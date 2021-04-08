@@ -2,20 +2,33 @@
 @section('content')
 <div class="container">
     <div class="row mt-5">
-        <div class="col-md-4 mb-5">
-            <div class="card">
-                <div class="card-body">
-                @if(isset($venue->venue_images->name) && $venue->venue_images->name != "")
-                            <img width="150" height="150" src="{{asset('assets/venue/images/'.$venue->venue_images->name)}}">
-                        @else
-                            <img src="{{asset('frontend/images/download.png')}}">
-                        @endif
-                </div>   
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+               @if($venue->venue_images->count() > 0)
+                    @foreach($venue->venue_images as $key => $images)
+                        <div class="carousel-item {{$key == 0 ? 'active' : ''}}" >
+                            <img class="d-block w-100"  height="150" src="{{asset('assets/venue/images/'.$images->name)}}" alt="Venue Images">
+                        </div>
+                    @endforeach
+                @else
+                    <div class="carousel-item active">
+                            <img class="d-block w-100" src="{{asset('frontend/images/download.png')}}" alt="No Image">
+                    </div>
+                @endif            
             </div>
-        </div> 
-        <div class="col-md-8 mb-5">
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-12 mb-5">
         <div class="card">
-            <!-- <div class="card-body"> -->
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>Venue Name</strong>
@@ -37,18 +50,20 @@
                         <strong>Total Room</strong>
                             <h5><span class="badge  badge-pill">{{$venue->total_room}}</span></h5>
                     </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <strong>Rating</strong>
+                            <h5><span class="badge  badge-pill">{{$venue->average_rating}}</span></h5>
+                    </li>
                 </ul>  
-                <!-- </div>        -->
             </div>
         </div>
     </div>
-     <div class="row">
+    <div class="row">
         <div class="col-md-6 mb-5">
             <div class="card-body">
                 <ul class="list-group">
                 <strong>Amenities Detail</strong>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        
+                    <li class="list-group-item d-flex justify-content-between align-items-center">                     
                         <h5><span class="badge  badge-pill">{{$venue->amenities_detail}}</span></h5>
                     </li>                    
                 </ul>           
@@ -58,8 +73,7 @@
             <div class="card-body">
                 <ul class="list-group">
                 <strong>Other Information</strong>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        
+                    <li class="list-group-item d-flex justify-content-between align-items-center">                        
                         <h5><span class="badge  badge-pill">{{$venue->other_information}}</span></h5>
                     </li>                    
                 </ul>           
@@ -87,7 +101,7 @@
                         <h5><span class="badge  badge-pill">{{isset($venue->user->user_detail->mobile) ? $venue->user->user_detail->mobile:""}}</span></h5>
                     </li>                
                 </ul>  
-                <a class="btn btn-info mt-4" href="{{route('bookvenue',['id' =>$venue->id])}}"> Book Now</a>
+                <a class="btn btn-info mt-4" href="{{route('bookvenue',['id' => $venue->id])}}"> Book Now</a>
             </div>
         </div>
     </div>

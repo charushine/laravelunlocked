@@ -21,4 +21,9 @@ class VenueAmenity extends Model
 		'updated_at',
 		'status',
     ];
+
+     public function venue()
+	{
+		return $this->belongsTo(Venue::class);
+	}
 }

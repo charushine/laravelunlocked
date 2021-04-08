@@ -261,6 +261,8 @@ class BookingController extends Controller
         return view('admin.bookings.view_detail',compact('bookingDetail'));
     }
 
+    /* End Method view_detail */
+
      /*
     Method Name:    send_notification
     Developer:      Shine Dezign

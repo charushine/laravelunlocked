@@ -58,7 +58,7 @@
 						<div class="mt-1 mb-1">
 							<div class="text-left d-print-none mt-4">          
 								<button id="srr_rating" name="action" id="edit-genre-btn" value="save" class="btn btn-primary">Save</button>
-								<a href="#" class="btn btn-light">Cancel</a>
+								<a href="{{route('home')}}" class="btn btn-light">Cancel</a>
 							</div>
 						</div>
 					</form>

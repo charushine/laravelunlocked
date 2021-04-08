@@ -18,6 +18,12 @@ Route::middleware('XssSanitizer')->group(function () {
 	// Route::get('/', 'Admin\AdminDashboardController@login');
 	Route::get('auth/google', 'Auth\SocialLoginController@redirectToGoogle');
 	Route::get('auth/google/callback', 'Auth\SocialLoginController@handleGoogleCallback');
+
+	//facebook login routes
+	Route::get('auth/facebook', 'Auth\SocialLoginController@redirectToFacebook');
+	Route::get('auth/facebook/callback', 'Auth\SocialLoginController@handleFacebookCallback'); 
+
+	
 	Route::get('logout', 'Admin\AdminDashboardController@logout')->name('logout');
 	// Route::get('/home', 'Admin\AdminDashboardController@index')->name('home');
 	
@@ -57,7 +63,8 @@ Route::namespace('Frontend')->prefix('user')->middleware('XssSanitizer', 'user',
 		Route::post('password/update', 'UserController@update_password')->name('update.password'); 
 
 		// Booking Routes
-		Route::get('bookings/my-bookings', 'BookingController@getList')->name('bookings.mybookings');
+		Route::get('bookings/list', 'BookingController@getList')->name('bookings.mybookings');
+		Route::get('bookings/details/{id}', 'BookingController@view_detail')->name('bookings.booking_detail');
 });
 //Owner routes
 Route::namespace('Frontend')->prefix('owner')->middleware('XssSanitizer', 'owner', 'prevent-back-history')->group(function () { 
