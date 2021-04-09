@@ -60,15 +60,17 @@
 										@elseif($row->status == 2)
 											<a><h5><span class="badge badge-danger">Declined</span></h5></a>
 										@else											
-											<a><h5><span class='badge badge-success'>Approve</span></h5</a>						
+											<a><h5><span class='badge badge-primary'>New</span></h5</a>						
 										@endif
 									</a></td>								
 									<td style="display:flex">
 										<a class="anchorLess">
-											<a title="Click to Edit" href="" class="anchorLess"><i class="fas fa-edit info" aria-hidden="true" ></i>
-											</a>
+											<!-- <a title="Click to Edit" href="" class="anchorLess"><i class="fas fa-edit info" aria-hidden="true" ></i>
+											</a> -->
 											<a title="Click to View" href="{{route('bookings.booking_detail',[$row->id])}}" class="anchorLess"><i class="fas fa-eye primary" aria-hidden="true" ></i>
 											</a>											
+											<a title="Cancel booking" href="{{route('booking.cancel',['id' => $row->id])}}" class="anchorLess"><i class="fa fa-window-close danger" aria-hidden="true" ></i>
+											</a>										
 										</a>
 									</td>
 								</tr>

@@ -45,6 +45,19 @@ class SiteController extends Controller
         if($request->page){
             $offset = $request->page;
         }
+        //Sorting by price and rating
+        $oColumn = "booking_price";
+        $orderby = "asc";
+        if($request->sorting){
+            $sortVal = explode('-',$request->sorting);
+            if($sortVal && isset($sortVal[0]) && $sortVal[0] !=""){
+                $oColumn = $sortVal[0] == "price" ? "booking_price" :"average_rating";
+            }
+            if(isset($sortVal[1]) && $sortVal[1] !=""){
+                $orderby = $sortVal[1] == "asc" ? "asc" :"desc";
+            }       
+        }
+        
         $start = $end = $price = '';
         if($request->has('daterange') && $request->daterange != '')
         {
@@ -54,7 +67,10 @@ class SiteController extends Controller
             $end = $daterang[1];
         }
         else{ $daterange = ''; }
-        if($request->price){ $price = $request->price; }else{$price="";}
+
+        if($request->price){ $price = $request->price; } else {$price="";}
+
+        if($request->no_of_people){ $no_of_people = $request->no_of_people; } else {$no_of_people="";}
 
         if($request->rating){ $rating = $request->rating; } else {$rating="";}
         
@@ -91,7 +107,10 @@ class SiteController extends Controller
                     });
             });
          })
-        ->where('status', 1)->orderBy('booking_price', 'asc')->take($offset)->get();
+        ->when($no_of_people !="" ,function($qye) use($no_of_people){             
+                $qye->where('no_of_people', '<',  $no_of_people);  
+        })
+        ->where('status', 1)->orderBy($oColumn, $orderby)->take($offset)->get();
 
         return view('showvenues',compact('venues'));
     }

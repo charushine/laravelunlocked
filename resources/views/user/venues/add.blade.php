@@ -65,7 +65,7 @@
 								<div class="form-group">
 									<label>Total Room<span class="required">*</span>
 									</label>
-									<input type="number" name="total_room" id="total_room"  value="{{old('total_room')}}" class="form-control form-control-user" />
+									<input type="number" min="0" name="total_room" id="total_room"  value="{{old('total_room')}}" class="form-control form-control-user" />
 									@if ($errors->has('total_room'))
 										<span class="text-danger">{{ $errors->first('total_room') }}</span>
 									@endif
@@ -89,7 +89,7 @@
 								<div class="form-group">
 									<label>Booking Price<span class="required">*</span>
 									</label>
-									<input type="number" minlength="1" min="0" name="booking_price" id="booking_price"  value="{{old('booking_price')}}" class="form-control form-control-user" />
+									<input type="number" minlength="1" min="1" name="booking_price" id="booking_price"  value="{{old('booking_price')}}" class="form-control form-control-user" />
 									@if ($errors->has('booking_price'))
 										<span class="text-danger">{{ $errors->first('booking_price') }}</span>
 									@endif
@@ -99,7 +99,7 @@
 								<div class="form-group">
 									<label>No. of People<span class="required">*</span>
 									</label>
-									<input type="number" name="no_of_people" id="no_of_people"  value="{{old('no_of_people')}}" class="form-control form-control-user" />
+									<input type="number" min="0" name="no_of_people" id="no_of_people"  value="{{old('no_of_people')}}" class="form-control form-control-user" />
 									@if ($errors->has('no_of_people'))
 										<span class="text-danger">{{ $errors->first('no_of_people') }}</span>
 									@endif

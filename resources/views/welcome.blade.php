@@ -25,8 +25,9 @@
          <form id="venueSearch"> 
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search Venue" id="searchKeyword" name="searchKeyword">
-                <input type="text" class="form-control ml-1" placeholder="Start/End Date" id="daterange" name="daterange">
-                <input type="text" class="form-control ml-1" placeholder="Price" id="price" name="price">
+                <input type="text" autocomplete="off" class="form-control ml-1" placeholder="Start/End Date" id="daterange" name="daterange">
+                <input type="number" autocomplete="off" class="form-control ml-1" placeholder="Price" id="price" name="price">
+                <input type="number" autocomplete="off" class="form-control ml-1" placeholder="No. of People" id="no_of_people" name="no_of_people">
                 <div class="input-group-append">
                     <button class="btn btn-info" type="button" id="searchVenue">
                         <i class="fa fa-search"></i>
@@ -36,7 +37,24 @@
             </form>
         </div>
     </div>
+    <!-- Sorting -->
 
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group ">
+            <label>Sort By<span></span></label>
+                <div class="col-sm-10">
+                        <select class="form_control" name="sorting" id="sorting">
+                        <option value="">Select Order</option>
+                        <option value="price-desc">Price- High to Low</option>
+                        <option value="price-asc">Price- Low to High</option>
+                        <option value="rating-desc">Rating- Low to High</option>                        
+                        <option value="price-asc">Rating- High to Low</option>
+                        </select>                             
+                </div> 
+            </div>
+        </div>
+    </div>
     <div class="row">				
         <div class="col-md-4">
             <div class="form-group ">
@@ -191,15 +209,17 @@ jQuery(document).ready(function() {
 
         var amenity = $("input[name='amenity[]']:checked")
               .map(function(){return $(this).val();}).get();
-        alert(amenity);
+        
         var rating = jQuery("input[name='rating']:checked").attr("data-value");
         var searchKeyword = jQuery("#searchKeyword").val();
         var daterange = jQuery("#daterange").val();
         var price = jQuery("#price").val();
-
+        var sorting = jQuery("#sorting").val();
+        var no_of_people = jQuery("#no_of_people").val();
+alert(sorting);
         jQuery.ajax({
             url: baseurl+ "/show_venue/"+searchKeyword,
-            data:{daterange:daterange,price:price,rating:rating,amenity:amenity},
+            data:{daterange:daterange,price:price,rating:rating,amenity:amenity,sorting:sorting,no_of_people:no_of_people},
             success: function(data) {
             jQuery(".displayVenues").html(data);
         },  

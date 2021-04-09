@@ -53,18 +53,22 @@ Route::namespace('Frontend')->group(function () {
 	Route::post('rating/create', 'RatingController@add_record')->name("rating.create");
 	Route::get('venue/add', 'UserController@add_form')->name("venue.add");  
 	Route::post('venue/insert', 'UserController@insert_record')->name("venue.insert");  
+	Route::get('blog/listing', 'BlogController@getList')->name("blog.listing");  
 });
 
 Route::namespace('Frontend')->prefix('user')->middleware('XssSanitizer', 'user', 'prevent-back-history')->group(function () { 
 		Route::get('dashboard', 'UserController@index')->name('userdashboard'); 	
 		Route::get('detail/update', 'UserController@edit_form')->name('detail.update');
 		Route::post('details/update', 'UserController@update_record')->name('update.details');
+		Route::get('profile-photo/remove', 'UserController@remove_photo')->name('profilephoto.remove');
 		Route::get('change/password', 'UserController@edit_password')->name('change.password');
 		Route::post('password/update', 'UserController@update_password')->name('update.password'); 
 
 		// Booking Routes
 		Route::get('bookings/list', 'BookingController@getList')->name('bookings.mybookings');
 		Route::get('bookings/details/{id}', 'BookingController@view_detail')->name('bookings.booking_detail');
+		Route::get('bookings/details/{id}', 'BookingController@view_detail')->name('bookings.booking_detail');
+		Route::post('booking/cancel', 'BookingController@booking_cancel')->name('booking.cancel');
 });
 //Owner routes
 Route::namespace('Frontend')->prefix('owner')->middleware('XssSanitizer', 'owner', 'prevent-back-history')->group(function () { 

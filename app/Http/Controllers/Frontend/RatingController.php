@@ -67,4 +67,36 @@ class RatingController extends Controller
         }
     }
     /* End Method add_record */
+
+    
+    /*
+    Method Name:    del_record
+    Developer:      Shine Dezign
+    Created Date:   2021-03-08 (yyyy-mm-dd)
+    Purpose:        To delete any user by id
+    Params:         [id]
+    */
+    public function del_record(Request $request){
+        try {
+            $getData = $request->all();
+            $ratings = RatingReview::where('venue_id',3)->where('user_id',3)->first();
+            if($bookings){
+                $user = User::find($getData['id']);
+                $user->is_deleted = $getData['is_deleted'];
+                if($getData['is_deleted'] == 0){
+                    $status = 'RECOVER_DONE';
+                }else{
+                    $status = 'DELETE_DONE';
+                }
+                $user->save();
+            }else{
+                User::find($getData['id'])->delete();
+                $status = 'DELETE_DONE';
+            }
+
+        	return redirect()->back()->with('status', 'success')->with('message', 'Rating '.Config::get('constants.DELETE_DONE'));
+        }catch(Exception $ex){
+            return redirect()->back()->with('status', 'error')->with('message', $ex->getMessage());
+        }
+    }
 }

@@ -85,7 +85,27 @@
                                     @endif
                                 </div>
                             </div>
-                             <div class="col-lg-4 col-md-6 col-12">
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="form-group">
+                                    <label>Country<span class="required"></span></label>
+                                    <input type="text" name="country" id="country" value="{{old('country', isset($userDetail->user_detail->country) ? $userDetail->user_detail->country : "")}}" class="form-control form-control-user"  />
+                                    @if ($errors->has('country'))
+                                    <span class="text-danger">{{ $errors->first('country') }}</span>
+                                    @endif
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="form-group">
+                                    <label>City<span class="required"></span></label>
+                                    <input type="text" name="city" id="city" value="{{old('city', isset($userDetail->user_detail->city) ? $userDetail->user_detail->city : "")}}" class="form-control form-control-user"  />
+                                    @if ($errors->has('city'))
+                                    <span class="text-danger">{{ $errors->first('city') }}</span>
+                                    @endif
+                                </div>
+                            </div> 
+                            <div class="col-lg-4 col-md-6 col-12">
                                 <div class="form-group">
                                     <label>Address<span class="required"></span></label>
                                     <textarea name="address" id="address" value="{{old('address')}}" class="form-control form-control-user" />{{old('address', isset($userDetail->user_detail->address)?$userDetail->user_detail->address:"")}}</textarea>
@@ -93,8 +113,9 @@
                                     <span class="text-danger">{{ $errors->first('address') }}</span>
                                     @endif
                                 </div>
-                            </div>
+                            </div>                           
                         </div>
+                        
                         <div class="row">
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="form-group">
@@ -104,7 +125,26 @@
                                         <span class="text-danger">{{ $errors->first('profile_picture') }}</span>
                                     @endif
                                 </div>
-                            </div>                           
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12 images-sections">
+								<div class="form-group">
+                                @if(session()->has('userdetails'))
+								    @php
+									$userdata = session()->get('userdetails');
+									@endphp	
+                                    @if($userdata["profile_picture"] !="" && $userdata['imagetype'] != "")
+                                        <img class="img-profile mt30" width="100" height="100" src="{{ 'data:image/' .$userdata['imagetype']. ';base64,' .base64_encode($userdata['profile_picture']) }}" alt="Profile Photo">
+                                        <a href="{{route('profilephoto.remove')}}">
+												<img src="{{asset('backend/images/cross-icon.png')}}" alt="Remove Photo" class="cross-section">
+                                        </a>
+                                    @else
+                                    <img class="img-profile rounded-circle" src="{{asset('frontend/images/dummyprofile.jpg')}}">
+                                    @endif
+								@else
+								    <img class="img-profile rounded-circle" src="{{asset('frontend/images/dummyprofile.jpg')}}">
+								@endif
+								</div>
+							</div>                           
                         </div>
                         <div class="mt-1 mb-1">
                             <div class="text-left d-print-none mt-4">
@@ -142,6 +182,14 @@
 						required: true,
 						number: true,
 					},
+                    country: {
+						
+						lettersonly :true
+					},
+                    city: {
+						
+						lettersonly :true
+					},
 					
     		},
     		// Specify validation error messages
@@ -161,6 +209,12 @@
 					mobile:{
 						required: 'Contact no is required',
 						number: 'Contact must be digit only',
+					},
+                    country: {						
+						lettersonly: 'Country should contains letters only',
+					},
+                    city: {						
+						lettersonly: 'City should contains letters only',
 					},
     		},
     		submitHandler: function(form) {

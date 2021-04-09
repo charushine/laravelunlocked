@@ -42,7 +42,7 @@ class UsersTableSeeder extends Seeder
 
         //create User role
         $customercount = DB::table('users')->where('email', 'customer@gmail.com')->count();
-        if($usercount == 0){
+        if($customercount == 0){
             $customer = User::create([
                 'first_name' => 'test',
                 'last_name' => 'user',

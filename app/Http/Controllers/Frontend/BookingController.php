@@ -73,4 +73,50 @@ class BookingController extends Controller
 
         return view('user.bookings.view_detail',compact('bookingDetail'));
     }
+    // End method view Detail
+
+    /*
+    Method Name:    booking_cancel
+    Developer:      Shine Dezign
+    Created Date:   2021-04-07 (yyyy-mm-dd)
+    Purpose:        To get detail of Booking
+    Params:         [id]
+    */
+    public function booking_cancel(Request $request){
+
+        $bookingDetail = Booking::findOrFail($request->id);
+        $bookingDetail->status = 3;
+        $bookingDetail->push();
+        dd($bookingDetail->user->first_name);
+
+        $this->send_notification("CANCEL_BOOKING",$user->email,$user->first_name,date('d F Y', strtotime($request->date)));
+      
+
+        // if(!$bookingDetail)
+        //     return redirect()->route('bookings.mybookings');
+
+        return view('user.bookings.view_detail',compact('bookingDetail'));
+    }
+
+    function send_notification($btemplate,$email,$name,$date){
+      
+        $template = $this->get_template_by_name($btemplate);
+        $string_to_replace = array(
+            '{{$name}}',
+            '{{$date}}'
+        );
+        $string_replace_with = array(
+            $name,
+            $date
+        );
+        $newval = str_replace($string_to_replace, $string_replace_with, $template->template);
+        $logId = $this->email_log_create($email, $template->id, $btemplate);
+        $result = $this->send_mail($email, $template->subject, $newval);
+        if ($result)
+        {
+            $this->email_log_update($logId);
+            return;
+        }
+        return;
+    }
 }

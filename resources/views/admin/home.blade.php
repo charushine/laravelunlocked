@@ -136,9 +136,14 @@ jQuery(document).ready(function(){
     var data = {!! $bookingChart !!};
     var cat = [];
 
-    data.forEach(function(item) {
-    cat.push(item[0]);
-    });
+        
+    if(data.length == 0){
+        cat.push(0);
+    }else{
+        data.forEach(function(item) {
+            cat.push(item[0]);
+        });
+    }
 
     Highcharts.chart('container', {
         chart: {

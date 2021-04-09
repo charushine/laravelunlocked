@@ -89,9 +89,13 @@
 								    @php
 									$userdata = session()->get('userdetails');
 									@endphp
+									@if($userdata["profile_picture"] !="" && $userdata['imagetype'] != "")
 								    <img class="img-profile rounded-circle" src="{{ 'data:image/' .$userdata['imagetype']. ';base64,' .base64_encode($userdata['profile_picture']) }}">
+									@else
+                                    <img class="img-profile rounded-circle" src="{{asset('frontend/images/dummyprofile.jpg')}}">
+                                    @endif
 								@else
-								    <img class="img-profile rounded-circle" src="{{asset('backend/images/dummyprofile.jpg')}}">
+								    <img class="img-profile rounded-circle" src="{{asset('frontend/images/dummyprofile.jpg')}}">
 								@endif
 							</a>
 							<!-- Dropdown - User Information -->

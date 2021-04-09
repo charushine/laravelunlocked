@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\{User, UserDetails, PasswordReset, Amenity, VenueAmenity, Venue, VenueImage};
+use App\{User, UserDetails, PasswordReset, Amenity, VenueAmenity, Venue, VenueImage,Booking};
 use Illuminate\Support\Facades\{Config, Auth, Validator, Hash, Crypt};
 use Illuminate\Support\{Collection, Str};
 use App\Traits\AutoResponderTrait;
@@ -31,6 +31,9 @@ class UserController extends Controller
     */
     public function index()
     {
+        $user = User::find(Auth::user()->id);
+      
+
         $users_details = UserDetails::where('user_id', Auth::user()->id)
             ->first();
         if ($users_details != null) //if exist
@@ -39,9 +42,28 @@ class UserController extends Controller
         }
         $userDetail = User::with('user_detail')->find(Auth::user()->id);
         if(!$userDetail)
-        
         return redirect()->route('logout');
-        return view('user.dashboard',compact('userDetail'));
+        //Venue Owner Dashboard detail
+        $events = [];
+        $bookings = [];
+        $venues = $userDetail->venue;
+       
+        
+        //booking data for calender
+        if($venues->count() >0){
+            foreach($venues as $venue){
+                foreach ($venue->booking as $booking) {
+                        $events[] = [
+                            'title' => $booking->booking_name,
+                            'start' => $booking->date,
+                        
+                        ];
+                }
+            }
+        }
+        $bookingEvent = json_encode($events);
+        //End
+        return view('user.dashboard',compact('userDetail','bookingEvent'));
     }
     /* End Method index */
 
@@ -145,20 +167,6 @@ class UserController extends Controller
     }
     /* End Method add_record */
 
-
-    /*
-    Method Name:    index
-    Developer:      Shine Dezign
-    Created Date:   2021-04-05 (yyyy-mm-dd)
-    Purpose:        To display user's bookings
-    Params:         []
-    */
-    public function my_bookings(){
-        Booking::where("user_id",Auth::user()->id)->get();
-      
-    }
-
-
     /*
     Method Name:    edit_form
     Developer:      Shine Dezign
@@ -171,6 +179,22 @@ class UserController extends Controller
         if(!$userDetail)
         return redirect()->route('userdashboard');
     	return view('user.editprofile',compact('userDetail'));
+    }
+    /* End Method edit_form */
+
+     /*
+    Method Name:    view_detail
+    Developer:      Shine Dezign
+    Created Date:   2021-03-30 (yyyy-mm-dd)
+    Purpose:        view profile details
+    Params:         [id]
+    */
+    public function view_detail(){
+        $userDetail = User::find(Auth::user()->id);
+        if(!$userDetail)
+            return redirect()->route('userdashboard');
+
+    	return view('user.view_detail',compact('userDetail'));
     }
     /* End Method edit_form */
 
@@ -360,7 +384,7 @@ class UserController extends Controller
             'first_name' => 'required|string|max:20',
             'last_name' => 'required|string|max:20',
             'email' => 'required|email|unique:users,email,'.Auth::user()->id,
-            'address' => 'required|max:200',
+            'address' => 'max:200',
             'mobile' => 'required|numeric|unique:user_details,mobile,'.Auth::user()->id.',user_id',
             'profile_picture' => 'image|mimes:jpeg,png,jpg',
         ]);
@@ -407,11 +431,13 @@ class UserController extends Controller
             $users->last_name = $postData['last_name'];
             $users->email = $postData['email'];
             $users->user_detail->address = $postData['address'];
+            $users->user_detail->country = $postData['country'];
+            $users->user_detail->city = $postData['city'];
             $users->user_detail->zipcode = $postData['zipcode'];
             $users->user_detail->mobile = $postData['mobile'];
             $users->push();
 
-            return redirect()->route('detail.update')->with('status', 'success')->with('message', 'User details '.Config::get('constants.SUCCESS.UPDATE_DONE'));
+            return redirect()->route('detail.update')->with('status', 'success')->with('message', 'Profile '.Config::get('constants.SUCCESS.UPDATE_DONE'));
         }
         catch ( \Exception $e )
         {
@@ -419,6 +445,21 @@ class UserController extends Controller
         }
     }
     /* End Method update_record */
+    public function remove_photo(Request $request){
+        try {
+        $users = Session::get('userdetails'); // Get the array
+            unset($users['profile_picture']);
+            unset($users['imagetype']); // Unset the index you want
+            Session::put('userdetails', $users);
+            
+            UserDetails::where("user_id",Auth::user()->id)->update(["profile_picture"=>"","imagetype"=>""]);
+            return redirect()->back();
+            }
+        catch ( \Exception $e )
+        {
+            return redirect()->back()->with('status', 'error')->with('message', $e->getMessage());
+        }
+    }
 
     /*
     Method Name:    update_password
@@ -443,7 +484,7 @@ class UserController extends Controller
                 $users = User::find(Auth::user()->id);
                 $users->password = bcrypt($request->newpassword);
                 $users->save();
-                return redirect()->route('change.password')->with('status', 'success')->with('message', 'User password updated Successfully'); 
+                return redirect()->route('change.password')->with('status', 'success')->with('message', 'User password updated successfully'); 
             }
             else
             {
