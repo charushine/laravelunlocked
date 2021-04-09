@@ -111,16 +111,14 @@ class AdminDashboardController extends Controller
             ->attempt(array(
             $fieldType => $input['email'],
             'password' => $input['password'],
-            // 'status' => 1
+            'status' => 1
         )))
         {
-            dd("loggedin");
 
             return redirect()->route('admindashboard');
         }
         else
         {
-            dd("failed");
             return redirect()
                 ->route('admin')
                 ->with('status', 'Error')
