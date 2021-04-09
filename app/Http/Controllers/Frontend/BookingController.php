@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Traits\AutoResponderTrait;
 use Illuminate\Support\Facades\{Config, Auth};
 use App\{Booking, User};
 
 class BookingController extends Controller
 {
+     use AutoResponderTrait;
    /*
     Method Name:    getList
     Developer:      Shine Dezign
@@ -83,23 +85,22 @@ class BookingController extends Controller
     Params:         [id]
     */
     public function booking_cancel(Request $request){
-
+          try {
         $bookingDetail = Booking::findOrFail($request->id);
         $bookingDetail->status = 3;
         $bookingDetail->push();
-        dd($bookingDetail->user->first_name);
+        if($bookingDetail != 3){
+            $this->send_notification("DECLINE_BOOKING",$bookingDetail->user->email,$bookingDetail->user->first_name,date('d F Y', strtotime($bookingDetail->date)));
+        }
+        return redirect()->back()->with('status', 'success')->with('message', 'Booking cancelled has been successfully');
 
-        $this->send_notification("CANCEL_BOOKING",$user->email,$user->first_name,date('d F Y', strtotime($request->date)));
-      
-
-        // if(!$bookingDetail)
-        //     return redirect()->route('bookings.mybookings');
-
-        return view('user.bookings.view_detail',compact('bookingDetail'));
+        }catch(Exception $ex){
+            return redirect()->back()->with('status', 'error')->with('message', $ex->getMessage());
+        }
     }
 
     function send_notification($btemplate,$email,$name,$date){
-      
+       
         $template = $this->get_template_by_name($btemplate);
         $string_to_replace = array(
             '{{$name}}',
@@ -110,6 +111,7 @@ class BookingController extends Controller
             $date
         );
         $newval = str_replace($string_to_replace, $string_replace_with, $template->template);
+       
         $logId = $this->email_log_create($email, $template->id, $btemplate);
         $result = $this->send_mail($email, $template->subject, $newval);
         if ($result)

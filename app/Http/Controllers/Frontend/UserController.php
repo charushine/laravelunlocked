@@ -53,11 +53,10 @@ class UserController extends Controller
         if($venues->count() >0){
             foreach($venues as $venue){
                 foreach ($venue->booking as $booking) {
-                        $events[] = [
-                            'title' => $booking->booking_name,
-                            'start' => $booking->date,
-                        
-                        ];
+                    $events[] = [
+                        'title' => $booking->booking_name,
+                        'start' => $booking->date,                  
+                    ];
                 }
             }
         }
@@ -76,10 +75,11 @@ class UserController extends Controller
     */
     public function add_form(){
         $amenities = Amenity::get();
-      
-        $venuAmenities = VenueAmenity::where("venue_id" ,3)->first();      
-        $selectedAmenities = explode(',',$venuAmenities->amenity_id);
-    
+        $selectedAmenities =[];
+        $venuAmenities = VenueAmenity::where("venue_id" ,3)->first();  
+        if($venuAmenities) {   
+            $selectedAmenities = explode(',',$venuAmenities->amenity_id);
+        }
     	return view('user.venues.add',compact('amenities','selectedAmenities'));
     }
     /* End Method add_form */

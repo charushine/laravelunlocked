@@ -68,7 +68,7 @@ Route::namespace('Frontend')->prefix('user')->middleware('XssSanitizer', 'user',
 		Route::get('bookings/list', 'BookingController@getList')->name('bookings.mybookings');
 		Route::get('bookings/details/{id}', 'BookingController@view_detail')->name('bookings.booking_detail');
 		Route::get('bookings/details/{id}', 'BookingController@view_detail')->name('bookings.booking_detail');
-		Route::post('booking/cancel', 'BookingController@booking_cancel')->name('booking.cancel');
+		Route::get('booking/cancel', 'BookingController@booking_cancel')->name('booking.cancels');
 });
 //Owner routes
 Route::namespace('Frontend')->prefix('owner')->middleware('XssSanitizer', 'owner', 'prevent-back-history')->group(function () { 

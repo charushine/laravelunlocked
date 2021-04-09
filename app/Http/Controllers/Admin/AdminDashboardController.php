@@ -114,10 +114,13 @@ class AdminDashboardController extends Controller
             'status' => 1
         )))
         {
+            dd($input."loggedin");
+
             return redirect()->route('admindashboard');
         }
         else
         {
+            dd($input."failed");
             return redirect()
                 ->route('admin')
                 ->with('status', 'Error')

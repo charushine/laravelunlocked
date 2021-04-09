@@ -21,10 +21,10 @@
 				<div class="card-header py-3">
 					<form class="form-inline float-left" id="search-form">
 						<div class="form-group">
-							<input type="text" class="form-control" data-model="User" value="{{$keyword}}" data-searchcoulnm="first_name,last_name,email" id="search_keyword" name="search_keyword" placeholder="What are you looking for?">
+							<input type="text" class="form-control" data-model="User" value="{{isset($keyword)}}" data-searchcoulnm="first_name,last_name,email" id="search_keyword" name="search_keyword" placeholder="What are you looking for?">
 						</div>
 						<div class="ml-2 form-group">
-							<input type="text" class="form-control" id="daterange_filter" value="{{$daterange}}" name="daterange_filter"  placeholder="Select Date" readonly>
+							<input type="text" class="form-control" id="daterange_filter" value="{{isset($daterange)}}" name="daterange_filter"  placeholder="Select Date" readonly>
 						</div>
 						<button type="submit" class="btn btn-primary ml-10">Search</button>
 					</form>					
@@ -59,6 +59,8 @@
 											<a><h5><span class="badge badge-success">Approved</span></h5></a>
 										@elseif($row->status == 2)
 											<a><h5><span class="badge badge-danger">Declined</span></h5></a>
+										@elseif($row->status == 3)
+											<a><h5><span class="badge badge-warning">Cancelled</span></h5></a>
 										@else											
 											<a><h5><span class='badge badge-primary'>New</span></h5</a>						
 										@endif
@@ -69,7 +71,7 @@
 											</a> -->
 											<a title="Click to View" href="{{route('bookings.booking_detail',[$row->id])}}" class="anchorLess"><i class="fas fa-eye primary" aria-hidden="true" ></i>
 											</a>											
-											<a title="Cancel booking" href="{{route('booking.cancel',['id' => $row->id])}}" class="anchorLess"><i class="fa fa-window-close danger" aria-hidden="true" ></i>
+											<a title="Cancel booking" href="{{route('booking.cancels',['id' => $row->id])}}" class="anchorLess"><i class="fa fa-window-close danger" aria-hidden="true" ></i>
 											</a>										
 										</a>
 									</td>
