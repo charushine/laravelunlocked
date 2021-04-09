@@ -110,7 +110,7 @@ class TemplateTableSeeder extends Seeder
                 <div class="text" style="padding: 0 2.5em;">
                 <h2 style="text-align: left; color: #000000; font-size: 18px; margin-top: 0; line-height: 1.4; font-weight: bold;">Hello {{$name}},</h2>
                 <p style="text-align: left; margin-top: 15px;">Your booking has been approved for {{$date}}. Click on this link to booking again.</p>
-                <p style="margin-top: 15px;"><a class="btn btn-black" style="background-color: #244e45; padding: 5px 20px; color: #fff;" href="#">Click here</a></p>
+                <p style="margin-top: 15px;"><a class="btn btn-black" style="background-color: #244e45; padding: 5px 20px; color: #fff;" href="{{$link}}">Click here</a></p>
                 <p style="text-align: left; margin: 0px;">Or Copy the below link on your browser tab :</p>
                 <p style="text-align: left;">unlocked</p>
                 <p style="text-align: left;"></p>
@@ -179,7 +179,7 @@ class TemplateTableSeeder extends Seeder
                 <div class="text" style="padding: 0 2.5em;">
                 <h2 style="text-align: left; color: #000000; font-size: 18px; margin-top: 0; line-height: 1.4; font-weight: bold;">Hello {{$name}},</h2>
                 <p style="text-align: left; margin-top: 15px;">Your booking has been declined for {{$date}} due to some reasons. Click on this link to booking again.</p>
-                <p style="margin-top: 15px;"><a class="btn btn-black" style="background-color: #244e45; padding: 5px 20px; color: #fff;" href="">Click here</a></p>
+                <p style="margin-top: 15px;"><a class="btn btn-black" style="background-color: #244e45; padding: 5px 20px; color: #fff;" href="{{$link}}">Click here</a></p>
                 <p style="text-align: left; margin: 0px;">Or Copy the below link on your browser tab :</p>
                 <p style="text-align: left;">unlocked</p>
                 <p style="text-align: left;"></p>
@@ -247,7 +247,7 @@ class TemplateTableSeeder extends Seeder
                 <div class="text" style="padding: 0 2.5em;">
                 <h2 style="text-align: left; color: #000000; font-size: 18px; margin-top: 0; line-height: 1.4; font-weight: bold;">Hello {{$name}},</h2>
                 <p style="text-align: left; margin-top: 15px;">Your Venue is booked for {{$date}}. Click on this link to booking again.</p>
-                <p style="margin-top: 15px;"><a class="btn btn-black" style="background-color: #244e45; padding: 5px 20px; color: #fff;" href="">Click here</a></p>
+                <p style="margin-top: 15px;"><a class="btn btn-black" style="background-color: #244e45; padding: 5px 20px; color: #fff;" href="{{$link}}">Click here</a></p>
                 <p style="text-align: left; margin: 0px;">Or Copy the below link on your browser tab :</p>
                 <p style="text-align: left;">unlocked</p>
                 <p style="text-align: left;"></p>

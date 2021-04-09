@@ -275,11 +275,14 @@ class BookingController extends Controller
         $template = $this->get_template_by_name($btemplate);
         $string_to_replace = array(
             '{{$name}}',
-            '{{$date}}'
+            '{{$date}}',
+            '{{$link}}'
         );
         $string_replace_with = array(
             $name,
-            $date
+            $date,
+            url("/"),
+
         );
         $newval = str_replace($string_to_replace, $string_replace_with, $template->template);
         $logId = $this->email_log_create($email, $template->id, $btemplate);

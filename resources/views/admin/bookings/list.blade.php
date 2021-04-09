@@ -71,9 +71,9 @@
 										@elseif($row->status == 2)
 											<a><h5><span class="badge badge-danger">Declined</span></h5></a>
 										@else
-											<a data-placement="bottom"  class="btn-xs" data-toggle="popover" data-content="<div><h5>
-												<a href='{{route("booking.confirm",["id" => $row->id,"status" => 1])}}' class='badge badge-success'>Approve</a>
-												<a href='{{route("booking.confirm",["id" => $row->id,"status" => 2])}}' class='badge badge-danger'>Decline</a></h5></div>" id="myPopover" >
+											<a data-placement="bottom"  class="btn-xs myPopover" data-toggle="popover" data-content="<div><h5>
+												<a  href='{{route("booking.confirm",["id" => $row->id,"status" => 1])}}' class='badge badge-success'>Approve</a>
+												<a  href='{{route("booking.confirm",["id" => $row->id,"status" => 2])}}' class='badge badge-danger'>Decline</a></h5></div>"  id="" >
 												<h5><span class="badge badge-primary">New</span></h5>
 											</a>
 										@endif
@@ -122,7 +122,8 @@
 
 <script>
 jQuery(document).ready(function(){
-	jQuery("#myPopover").popover({
+	
+	jQuery(".myPopover").popover({
 		html: true
 	});
 

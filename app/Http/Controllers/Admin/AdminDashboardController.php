@@ -44,7 +44,7 @@ class AdminDashboardController extends Controller
         $bookingCount = Booking::where('is_deleted',0)->groupBy(DB::raw('DATE_FORMAT(date,"%Y-%m")'))->get();
 
         //booking analytics
-        
+        $bookingChart =[];
         if($bookingCount){
             foreach ($bookingCount as $bookingC) {
                 $bookingCount = Booking::where('is_deleted',0)->where('date','like','%'. date('Y-m',strtotime($bookingC->date)).'%')->count();
