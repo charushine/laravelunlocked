@@ -111,7 +111,7 @@ class AdminDashboardController extends Controller
             ->attempt(array(
             $fieldType => $input['email'],
             'password' => $input['password'],
-            'status' => 1
+            // 'status' => 1
         )))
         {
             dd($input."loggedin");
