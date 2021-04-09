@@ -70,6 +70,7 @@ class OwnerManageController extends Controller
     Params:         [edit_record_id, first_name, last_name, email, role, address, zipcode, mobile, status]
     */
     public function add_record(Request $request){
+       
 
         $request->validate([
             'first_name' => 'required|string',
@@ -79,11 +80,12 @@ class OwnerManageController extends Controller
             'address' => '',
             'zipcode' => 'required|numeric',
             'mobile' => 'required|numeric',
-            'status' => 'required'
+            // 'status' => 'required'
         ], [
             'password.required' => 'Password is required',
             'password.confirmed' => 'Confirmed Password not matched with password'
         ]);
+       
         try {
             $data = [
                     'first_name' =>$request->first_name,
