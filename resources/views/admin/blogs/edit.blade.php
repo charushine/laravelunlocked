@@ -43,7 +43,7 @@
 								<div class="form-group">
 									<label>Publish Date<span class="required"></span>
 									</label>
-                                   <input type="text" name="publish_date" id="publish_date" value="{{old('publish_date',date('Y/m/d H:i', strtotime($blogDetail->publish_date)))}}" class="form-control form-control-user datetimepicker"  autocomplete="off"/>
+                                   <input type="text" name="publish_date" id="publish_date" value="{{old('publish_date',$blogDetail->publish_date != null ?date('Y/m/d H:i', strtotime($blogDetail->publish_date)) : '')}}" class="form-control form-control-user datetimepicker"  autocomplete="off"/>
                                     @if ($errors->has('publish_date'))
                                         <span class="text-danger">{{ $errors->first('publish_date') }}</span>
                                     @endif
@@ -172,7 +172,7 @@
 		  	});
 		jQuery('.datetimepicker').datetimepicker({
 			minDate : 0,
-			mask:true
+			// mask:true
 		});
     </script>
 	@stop

@@ -58,7 +58,7 @@ class BlogController extends Controller
     Params:         [title, content, cover_photo, status]
     */
     public function add_record(Request $request){
-
+       
         $request->validate([
             'title' => 'required',
             'content' => 'required',
@@ -85,7 +85,7 @@ class BlogController extends Controller
                 'title' => $request->title,
                 'content' => $request->content,
                 'cover_photo' => $coverPhoto,
-                'publish_date' => $request->publish_date,
+                'publish_date' => $request->publish_date !== null ? date('Y-m-d H:i:s', strtotime($request->publish_date)) : null,
                 'status' => $request->status
             ];
             $record = Blog::create($data);
@@ -161,7 +161,7 @@ class BlogController extends Controller
             $blogs->title = $postData['title'];
             $blogs->content = $postData['content'];
             $blogs->cover_photo = $blogPhoto;
-            $blogs->publish_date = $request->publish_date;
+            $blogs->publish_date =  $request->publish_date !== null ? date('Y-m-d H:i:s', strtotime($request->publish_date)) : null;
             $blogs->status = $postData['status'];
             $blogs->push();
 

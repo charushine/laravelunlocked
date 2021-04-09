@@ -164,7 +164,7 @@
 
 		jQuery('.datetimepicker').datetimepicker({
 			minDate : 0,
-			mask:true
+			// mask:true
 		});
 
     </script>
