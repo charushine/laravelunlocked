@@ -53,9 +53,9 @@
 								<td>{{$row->created_at ? change_date_format($row->created_at) : 'N/A'}}</td>
 								<td>
 									@if($row->status == 0)
-										<a title="Click to Enable" href="{{route('owner.status', ['id' => $row->id, 'status' => 1])}}" class="tableLink"><i class="fas fa-toggle-off danger"></i></a>
+										<a title="Click to Enable" href="{{route('blog.status', ['id' => $row->id, 'status' => 1])}}" class="tableLink"><i class="fas fa-toggle-off danger"></i></a>
 									@else
-										<a title="Click to Disable" href="{{route('owner.status', ['id' => $row->id, 'status' => 0])}}" class="tableLink"><i class="fas fa-toggle-on success"></i></a>
+										<a title="Click to Disable" href="{{route('blog.status', ['id' => $row->id, 'status' => 0])}}" class="tableLink"><i class="fas fa-toggle-on success"></i></a>
 									@endif
 								</td>
 								<td><a class="anchorLess">

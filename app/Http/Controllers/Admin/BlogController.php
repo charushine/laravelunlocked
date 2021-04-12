@@ -188,4 +188,14 @@ class BlogController extends Controller
         }
     }
      /* End Method del_record */
+
+     public function change_status(Request $request){
+
+        $getData = $request->all();
+        $blog = Blog::find($getData['id']);
+        $blog->status = $getData['status'];
+        $blog->save();
+
+        return redirect()->back()->with('status', 'success')->with('message', "Status " .Config::get('constants.SUCCESS.STATUS_UPDATE'));
+    }
 }

@@ -163,6 +163,7 @@ Route::namespace('Admin')->prefix('admin')->middleware('admin', 'prevent-back-hi
 	Route::get('blog/add', 'BlogController@add_form')->name('blog.add');
 	Route::post('blog/create', 'BlogController@add_record')->name('blog.create');
 	Route::get('blog/edit/{id}', 'BlogController@edit_form')->name('blog.edit');
+	Route::get('blog/status/update', 'BlogController@change_status')->name('blog.status');
 	Route::post('blog/update', 'BlogController@update_record')->name('blog.update');
 	Route::get('blog/delete/{id}', 'BlogController@del_record')->name('blog.delete');
 
