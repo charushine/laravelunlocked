@@ -169,7 +169,7 @@ class BlogController extends Controller
             
             if($postData['scheduleOn'] == 1)              
             {
-                $publishDate = $request->publish_date !== null ? date('Y-m-d H:i:s', strtotime($request->publish_date)) : date('Y-m-d H:i:s');
+                $publishDate = date('Y-m-d H:i:s');
             }else{
                 $publishDate = $request->publish_date !== null ? date('Y-m-d H:i:s', strtotime($request->publish_date)) : date('Y-m-d H:i:s');
             }

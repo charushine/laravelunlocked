@@ -63,7 +63,7 @@
                     <table class="table">
                         <tbody>
                             <tr><th>Total Booking</th><td>{{isset($bookings) ? $bookings : 'N/A'}}</td></tr>
-                            <tr><th>Total Commission</th><td>{{isset($commissions) ? $commissions : 'N/A'}}</td></tr>
+                            <tr><th>Total Commission($)</th><td>{{isset($commissions) ? $commissions : 'N/A'}}</td></tr>
                         </tbody>
                     </table>
                 </div>

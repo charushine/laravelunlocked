@@ -37,7 +37,7 @@
 								</div>
 							</div>
                         </div>
-						<div class="row">
+							<div class="row">
 						&nbsp;&nbsp;
 								<div class="form-check form-group">
 									<input class="form-check-input" type="radio" value='1' name="scheduleOn" id="flexRadioDefault1"checked>
@@ -46,10 +46,10 @@
 									</label>
 								</div>
 								<div class="form-check form-group">
-								<input class="form-check-input" value='2' type="radio" name="scheduleOn" id="flexRadioDefault2" >
-								<label class="form-check-label" for="flexRadioDefault2">
-									Publish On
-								</label>
+									<input class="form-check-input" value='2' type="radio" name="scheduleOn" id="flexRadioDefault2" >
+									<label class="form-check-label" for="flexRadioDefault2">
+										Publish On
+									</label>
 								</div>
 							</div>
 							<div class="row ">
