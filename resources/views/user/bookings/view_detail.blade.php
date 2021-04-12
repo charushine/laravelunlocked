@@ -25,6 +25,8 @@
 									<h5><span class="badge badge-succcess  badge-pill">New</span></h5>
 								@elseif($bookingDetail->status == 1)
 									<h5><span class="badge badge-succcess  badge-pill">Approved</span></h5>
+								@elseif($bookingDetail->status == 3)
+									<h5><span class="badge badge-warning badge-pill">Cancelled</span></h5>
 								@else
 									<h5><span class="badge badge-danger  badge-pill">Declined</span></h5>
 								@endif

@@ -70,7 +70,7 @@ class User extends Authenticatable
 
 	public function user_detail()
 	{
-	   return $this->hasOne(Userdetails::class);
+	   return $this->hasOne(UserDetails::class);
 	}
     public function booking()
 	{

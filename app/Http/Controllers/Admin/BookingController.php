@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\{Config, Auth};
+
 use App\Traits\AutoResponderTrait;
-use App\{Booking, User, Venue};
+use App\{Booking, User, Venue, Commission,BookingPayment};
 
 class BookingController extends Controller
 {
@@ -218,7 +219,18 @@ class BookingController extends Controller
         ], [
             'date.after' => 'Date must be a future date',
         ]);
+
         try {
+
+            //Add commission 
+            $commPercentage = 0;
+            $venue = Venue::where('id',$request->venue_id)->first();
+            $commission = Commission::first();
+            if($venue && $commission){
+                $commPercentage = ($venue->booking_price * $commission->commission_percentage) /100;
+            }
+
+  
             $data =[
                 'venue_id' => $request->venue_id,
                 'user_id' => $request->user_id,
@@ -230,6 +242,18 @@ class BookingController extends Controller
 
             $record = Booking::create($data);
             if($record){
+                //update commssion
+                if($commPercentage > 0){
+                $payments= [
+                    'booking_id' => $record->id,
+                    'user_id' => Auth::user()->id,
+                    'price' => $venue->booking_price,
+                    'commission' =>  $commPercentage,
+                    'payable_amount' => ($venue->booking_price - $commPercentage)
+                ];
+                 BookingPayment::create($payments);
+            }
+
                 $user = User::find($request->user_id);
                 $this->send_notification("COMPLETE_BOOKING",$user->email,$user->first_name,date('d F Y', strtotime($request->date)));
 

@@ -170,6 +170,7 @@ Route::namespace('Admin')->prefix('admin')->middleware('admin', 'prevent-back-hi
 	//Commission Routes
 	Route::get('commission/add', 'CommissionController@add_form')->name('commission.add');
 	Route::post('commission/create', 'CommissionController@add_record')->name('commission.create');
+	Route::get('commission/owner_commission/{id}', 'CommissionController@calculate_commission')->name('commission.ownercommission');
 
 	//Rating & Review Routes
 	Route::get('ratings/list', 'RatingController@getList')->name('ratings.list');

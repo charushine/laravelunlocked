@@ -15,16 +15,17 @@
 			@endif
 		@endif
 	</div> <!-- end .flash-message -->
+
 	<div class="row">
         <div class="col-xl-12 col-md-12">
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
 					<form class="form-inline float-left" id="search-form">
 						<div class="form-group">
-							<input type="text" class="form-control" data-model="User" value="{{isset($keyword)}}" data-searchcoulnm="first_name,last_name,email" id="search_keyword" name="search_keyword" placeholder="What are you looking for?">
+							<input type="text" class="form-control" data-model="User" value="{{$keyword}}" id="search_keyword" name="search_keyword" placeholder="What are you looking for?">
 						</div>
 						<div class="ml-2 form-group">
-							<input type="text" class="form-control" id="daterange_filter" value="{{isset($daterange)}}" name="daterange_filter"  placeholder="Select Date" readonly>
+							<input type="text" class="form-control" id="daterange_filter" value="{{$daterange}}" name="daterange_filter"  placeholder="Select Date" readonly>
 						</div>
 						<button type="submit" class="btn btn-primary ml-10">Search</button>
 					</form>					
@@ -70,8 +71,10 @@
 											<!-- <a title="Click to Edit" href="" class="anchorLess"><i class="fas fa-edit info" aria-hidden="true" ></i>
 											</a> -->
 											<a title="Click to View" href="{{route('bookings.booking_detail',[$row->id])}}" class="anchorLess"><i class="fas fa-eye primary" aria-hidden="true" ></i>
-											</a>											
-											<a title="Cancel booking" href="{{route('booking.cancels',['id' => $row->id])}}" class="anchorLess"><i class="fa fa-window-close danger" aria-hidden="true" ></i>
+											</a>	
+											@if($row->status != 3)										
+												<a title="Cancel booking" href="{{route('booking.cancels',['id' => $row->id])}}" class="anchorLess"><i class="fa fa-window-close danger" aria-hidden="true" ></i>
+											@endif
 											</a>										
 										</a>
 									</td>

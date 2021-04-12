@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
-use App\Commission;
+use App\{Commission,Booking, BookingPayment, User};
 
 class CommissionController extends Controller
 {
@@ -17,9 +17,13 @@ class CommissionController extends Controller
     Params:         []
     */
     public function add_form(){
+        $bookings  =  Booking::where('status','!=',3)->count();
+        // BookingPayment::select(DB::raw("SUM(amount_total) as paidsum"));
+        $commissions = BookingPayment ::sum('commission');
+        $owners = User::role('Owner')->get();
         $commission = Commission::first();
 
-    	return view('admin.commissions.add',compact('commission'));
+    	return view('admin.commissions.add',compact('commission','bookings','commissions','owners'));
     }
     /* End Method add_form */
 
@@ -34,14 +38,14 @@ class CommissionController extends Controller
 
         $request->validate([
             'commission_percentage' => 'required',
-            'status' => 'required',
+            // 'status' => 'required',
         ]);
         try {
 
             if($request->edit_record_id){
                 $commission = Commission::findOrFail($request->edit_record_id);
                 $commission->commission_percentage = $request->commission_percentage;
-                $commission->status = $request->status;
+                // $commission->status = $request->status;
                 $commission->push();
                 return redirect()->back()->with('status', 'success')->with('message', 'Commission '.Config::get('constants.SUCCESS.UPDATE_DONE'));
             }else{
@@ -61,5 +65,22 @@ class CommissionController extends Controller
             return redirect()->back()->with('status', 'error')->with('message', $e->getMessage());
         }
     }
+
+    public function calculate_commission($id){
+        $owner_count = User::role('Owner')->where('id',$id);
+        
+        if($id != "" && $owner_count) {
+            $commission = BookingPayment::join('bookings', 'booking_payments.booking_id', '=', 'bookings.id')
+                                    ->join('venues','bookings.venue_id','venues.id')
+                                    ->where('venues.user_id',$id)
+                ->sum('commission');       
+        $data = ['success' => true, 'message' =>  $commission ];
+        }else{
+            $data = ['success' => false, 'message' => "No record found" ];
+        }
+        echo json_encode($data);
+
+    }
+      
     /* End Method add_record */
 }

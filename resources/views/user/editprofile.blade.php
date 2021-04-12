@@ -68,7 +68,7 @@
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="form-group">
                                     <label>Contact<span class="required">*</span></label>
-                                    <input type="text" name="mobile" id="mobile" value="{{old('mobile', isset($userDetail->user_detail->mobile) ? $userDetail->user_detail->mobile: "")}}" class="form-control form-control-user"  />
+                                    <input type="number" name="mobile" min="0" minlength="10" maxlength="12" id="mobile" value="{{old('mobile', isset($userDetail->user_detail->mobile) ? $userDetail->user_detail->mobile: "")}}" class="form-control form-control-user"  />
                                     @if ($errors->has('mobile'))
                                         <span class="text-danger">{{ $errors->first('mobile') }}</span>
                                     @endif
@@ -79,7 +79,7 @@
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="form-group">
                                     <label>Zipcode<span class="required"></span></label>
-                                    <input type="text" name="zipcode" id="zipcode" value="{{old('zipcode', isset($userDetail->user_detail->zipcode) ? $userDetail->user_detail->zipcode : "")}}" class="form-control form-control-user"  />
+                                    <input type="number" min="0" name="zipcode" id="zipcode" value="{{old('zipcode', isset($userDetail->user_detail->zipcode) ? $userDetail->user_detail->zipcode : "")}}" class="form-control form-control-user"  />
                                     @if ($errors->has('zipcode'))
                                     <span class="text-danger">{{ $errors->first('zipcode') }}</span>
                                     @endif
@@ -120,7 +120,7 @@
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="form-group">
                                     <label>Profile Photo<span class="required"></span></label>                
-									<input type="file" name="profile_picture" id="profile_picture"  value="{{old('profile_picture',$userDetail->user_detail->profile_picture)}}"  class="form-control form-control-user"/>
+									<input type="file" name="profile_picture" id="profile_picture"  value="{{old('profile_picture',isset($userDetail->user_detail->profile_picture) ? $userDetail->user_detail->profile_picture : '')}}"  class="form-control form-control-user"/>
                                     @if ($errors->has('profile_picture'))
                                         <span class="text-danger">{{ $errors->first('profile_picture') }}</span>
                                     @endif
@@ -161,6 +161,8 @@
 <!-- container-fluid -->
 @endsection
 @section('scripts')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 <script>
     $( document ).ready(function() {
     	$("form[id='update_profile_form']").validate({
@@ -181,14 +183,18 @@
 					mobile: {
 						required: true,
 						number: true,
+                        maxlength: 12,
+						minlength: 10,
 					},
-                    country: {
-						
+                    country: {						
 						lettersonly :true
 					},
-                    city: {
-						
+                    city: {						
 						lettersonly :true
+					},
+                    zipcode: {
+						required: true,
+						number: true,
 					},
 					
     		},
@@ -209,12 +215,18 @@
 					mobile:{
 						required: 'Contact no is required',
 						number: 'Contact must be digit only',
+                        maxlength: 'Contact no should be of 10 to 12 digit',
+						minlength: 'Contact no should be of 10 to 12 digit',
 					},
                     country: {						
 						lettersonly: 'Country should contains letters only',
 					},
                     city: {						
 						lettersonly: 'City should contains letters only',
+					},
+                    zipcode:{
+						required: 'Zipcode is required',
+						number: 'Zipcode must be number only'
 					},
     		},
     		submitHandler: function(form) {

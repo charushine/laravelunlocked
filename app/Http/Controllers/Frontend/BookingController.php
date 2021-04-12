@@ -21,7 +21,7 @@ class BookingController extends Controller
     public function getList(Request $request){
 
         $start = $end =  '';
-
+        
         if($request->has('search_keyword') && $request->search_keyword != '')
         {
             $keyword = $request->search_keyword;
@@ -42,6 +42,7 @@ class BookingController extends Controller
         {
             $daterange = '';
         }
+       
         $data = Booking::when($request->search_keyword, function($q) use($request){
             $q->where(function ($quer) use ($request) {
                 $quer->where('booking_name', 'like', '%'.$request->search_keyword.'%')
@@ -57,6 +58,7 @@ class BookingController extends Controller
             $query->whereBetween('date', [$start, $end]);
 
         })->where('user_id',Auth::user()->id)->sortable('id')->paginate(Config::get('constants.PAGINATION_NUMBER'));
+      
         return view('user.bookings.list', compact('data','daterange','keyword'));
     }
 
@@ -86,11 +88,16 @@ class BookingController extends Controller
     */
     public function booking_cancel(Request $request){
           try {
+
+           
         $bookingDetail = Booking::findOrFail($request->id);
+      
         $bookingDetail->status = 3;
         $bookingDetail->push();
-        if($bookingDetail != 3){
-            $this->send_notification("DECLINE_BOOKING",$bookingDetail->user->email,$bookingDetail->user->first_name,date('d F Y', strtotime($bookingDetail->date)));
+
+        if($bookingDetail->status !== "3"){
+
+            $this->send_notification("DECLINE_BOOKING",$bookingDetail->venue->user->email,$bookingDetail->venue->user->first_name,date('d F Y', strtotime($bookingDetail->date)),$bookingDetail->user->first_name);
         }
         return redirect()->back()->with('status', 'success')->with('message', 'Booking cancelled has been successfully');
 
@@ -99,16 +106,18 @@ class BookingController extends Controller
         }
     }
 
-    function send_notification($btemplate,$email,$name,$date){
+    function send_notification($btemplate,$email,$name,$date,$byName){
        
         $template = $this->get_template_by_name($btemplate);
         $string_to_replace = array(
             '{{$name}}',
-            '{{$date}}'
+            '{{$date}}',
+            '{{$byName}}'
         );
         $string_replace_with = array(
             $name,
-            $date
+            $date,
+            $byName
         );
         $newval = str_replace($string_to_replace, $string_replace_with, $template->template);
        

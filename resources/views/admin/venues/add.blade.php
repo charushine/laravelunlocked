@@ -59,7 +59,7 @@
 								<div class="form-group">
 									<label>Contact No.<span class="required">*</span>
 									</label>
-									<input type="text" min="0" name="contact" id="contact" minlength="10" maxlength="12"  value="{{old('contact')}}" class="form-control form-control-user" />
+									<input type="number" min="0" name="contact" id="contact" minlength="10" maxlength="12"  value="{{old('contact')}}" class="form-control form-control-user" />
 									@if ($errors->has('contact'))
 										<span class="text-danger">{{ $errors->first('contact') }}</span>
 									@endif

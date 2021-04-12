@@ -81,11 +81,20 @@ class BlogController extends Controller
                     $image_path = $uploadpath.'/'.$coverPhoto; // Value is not URL but directory file path
                     $file->move($uploadpath, $coverPhoto);
             }
+            $publishDate = date('Y-m-d H:i:s');
+            if($request->scheduleOn == 1)
+                
+            {
+                $publishDate = $request->publish_date !== null ? date('Y-m-d H:i:s', strtotime($request->publish_date)) : date('Y-m-d H:i:s');
+            }else{
+                $publishDate = $request->publish_date !== null ? date('Y-m-d H:i:s', strtotime($request->publish_date)) : date('Y-m-d H:i:s');
+            }
+            
             $data =[
                 'title' => $request->title,
                 'content' => $request->content,
                 'cover_photo' => $coverPhoto,
-                'publish_date' => $request->publish_date !== null ? date('Y-m-d H:i:s', strtotime($request->publish_date)) : null,
+                'publish_date' => $publishDate,
                 'status' => $request->status
             ];
             $record = Blog::create($data);
@@ -156,12 +165,20 @@ class BlogController extends Controller
                 $blogPhoto = $slug.'-'.$orignlname;
                 $file->move($uploadpath, $blogPhoto);
             }
+            $publishDate = date('Y-m-d H:i:s');
+            
+            if($postData['scheduleOn'] == 1)              
+            {
+                $publishDate = $request->publish_date !== null ? date('Y-m-d H:i:s', strtotime($request->publish_date)) : date('Y-m-d H:i:s');
+            }else{
+                $publishDate = $request->publish_date !== null ? date('Y-m-d H:i:s', strtotime($request->publish_date)) : date('Y-m-d H:i:s');
+            }
 
             $blogs = Blog::findOrFail($id);
             $blogs->title = $postData['title'];
             $blogs->content = $postData['content'];
             $blogs->cover_photo = $blogPhoto;
-            $blogs->publish_date =  $request->publish_date !== null ? date('Y-m-d H:i:s', strtotime($request->publish_date)) : null;
+            $blogs->publish_date =  $publishDate;
             $blogs->status = $postData['status'];
             $blogs->push();
 

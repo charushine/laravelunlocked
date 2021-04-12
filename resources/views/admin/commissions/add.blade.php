@@ -36,30 +36,13 @@
 								<div class="form-group">
 									<label>Commission(%)<span class="required">*</span>
 									</label>
-                                   <input type="number" max="100"  name="commission_percentage" id="commission_percentage" value="{{old('commission_percentage',isset($commission) ? $commission->commission_percentage : '')}}" class="form-control form-control-user" />
+                                   <input type="number" max="100" min="0"  name="commission_percentage" id="commission_percentage" value="{{old('commission_percentage',isset($commission) ? $commission->commission_percentage : '')}}" class="form-control form-control-user" />
                                     @if ($errors->has('commission_percentage'))
                                         <span class="text-danger">{{ $errors->first('commission_percentage') }}</span>
                                     @endif
 								</div>
 							</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-4 col-md-6 col-12">
-                                <div class="form-group">
-                                    <label>Status<span class="required">*</span></label>
-                                    <div class="input-group">
-                                        <div id="radioBtn" class="btn-group">
-                                            <a class="btn btn-success btn-sm {{ old('status',isset($commission) ? $commission->status : '') == '1' ? 'active' : 'notActive'}}" data-toggle="status" data-title="1">Enabled</a>
-                                            <a class="btn btn-danger btn-sm {{ old('status',isset($commission) ? $commission->status : '') == '0' ? 'active' : 'notActive'}}" data-toggle="status" data-title="0">Disabled</a>
-                                        </div>
-                                        <input type="hidden" name="status" id="status" value="{{ old('status',isset($commission) ? $commission->status : '') == '1' ? '1' : '0'}}">
-                                    </div>
-                                    @if ($errors->has('status'))
-                                    <span class="text-danger">{{ $errors->first('status') }}</span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
+                        </div>                      
 						<div class="mt-1 mb-1">
 							<div class="text-left d-print-none mt-4">
 								<button type="submit" id="edit-genre-btn" value="save" class="btn btn-primary">Save</button>
@@ -79,8 +62,8 @@
 					</h5>
                     <table class="table">
                         <tbody>
-                            <tr><th>Total Booking</th><td>10</td></tr>
-                            <tr><th>Total Commission</th><td>100</td></tr>
+                            <tr><th>Total Booking</th><td>{{isset($bookings) ? $bookings : 'N/A'}}</td></tr>
+                            <tr><th>Total Commission</th><td>{{isset($commissions) ? $commissions : 'N/A'}}</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -90,10 +73,19 @@
 					<h5 class="mt-3 mb-4">
 						Commision for Venue Owner's
 					</h5>
+					<select class="form-control col-md-6" id="owners">
+						<option value="">Select Owner</option>
+					 @foreach($owners as $user)
+								<option value="{{$user->id}}">{{$user->first_name ." ".$user->last_name}}</option>
+                    @endforeach
+					
+					</select>
+					&nbsp;
                     <table class="table">
+					
                         <tbody>
-                            <tr><th> Venue Owner</th><td>Gaurav Sharma</td></tr>
-                            <tr><th>Total Commission</th><td>100</td></tr>
+                            
+                            <tr><th>Commission($)</th><td id="totalCommission">0</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -128,6 +120,23 @@
 				}
 			});
 		});
+ 	$("#owners").change(function () {
+        var ownerid = this.value;
+		
+		if (ownerid) {
+			var url = baseurl + '/admin/commission/owner_commission/' + ownerid;
+			jQuery.get(url, function (data) {
+				let result = JSON.parse(data);
+					 if (result.success == true)
+                    {
+                         jQuery("#totalCommission").html(result.message);  
+                    } else if(result.success == false){
+                        jQuery("#totalCommission").html(result.message);
+                      
+                    } 			
+			});
+		}
 
+    });
     </script>
 	@stop

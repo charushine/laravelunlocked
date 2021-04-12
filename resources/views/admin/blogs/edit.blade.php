@@ -39,7 +39,22 @@
 							</div>
                         </div>
 						<div class="row">
-							<div class="col-lg-6 col-md-6 col-12">
+						&nbsp;&nbsp;
+								<div class="form-check form-group">
+									<input class="form-check-input" type="radio" value='1' name="scheduleOn" id="flexRadioDefault1">
+									<label class="form-check-label" for="flexRadioDefault1">
+										Publish Now &nbsp;
+									</label>
+								</div>
+								<div class="form-check form-group">
+									<input class="form-check-input" value='2' type="radio" name="scheduleOn" id="flexRadioDefault2" checked>
+									<label class="form-check-label" for="flexRadioDefault2">
+										Publish On
+									</label>
+								</div>
+							</div>
+						<div class="row">
+							<div class="col-lg-6 col-md-6 col-12" id="displayDiv">
 								<div class="form-group">
 									<label>Publish Date<span class="required"></span>
 									</label>
@@ -174,5 +189,14 @@
 			minDate : 0,
 			// mask:true
 		});
+
+		jQuery("input[name='scheduleOn']").click(function() {
+        var publishVal = jQuery(this).val();
+			if(publishVal == '2'){
+ 				jQuery("#displayDiv").show();
+			}else{
+				jQuery("#displayDiv").hide();
+			}
+    	});
     </script>
 	@stop
