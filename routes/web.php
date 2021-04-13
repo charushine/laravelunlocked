@@ -171,6 +171,8 @@ Route::namespace('Admin')->prefix('admin')->middleware('admin', 'prevent-back-hi
 	Route::get('commission/add', 'CommissionController@add_form')->name('commission.add');
 	Route::post('commission/create', 'CommissionController@add_record')->name('commission.create');
 	Route::get('commission/owner_commission/{id}', 'CommissionController@calculate_commission')->name('commission.ownercommission');
+	Route::get('commission/csv', 'ExportController@exportCommission')->name('exportcommission');
+	Route::get('earning/csv', 'ExportController@exportEarning')->name('exportearning');
 
 	//Rating & Review Routes
 	Route::get('ratings/list', 'RatingController@getList')->name('ratings.list');

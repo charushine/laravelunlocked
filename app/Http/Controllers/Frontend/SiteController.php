@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 Use Illuminate\Support\Str;
-use Cookie, Session, DB;
-use App\Venue;
+use Cookie, Session, DB, Auth;
+use App\{Venue, Testimonial, SearchLog};
 
 class SiteController extends Controller
 {
@@ -28,8 +28,9 @@ class SiteController extends Controller
 			session::put('user_cookie_id', $id);
         }
         $venues = Venue::where('status', 1)->get();
-      
-        return view('welcome',compact('venues'));
+        $testimonials = Testimonial::get();
+        
+        return view('welcome',compact('venues','testimonials'));
     }
 
      /*
@@ -45,6 +46,23 @@ class SiteController extends Controller
         if($request->page){
             $offset = $request->page;
         }
+        if($keyword != ""){
+            $data= [
+                'date' => date('Y-m-d H:i:s'),
+                'user_id' => Auth::user()->id or 0,
+                'keyword' => $keyword,
+                'client_name' =>  $request->header('User-Agent'),
+            ];
+            $ip = $request->ip();
+            $searchIp = SearchLog::where('ips',$ip)->first();
+
+            if($searchIp){
+                unserialize($searchIp->key_logs);
+             }else{
+                SearchLog::create(['ips' => $ip, 'keylogs' => serialize($data)]);
+             }
+
+        }
         //Sorting by price and rating
         $oColumn = "booking_price";
         $orderby = "asc";
@@ -57,7 +75,7 @@ class SiteController extends Controller
                 $orderby = $sortVal[1] == "asc" ? "asc" :"desc";
             }       
         }
-        
+
         $start = $end = $price = '';
         if($request->has('daterange') && $request->daterange != '')
         {

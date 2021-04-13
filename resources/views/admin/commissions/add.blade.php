@@ -3,6 +3,7 @@
 <div class="container-fluid">
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
 		<h1 class="h3 mb-0 text-gray-800">Commissions</h1>
+		<a class="m-0 font-weight-bold btn-department-add pull-right hover-white" href="{{route('exportcommission')}}">Export <i class="fa fa-file-csv"></i></a>
 	</div>
 	<div class="flash-message">
 	@if(session()->has('status'))
@@ -23,6 +24,7 @@
 	</div>
 	<!-- end .flash-message -->
 	<div class="row mt-4">
+	
 		<div class="col-md-6">
 			<div class="card">
 				<div class="card-body pt-2 pb-3 manageClinicSection">

@@ -97,7 +97,7 @@ class BookingController extends Controller
 
         if($bookingDetail->status !== "3"){
 
-            $this->send_notification("DECLINE_BOOKING",$bookingDetail->venue->user->email,$bookingDetail->venue->user->first_name,date('d F Y', strtotime($bookingDetail->date)),$bookingDetail->user->first_name);
+            $this->send_notification("CANCEL_BOOKING",$bookingDetail->venue->user->email,$bookingDetail->venue->user->first_name,date('d F Y', strtotime($bookingDetail->date)),$bookingDetail->user->first_name);
         }
         return redirect()->back()->with('status', 'success')->with('message', 'Booking cancelled has been successfully');
 
@@ -106,6 +106,13 @@ class BookingController extends Controller
         }
     }
 
+    /**
+     * Method Name:     send_notification
+     * Developer:      Shine Dezign
+     * Created Date:   2021-04-13 (yyyy-mm-dd)
+     * Purpose:        To send mail to admin , when booking cacel by admin
+     * Params:         [id]
+     */
     function send_notification($btemplate,$email,$name,$date,$byName){
        
         $template = $this->get_template_by_name($btemplate);

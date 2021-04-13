@@ -5,7 +5,7 @@ namespace App\Traits;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use App\{State, County, User, Venue, Booking};
+use App\{State, County, User, Venue, Booking, BookingPayment};
 use Image;
 
 trait CommonTrait
@@ -96,6 +96,73 @@ trait CommonTrait
 
     }
      /* End Method getBookings */
+
+      /*
+    Method Name:    getCommissions
+    Developer:      Shine Dezign
+    Created Date:   2021-04-13 (yyyy-mm-dd)
+    Purpose:        To get list of commission
+    Params:         []
+    */
+    public function getCommissions()
+    {
+
+        $commissions =  BookingPayment::join('bookings', 'booking_payments.booking_id', '=', 'bookings.id')
+                        ->join('venues','bookings.venue_id','venues.id')       
+                        ->select(DB::raw('booking_payments.id,venues.name,booking_price, DATE_FORMAT(booking_payments.created_at, "%d-%b-%Y") as createdAt, DATE_FORMAT(bookings.date, "%d-%b-%Y") as booking_date,commission'))
+                        ->orderBy('booking_payments.id', 'asc')
+                        ->get()
+                        ->toArray();
+        if($commissions){             
+        $commissionAmt = BookingPayment::sum('commission');
+        
+        $total = [
+            "id" => "",
+            "name" => "",
+            "booking_price" => "",
+            "createdAt" => "",
+            "booking_date" => "Total",
+            "commission" => $commissionAmt,
+            ];
+            array_push($commissions,$total);
+         }      
+        return $commissions;
+    }
+     /* End Method getCommissions */
+
+     /*
+    Method Name:    getEarnings
+    Developer:      Shine Dezign
+    Created Date:   2021-04-13 (yyyy-mm-dd)
+    Purpose:        To get list of earning
+    Params:         []
+    */
+    public function getEarnings()
+    {
+
+        $earning =  BookingPayment::join('bookings', 'booking_payments.booking_id', '=', 'bookings.id')
+                        ->join('venues','bookings.venue_id','venues.id')       
+                        ->select(DB::raw('booking_payments.id,venues.name,booking_price, DATE_FORMAT(booking_payments.created_at, "%d-%b-%Y") as createdAt, DATE_FORMAT(bookings.date, "%d-%b-%Y") as booking_date,payable_amount'))
+                        ->orderBy('booking_payments.id', 'asc')
+                        ->get()
+                        ->toArray();
+        if($earning){             
+        $earnAmt = BookingPayment::sum('payable_amount');
+        
+        $total = [
+            "id" => "",
+            "name" => "",
+            "booking_price" => "",
+            "createdAt" => "",
+            "booking_date" => "Total",
+            "payable_amount" => $earnAmt,
+            ];
+            array_push($earning,$total);
+         }      
+        return $earning;
+    }
+     /* End Method getEarnings */
+
 
     /*
     Method Name: createThumbnail
