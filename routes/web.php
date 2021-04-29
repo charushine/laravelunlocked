@@ -1,6 +1,6 @@
 <?php
 if (App::environment('production')) {
-    URL::forceScheme('https');
+	URL::forceScheme('https');
 }
 /*
 |--------------------------------------------------------------------------
@@ -14,72 +14,74 @@ if (App::environment('production')) {
 */
 Route::middleware('XssSanitizer')->group(function () {
 	Auth::routes();
-	Route::get('/', 'Frontend\SiteController@index')->name('home'); 
+	Route::get('/', 'Frontend\SiteController@index')->name('home');
 	// Route::get('/', 'Admin\AdminDashboardController@login');
 	Route::get('auth/google', 'Auth\SocialLoginController@redirectToGoogle');
 	Route::get('auth/google/callback', 'Auth\SocialLoginController@handleGoogleCallback');
 
 	//facebook login routes
 	Route::get('auth/facebook', 'Auth\SocialLoginController@redirectToFacebook');
-	Route::get('auth/facebook/callback', 'Auth\SocialLoginController@handleFacebookCallback'); 
+	Route::get('auth/facebook/callback', 'Auth\SocialLoginController@handleFacebookCallback');
 
-	
+
 	Route::get('logout', 'Admin\AdminDashboardController@logout')->name('logout');
 	// Route::get('/home', 'Admin\AdminDashboardController@index')->name('home');
-	
+
 
 });
 /*****************
-******************
+ ******************
 Frontend  routes
-******************
-******************/
-Route::namespace('Frontend')->group(function () { 
+ ******************
+ ******************/
+Route::namespace('Frontend')->group(function () {
 	Route::get('/register', 'RegistrationController@registerUser')->name('register');
 	Route::post('/register', 'RegistrationController@registerUser')->name('register');
 	Route::get('verify/email/{token}', 'RegistrationController@verifyEmail')->name('verifyEmail');
-	Route::get('reset-password', 'UserController@password_reset')->name('password.reset'); 
+	Route::get('reset-password', 'UserController@password_reset')->name('password.reset');
 	Route::post('reset-password-email', 'UserController@password_reset_link')->name('passwordreset');
-	Route::get('reset-password/check/token/{token}', 'UserController@password_reset_token_check')->name('checktoken'); 
-	Route::post('update-new-password', 'UserController@update_new_password')->name('userupdatenewpassword'); 
+	Route::get('reset-password/check/token/{token}', 'UserController@password_reset_token_check')->name('checktoken');
+	Route::post('update-new-password', 'UserController@update_new_password')->name('userupdatenewpassword');
 	Route::get('set-new-password', 'UserController@new_password_set')->name('usersetnewpassword');
 	// Route::get('/show_venue', 'SiteController@getvenues'); 
-	Route::get('/show_venue/{keyword?}', 'SiteController@getvenues'); 
-	Route::get('/venue-detail/{id}', 'SiteController@venue_detail')->name("venuedetail"); 
-	Route::get('/book-venue', 'SiteController@book_venue')->name("bookvenue"); 
+	Route::get('/show_venue/{keyword?}', 'SiteController@getvenues');
+	Route::post('/show_cat_venue', 'SiteController@getCategoryVenue')->name('show_cat_venue');
+	Route::get('/show_all_cat_venue/{id}', 'SiteController@getAllVenue')->name('showallcatvenue');
+	Route::get('/venue-detail/{id}', 'SiteController@venue_detail')->name("venuedetail");
+	Route::get('/book-venue', 'SiteController@book_venue')->name("bookvenue");
 
 	//Rating Routes
-	Route::get('rating/add', 'RatingController@add_form')->name("rating.add"); 
+	Route::get('rating/add', 'RatingController@add_form')->name("rating.add");
 	Route::post('rating/create', 'RatingController@add_record')->name("rating.create");
-	Route::get('venue/add', 'UserController@add_form')->name("venue.add");  
-	Route::post('venue/insert', 'UserController@insert_record')->name("venue.insert");  
-	Route::get('blog/listing', 'BlogController@getList')->name("blog.listing");  
+	Route::get('venue/add', 'UserController@add_form')->name("venue.add");
+	Route::post('venue/insert', 'UserController@insert_record')->name("venue.insert");
+	Route::get('blog/listing', 'BlogController@getList')->name("blog.listing");
 });
 
-Route::namespace('Frontend')->prefix('user')->middleware('XssSanitizer', 'user', 'prevent-back-history')->group(function () { 
-		Route::get('dashboard', 'UserController@index')->name('userdashboard'); 	
-		Route::get('detail/update', 'UserController@edit_form')->name('detail.update');
-		Route::post('details/update', 'UserController@update_record')->name('update.details');
-		Route::get('profile-photo/remove', 'UserController@remove_photo')->name('profilephoto.remove');
-		Route::get('change/password', 'UserController@edit_password')->name('change.password');
-		Route::post('password/update', 'UserController@update_password')->name('update.password'); 
+Route::namespace('Frontend')->prefix('user')->middleware('XssSanitizer', 'user', 'prevent-back-history')->group(function () {
+	Route::get('dashboard', 'UserController@index')->name('userdashboard');
+	Route::get('detail/update', 'UserController@edit_form')->name('detail.update');
+	Route::post('details/update', 'UserController@update_record')->name('update.details');
+	Route::get('profile-photo/remove', 'UserController@remove_photo')->name('profilephoto.remove');
+	Route::get('change/password', 'UserController@edit_password')->name('change.password');
+	Route::post('password/update', 'UserController@update_password')->name('update.password');
 
-		// Booking Routes
-		Route::get('bookings/list', 'BookingController@getList')->name('bookings.mybookings');
-		Route::get('bookings/details/{id}', 'BookingController@view_detail')->name('bookings.booking_detail');
-		Route::get('bookings/details/{id}', 'BookingController@view_detail')->name('bookings.booking_detail');
-		Route::get('booking/cancel', 'BookingController@booking_cancel')->name('booking.cancels');
+	// Booking Routes
+	Route::get('bookings/list', 'BookingController@getList')->name('bookings.mybookings');
+	Route::get('bookings/details/{id}', 'BookingController@view_detail')->name('bookings.booking_detail');
+	Route::get('bookings/details/{id}', 'BookingController@view_detail')->name('bookings.booking_detail');
+	Route::get('booking/cancel', 'BookingController@booking_cancel')->name('booking.cancels');
 });
 //Owner routes
-Route::namespace('Frontend')->prefix('owner')->middleware('XssSanitizer', 'owner', 'prevent-back-history')->group(function () { 
-		Route::get('dashboard', 'OwnerController@index')->name('ownerdashboard'); 	
+Route::namespace('Frontend')->prefix('owner')->middleware('XssSanitizer', 'owner', 'prevent-back-history')->group(function () {
+	Route::get('dashboard', 'OwnerController@index')->name('ownerdashboard');
 });
 
 /*****************
-******************
+ ******************
 Admin panel routes
-******************
-******************/
+ ******************
+ ******************/
 
 Route::namespace('Admin')->prefix('admin')->group(function () {
 	Route::get('/', 'AdminDashboardController@login')->name('admin');
@@ -230,5 +232,4 @@ Route::namespace('Admin')->prefix('admin')->middleware('admin', 'prevent-back-hi
 	Route::get('autoresponder/list', 'AutoResponderController@getList')->name('autoresponder.list');
 	Route::get('autoresponder/template/edit/{id}', 'AutoResponderController@edit_form')->name('autoresponder.edit');
 	Route::post('autoresponder/template/update', 'AutoResponderController@update_record')->name('autoresponder.update');
-
 });

@@ -7,84 +7,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-    <meta name="csrf-token" content="{!! csrf_token() !!}">
-	<meta name="baseurl" content="{{url('')}}">
+  <meta name="csrf-token" content="{!! csrf_token() !!}">
+  <meta name="baseurl" content="{{url('')}}">
   <title>Unlocked</title>
 
   <!-- Bootstrap core CSS -->
-  
+
   <link href="{{asset('frontend/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="{{asset('frontend/css/small-business.css')}}" rel="stylesheet">
+  <!-- <link href="{{asset('frontend/css/small-business.css')}}" rel="stylesheet"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
+  <!-- new css -->
+  <!-- CSS Files -->
+  <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
+  <link rel="stylesheet" href="{{asset('assets/css/fontawesome/css/all.css')}}" />
+  <link href="{{asset('assets/css/slick.css')}}" rel="stylesheet">
+  <link href="{{asset('assets/css/slick-theme.css')}}" rel="stylesheet">
+  <link href="{{asset('assets/css/aos.css')}}" rel="stylesheet">
+  <!-- Main CSS File -->
+  <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+  <link href="{{asset('assets/css/responsive.css')}}" rel="stylesheet">
+  <!-- new css end -->
 
 </head>
 
 <body>
 
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="{{route('home')}}">Unlocked</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{{route('home')}}">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{route('blog.listing')}}">Blogs</a>
-          </li>
-          
-            @if (Auth::check())
-            <li class="nav-item">
-                <a class="nav-link" href=""><span><i class="fa fa-user-circle"></i> </span> {{ucwords(Auth::user()->first_name)}}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('logout')}}">Logout</a>
-            </li>
-            @else
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('login')}}">Login</a>
-            <li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('register')}}">Register</a>
-            </li>
-            @endif
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <!--------------HEADER SECTION START HERE------------->
+  @include('partials.header')
+  <!--------------HEADER SECTION ENDS HERE-------------->
 
-  <!-- Page Content -->
   @yield('content')
-  <!-- /.container -->
 
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Unlocked 2021</p>
-    </div>
-    <!-- /.container -->
-  </footer>
+  <!-------------FOOTER SECTION START HERE---------------->
+  @include('partials.footer')
+  <!-------------FOOTER SECTION ENDS HERE---------------->
+
   <!-- Bootstrap core JavaScript -->
-@show
-<script>
+  @show
+  <script>
     var baseurl = $('meta[name="baseurl"]').prop('content');
     var token = $('meta[name="csrf-token"]').prop('content');
-</script>
+  </script>
 
-  <script src="{{asset('frontend/vendor/jquery/jquery.min.js')}}"></script>
+  <!-- <script src="{{asset('frontend/vendor/jquery/jquery.min.js')}}">
+  </script>
   <script src="{{asset('frontend/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-  	<script src="{{asset('backend/js/jquery.validate.min.js')}}"></script>
-	<script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+  <script src="{{asset('backend/js/jquery.validate.min.js')}}"></script>
+  <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script> -->
+
+  <!-- // new js start -->
+  <!-- JS Files -->
+  <script src="{{asset('assets/js/jquery.min.js')}}"></script>
+  <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{asset('assets/js/slick.js')}}"></script>
+  <script src="{{asset('assets/js/aos.js')}}"></script>
+  <script src="{{asset('assets/js/main.js')}}"></script>
+
+
+  <script>
+    AOS.init({
+      duration: 1200,
+    });
+  </script>
+  <!-- // new js end -->
+
   @yield('scripts')
 </body>
 

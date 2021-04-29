@@ -16,15 +16,16 @@ class CreateVenuesTable extends Migration
         Schema::create('venues', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('category_id');
             $table->string("name");
-			$table->string('location')->nullable();
-			$table->string('contact')->nullable();
-			$table->string('building_type')->nullable();
-			$table->text('amenities_detail')->nullable();
-			$table->text('other_information')->nullable();
+            $table->string('location')->nullable();
+            $table->string('contact')->nullable();
+            $table->string('building_type')->nullable();
+            $table->text('amenities_detail')->nullable();
+            $table->text('other_information')->nullable();
             $table->tinyInteger('is_featured')->default(0);
-			$table->integer('total_room')->nullable();
-			$table->integer('booking_price')->nullable();
+            $table->integer('total_room')->nullable();
+            $table->integer('booking_price')->nullable();
             $table->tinyInteger('is_available')->default(1);
             $table->tinyInteger('status')->nullable();
             $table->tinyInteger('is_deleted')->default(0);

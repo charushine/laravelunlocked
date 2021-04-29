@@ -8,26 +8,32 @@
 	</div>
 	<div class="flash-message">
 		@if(session()->has('status'))
-			@if(session()->get('status') == 'success')
-				<div class="alert alert-success  alert-dismissible">
-					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{ session()->get('message') }}
-				</div>
-			@endif
+		@if(session()->get('status') == 'success')
+		<div class="alert alert-success  alert-dismissible">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{ session()->get('message') }}
+		</div>
+		@endif
 		@endif
 	</div> <!-- end .flash-message -->
 	<div class="row">
 		<div class="col-md-4">
 			<table class="table">
-				<tr><th scope="col">Total Bookings</th><td>{{$totalbookings}}</td></tr>
-			    <tr><th scope="col">Total Venues</th><td>{{$totalVenues}}</td></tr>
-		   </table>
+				<tr>
+					<th scope="col">Total Bookings</th>
+					<td>{{$totalbookings}}</td>
+				</tr>
+				<tr>
+					<th scope="col">Total Venues</th>
+					<td>{{$totalVenues}}</td>
+				</tr>
+			</table>
 		</div>
-        <div class="col-xl-12 col-md-12">
+		<div class="col-xl-12 col-md-12">
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
 					<form class="form-inline float-left" id="search-form">
 						<div class="form-group">
-							<input type="text" class="form-control" data-model="User"  id="search_keyword" value="{{$keyword}}" name="search_keyword" placeholder="What are you looking for?">
+							<input type="text" class="form-control" data-model="User" id="search_keyword" value="{{$keyword}}" name="search_keyword" placeholder="What are you looking for?">
 						</div>
 						<button type="submit" class="btn btn-primary ml-10">Search</button>
 					</form>
@@ -50,6 +56,7 @@
 									<th>@sortablelink('location', 'Location')</th>
 									<th>@sortablelink('contact', 'Contact')</th>
 									<th>@sortablelink('building_type', 'Building type')</th>
+									<th>@sortablelink('building_type', 'Building type')</th>
 									<th>@sortablelink('total_room', 'Total Room')</th>
 									<th>@sortablelink('booking_price', 'Booking Price')</th>
 									<th>@sortablelink('created_at', 'Created Date')</th>
@@ -60,7 +67,7 @@
 								</tr>
 							</thead>
 							<tbody>
-							@php $i = 1 @endphp
+								@php $i = 1 @endphp
 								@foreach($data as $key => $row)
 								<tr>
 									<td>{{$i++}}</td>
@@ -76,25 +83,25 @@
 									<td>{{$row->created_at ? change_date_format($row->created_at) : 'N/A'}}</td>
 
 									<td>@if($row->is_featured == 0)
-											<a title="Click to Enable" href="{{route('venue.status', ['id' => $row->id, 'is_featured' => 1])}}" class="tableLink"><i class="fas fa-toggle-off danger"></i></a>
+										<a title="Click to Enable" href="{{route('venue.status', ['id' => $row->id, 'is_featured' => 1])}}" class="tableLink"><i class="fas fa-toggle-off danger"></i></a>
 										@else
-											<a title="Click to Disable" href="{{route('venue.status', ['id' => $row->id, 'is_featured' => 0])}}" class="tableLink"><i class="fas fa-toggle-on success"></i></a>
+										<a title="Click to Disable" href="{{route('venue.status', ['id' => $row->id, 'is_featured' => 0])}}" class="tableLink"><i class="fas fa-toggle-on success"></i></a>
 										@endif
 									</td>
 									<td>@if($row->status == 0)
-											<a title="Click to Enable" href="{{route('venue.status', ['id' => $row->id, 'status' => 1])}}" class="tableLink"><i class="fas fa-toggle-off danger"></i></a>
+										<a title="Click to Enable" href="{{route('venue.status', ['id' => $row->id, 'status' => 1])}}" class="tableLink"><i class="fas fa-toggle-off danger"></i></a>
 										@else
-											<a title="Click to Disable" href="{{route('venue.status', ['id' => $row->id, 'status' => 0])}}" class="tableLink"><i class="fas fa-toggle-on success"></i></a>
+										<a title="Click to Disable" href="{{route('venue.status', ['id' => $row->id, 'status' => 0])}}" class="tableLink"><i class="fas fa-toggle-on success"></i></a>
 										@endif
 									</td>
 									<td>
-										<a title="Click to Edit" href="{{route('venue.edit',[$row->id])}}" class="anchorLess"><i class="fas fa-edit info" aria-hidden="true" ></i></a>
-										<a title="Click to View" href="{{route('venue.details',[$row->id])}}" class="anchorLess"><i class="fas fa-eye primary" aria-hidden="true" ></i></a>
+										<a title="Click to Edit" href="{{route('venue.edit',[$row->id])}}" class="anchorLess"><i class="fas fa-edit info" aria-hidden="true"></i></a>
+										<a title="Click to View" href="{{route('venue.details',[$row->id])}}" class="anchorLess"><i class="fas fa-eye primary" aria-hidden="true"></i></a>
 										&nbsp;
 										@if($row->is_deleted == 1)
-											<a title="Click to Recover" href="{{route('venue.delete',['id' => $row->id, 'is_deleted' => 0])}}" class="tableLink"><i class="fas fa-trash-restore info"></i></a>
+										<a title="Click to Recover" href="{{route('venue.delete',['id' => $row->id, 'is_deleted' => 0])}}" class="tableLink"><i class="fas fa-trash-restore info"></i></a>
 										@else
-											<a title="Click to Delete" href="{{route('venue.delete',['id' => $row->id, 'is_deleted' => 1])}}" class="tableLink delete-confirm"><i class="fas fa-trash danger"></i></a>
+										<a title="Click to Delete" href="{{route('venue.delete',['id' => $row->id, 'is_deleted' => 1])}}" class="tableLink delete-confirm"><i class="fas fa-trash danger"></i></a>
 										@endif
 									</td>
 								</tr>
@@ -113,11 +120,13 @@
 					</div>
 				</div>
 			</div>
-        </div>
+		</div>
 	</div>
 </div>
 <style>
-.no-margin{margin:0px;}
+	.no-margin {
+		margin: 0px;
+	}
 </style>
 <!-- /.container-fluid -->
 @endsection
