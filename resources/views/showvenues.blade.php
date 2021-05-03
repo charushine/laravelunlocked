@@ -57,22 +57,20 @@
                                     <h6 class="font-seventeen m-0">Venue Type</h6>
                                 </div>
                                 <div class="filter-chekboxes">
+                                    @foreach($categories as $category)
+                                    @php
+                                    $checked = '';
+
+                                    if($id == $category->id){
+                                    $checked = 'checked';
+                                    }
+
+                                    @endphp
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheckBox1">
-                                        <label class="custom-control-label" for="customCheckBox1"> Museums</label>
+                                        <input type="checkbox" class="custom-control-input check_category" id="{{$category->name}}" {{$checked}} value="{{$category->id}}">
+                                        <label class="custom-control-label" for="{{$category->name}}"> {{$category->name}}</label>
                                     </div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheckBox2">
-                                        <label class="custom-control-label" for="customCheckBox2">Town Halls</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheckBox3">
-                                        <label class="custom-control-label" for="customCheckBox3">Churches</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheckBox4">
-                                        <label class="custom-control-label" for="customCheckBox4">Galleries</label>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                             <hr class="filter-border m-0">
@@ -169,7 +167,7 @@
                 <div class="col-xl-9 col-lg-8">
                     <div class="filter-right-block">
                         <h5 class="filter-heading font-twenty">Venue Town Halls in London </h5>
-                        <div class="row">
+                        <div class="row displayVenues">
                             @if(count($venues) > 0)
 
                             @foreach($venues as $venue)
@@ -204,7 +202,7 @@
                                     <hr class="filter-border m-0">
                                     <div class="town-body town-body-rate">
                                         <div class="town-rate">£ {{$venue->booking_price}}<span class="font-fourteen">£{{$venue->booking_price}}</span></div>
-                                        <a href="#" class="card-link font-twelve">View Details</a>
+                                        <a href="{{route('venuedetail',[$venue->id])}}" class="card-link font-twelve">View Details</a>
                                     </div>
                                 </div>
                             </div>
@@ -215,22 +213,6 @@
                             </div>
                             @endif
                         </div>
-                        <!-- <div class="row">
-                            <div class="col-12">
-                                <div class="pagination-blk">
-                                    <ul class="pagination">
-                                        <li class="disabled"><a href="#"><i class="fas fa-angle-left"></i></a></li>
-                                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">6 <span class="pagination-dots">...</span></a></li>
-                                        <li><a href="#"><i class="fas fa-angle-right"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -318,49 +300,61 @@
     <!-- vanue-section-end -->
 </main>
 
-<!-- <div class="row">
-    @if($venues->count() >0)
-    @foreach($venues as $venue)
-    <div class="col-md-4 mb-5">
-        <div class="card h-100">
-            <div class="card-body">
-                <p><strong>{{$venue->name}}</strong></p>
-                                                        @if(isset($venue->venue_images->name) && $venue->venue_images->name != "")
-                                                        <img width="150" height="150" src="{{asset('assets/venue/images/'.$venue->venue_images->name)}}">
-                                                        @else
-                                                        <img src="{{asset('frontend/images/download.png')}}">
-                                                        @endif
-                                                </div>
-                                                <div class="card-footer">
-                                                    <div class="pull-right">
-                                                        <h6>${{$venue->booking_price}}</h6>
-                                                    </div>
-                                                    <div class="pull-left">
-
-                                                        @php $ratings =""; $z= 1; $y= 0.5; @endphp
-
-                                                        @if($venue->average_rating > 0 )
-                                                        @php $ratings = $venue->average_rating; @endphp
-
-                                                        @while ($z <= $ratings) <i class="fa fa-star" style="color:green"></i>
-                                                            @php $z++ @endphp
-                                                            @endwhile
-
-                                                            @if(((float) $ratings + 0.5) == $z)
-                                                            <i class="fa fa-star-half-o" style="color:green"></i>
-                                                            @endif
-
-                                                            @endif
-                                                    </div>&nbsp;&nbsp;
-                                                    <a href="{{route('venuedetail',[$venue->id])}}" class="btn btn-primary btn-sm">More Info</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @endforeach
-                                        @else
-                                        <div class="col-md-4 mb-5 ">
-                                            <p>No record found</p>
-                                        </div>
-                                        @endif
-                                    </div> -->
 @endsection
+
+@section('scripts')
+
+<script>
+    jQuery(document).ready(function() {
+        var id = "<?php echo $id; ?>";
+
+        var myNodeList = $('.check_category');
+        for (i = 0; i < myNodeList.length; i++) {
+            console.log(myNodeList[i].value);
+            if (myNodeList[i].value == id) {
+                myNodeList[i].checked = true;
+            } else {
+                myNodeList[i].checked = false;
+            }
+        }
+
+        $('.check_category').on('change', function() {
+
+            // jQuery(".displayVenues").html(`<div class="col-xl-4 col-sm-6" data-aos="fade-up" data-aos-easing="ease" data-aos-delay="300"><div class="card border-0 town-hall-blk"><img src=${baseurl}/assets/image/spinner.gif alt=hello></div>/div>`);
+            debugger;
+            var checked = this.checked;
+            var value = this.value;
+            var category_arr = [];
+            var myNodeList = $('.check_category');
+            for (i = 0; i < myNodeList.length; i++) {
+                if (myNodeList[i].checked == true) {
+                    category_arr.push(myNodeList[i].value);
+                }
+            }
+
+            if (category_arr.length == 0) {
+                category_arr.push(0);
+            }
+            jQuery.ajax({
+                url: baseurl + "/category_venue",
+                method: 'POST',
+                data: {
+                    'category_arr': category_arr,
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+                    jQuery(".displayVenues").html(data);
+
+
+                },
+                error: function(jqXHR, exception) {
+                    var msg = '';
+                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    console.info(msg);
+                }
+            });
+        });
+    });
+</script>
+@stop

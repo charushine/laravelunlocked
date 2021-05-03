@@ -34,7 +34,7 @@
                             <div class="footer-menu-link">
                                 <h5 class="font-eighteen">About</h5>
                                 <ul class="list-unstyled">
-                                    <li><a href="#"><i class="fas fa-chevron-right"></i> Home </a></li>
+                                    <li><a href="{{route('home')}}"><i class="fas fa-chevron-right"></i> Home </a></li>
                                     <li><a href="#"><i class="fas fa-chevron-right"></i> About </a></li>
                                     <li><a href="#"><i class="fas fa-chevron-right"></i> For Venues </a></li>
                                     <li><a href="#"><i class="fas fa-chevron-right"></i> How it Works </a></li>
@@ -97,7 +97,7 @@
                                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                                     <div class="card-body">
                                         <ul>
-                                            <li><a href="#">Home</a></li>
+                                            <li><a href="{{route('home')}}">Home</a></li>
                                             <li><a href="#">About</a></li>
                                             <li><a href="#">For Venues</a></li>
                                             <li><a href="#">How it Works</a></li>

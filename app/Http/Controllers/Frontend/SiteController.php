@@ -35,6 +35,50 @@ class SiteController extends Controller
         return view('welcome', compact('venues', 'testimonials', 'categories'));
     }
 
+
+    /*
+    Method Name:    getFilterVenue
+    Developer:      Shine Dezign
+    Created Date:   2021-03-31 (yyyy-mm-dd)
+    Purpose:        To show category filter Venues
+    Params:         [keyword]
+    */
+    public function getFilterVenue(Request $request)
+    {
+        $rules = [
+            'category_arr' => 'required',
+        ];
+
+        $messages = [
+            'category_arr.required' => 'Please provide the caegory list',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+
+            return redirect()->route('home')->with('message', $validator->errors()->all());
+        }
+
+        $venues =  DB::table('venues')
+            ->select('venues.name', 'venues.id', 'venues.location', 'venue_images.id', 'venue_images.name as venue_image', 'venues.booking_price', 'venues.average_rating')
+            ->join('venue_images', 'venue_images.venue_id', '=', 'venues.id')
+            ->whereIn('venues.category_id', $request->category_arr)->where(['venues.status' => 1])
+            ->get();
+
+        // var_dump(sizeof($venues));
+
+        $html = '';
+        if (sizeof($venues) > 0) {
+            foreach ($venues as $venue) {
+                $html = $html . '<div class="col-xl-4 col-sm-6" data-aos="fade-up" data-aos-easing="ease" data-aos-delay="300"><div class="card border-0 town-hall-blk"><a href=' . route("venuedetail", [$venue->id]) . '><div class="town-hall-img"><img src=' . asset('assets/venue/images/' . $venue->venue_image) . ' class="img-fluid" alt="town"></div></a><div class="card-body town-body"><div class="row"><div class="col-7"><div class="town-content"><h5 class="font-seventeen">' . $venue->name . '</h5><p class="font-thirteen m-0">' . $venue->location . '</p> </div></div><div class="col-5"><div class="town-ranking"><span class="town-rating font-thirteen"><i class="fa fa-star"></i>' . $venue->average_rating . '</span><div class="town-review">(15 Reviews)</div></div></div></div></div><hr class="filter-border m-0"><div class="town-body town-body-rate"><div class="town-rate">£' . $venue->booking_price . '<span class="font-fourteen">£' . $venue->booking_price . '</span></div><a href=' . route("venuedetail", [$venue->id]) . ' class="card-link font-twelve">View Details</a></div></div></div>';
+            }
+        } else {
+            $html = "<h1>No record found</h1>";
+        }
+
+        echo json_encode($html);
+    }
+
     /*
     Method Name:    getAllVenue
     Developer:      Shine Dezign
@@ -53,7 +97,8 @@ class SiteController extends Controller
             ->join('venue_images', 'venue_images.venue_id', '=', 'venues.id')
             ->where(['venues.category_id' => $id, 'venues.status' => 1])
             ->get();
-        return view('showvenues', compact('venues'));
+        $categories = Category::Where('status', 1)->get();
+        return view('showvenues', compact('venues', 'categories', 'id'));
     }
 
     /*
@@ -96,9 +141,12 @@ class SiteController extends Controller
             ->where(['venues.category_id' => $request->category_id, 'venues.status' => 1])->orWhere(['venues.no_of_people' => [$guests[0], $guests[1]]])
             ->get();
 
+        $id = $request->category_id;
+
         // $venues = Venue::where(['category_id' => $request->category_id, 'status' => 1])->get();
 
-        return view('showvenues', compact('venues'));
+        $categories = Category::Where('status', 1)->get();
+        return view('showvenues', compact('venues', 'categories', 'id'));
     }
 
     /*

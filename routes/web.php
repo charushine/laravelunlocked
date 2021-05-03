@@ -47,8 +47,10 @@ Route::namespace('Frontend')->group(function () {
 	Route::get('/show_venue/{keyword?}', 'SiteController@getvenues');
 	Route::post('/show_cat_venue', 'SiteController@getCategoryVenue')->name('show_cat_venue');
 	Route::get('/show_all_cat_venue/{id}', 'SiteController@getAllVenue')->name('showallcatvenue');
+	Route::post('/category_venue', 'SiteController@getFilterVenue')->name('category_venue');
 	Route::get('/venue-detail/{id}', 'SiteController@venue_detail')->name("venuedetail");
 	Route::get('/book-venue', 'SiteController@book_venue')->name("bookvenue");
+	Route::post('/user-booking', 'BookingController@booking')->name("booking_user");
 
 	//Rating Routes
 	Route::get('rating/add', 'RatingController@add_form')->name("rating.add");

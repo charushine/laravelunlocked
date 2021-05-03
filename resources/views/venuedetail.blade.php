@@ -33,15 +33,9 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="detail-head">
-                                        <h3 class="detail-ttl m-0">Rock and Best Villa Halls in London</h3>
-                                        <p class="font-thirteen mb-2">Near Churches, London</p>
+                                        <h3 class="detail-ttl m-0">{{$venue->name}}</h3>
+                                        <p class="font-thirteen mb-2">{{$venue->location}}</p>
                                         <a href="#" class="wifi-tag">Free Wifi</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="detail-ranking">
-                                        <span class="town-rating font-thirteen"><i class="fa fa-star"></i> 4.9/5</span>
-                                        <div class="town-review">(15 Reviews)</div>
                                     </div>
                                 </div>
                             </div>
@@ -60,20 +54,19 @@
                         <div class="venue-detail-info-blk">
                             <div class="venue-info-blk detl-font" id="overview">
                                 <h5 class="font-ninteen">About this venue</h5>
-                                <p class="font-fourteen">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus
-                                    commodo viverra maecenas accumsan lacus vel facilisis. et dolore magna aliqua. Quis ipsum
-                                    suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
-                                </p>
+                                <p class="font-fourteen">{{$venue->other_information}}</p>
+                            </div>
+                            <div class="venue-info-blk detl-font" id="overview">
+                                <h5 class="font-ninteen">Amenities Detail</h5>
+                                <p class="font-fourteen">{{$venue->amenities_detail}}</p>
                             </div>
                             <div class="capacity-block">
                                 <h3 class="detail-title">Capacity</h3>
                                 <div class="detail-blk-list">
                                     <ul class="list-inline">
-                                        <li class="list-inline-item"> <i class="fas fa-check"></i> Hall Capacity: <span>Upto 800</span>
+                                        <li class="list-inline-item"> <i class="fas fa-check"></i> Hall Capacity: <span>Upto {{$venue->no_of_people}}</span>
                                         </li>
-                                        <li class="list-inline-item"> <i class="fas fa-check"></i> Hall Capacity: <span>Upto 800</span>
+                                        <li class="list-inline-item"> <i class="fas fa-check"></i> Hall Capacity: <span>Upto {{$venue->no_of_people}}</span>
                                         </li>
                                         <li class="list-inline-item"><i class="fas fa-check"></i> PersonHall Area: <span> 7300 sq.ft
                                             </span>
@@ -94,16 +87,7 @@
                                 <h3 class="detail-title">Features of Venue</h3>
                                 <div class="detail-blk-list">
                                     <ul class="list-inline">
-                                        <li class="list-inline-item"> <i class="fas fa-check"></i> Features of Venue</li>
-                                        <li class="list-inline-item"> <i class="fas fa-check"></i> Reception</li>
-                                        <li class="list-inline-item"><i class="fas fa-check"></i> Birthday Party</li>
-                                        <li class="list-inline-item"> <i class="fas fa-check"></i> Get Together</li>
-                                        <li class="list-inline-item"> <i class="fas fa-check"></i> Meeting</li>
-                                        <li class="list-inline-item"> <i class="fas fa-check"></i> Conclave</li>
-                                        <li class="list-inline-item"> <i class="fas fa-check"></i> Marriage</li>
-                                        <li class="list-inline-item"> <i class="fas fa-check"></i> Family Function</li>
-                                        <li class="list-inline-item"> <i class="fas fa-check"></i> Social Function</li>
-                                        <li class="list-inline-item"> <i class="fas fa-check"></i> Official Function</li>
+                                        <li class="list-inline-item"> <i class="fas fa-check"></i> {{$venue->amenities_detail}}</li>
                                         <li class="list-inline-item"> <i class="fas fa-check"></i> Other</li>
                                     </ul>
                                 </div>
@@ -172,55 +156,49 @@
                                 <p class="font-thirteen m-0">3 day 2 night</p>
                             </div>
                             <div class="booking-calndr">
-                                <div class="cal-blk">
-                                    <div class="calender font-thirteen">
-                                        Thu,25 Mar -Fri, 28 Mar
+                                <form id="addBooking" name="booking" method="POST" action="{{route('booking_user')}}" enctype="multipart/form-data">
+                                    @csrf
+                                    @if(session()->has('message'))
+                                    <div class="alert alert-success">
+                                        {{ session()->get('message') }}
                                     </div>
-                                    <div class="guest">
-                                        <select class="selectpicker show-tick">
-                                            <option>Hall, 85 Guest</option>
-                                            <option>Hall, 85 Guest</option>
-                                            <option>Hall, 85 Guest</option>
-                                        </select>
-                                        <!-- <div class="custom-drop cat-drp">
-                                       <a href="javscript:void(0)" class="custom-drop-title">
-                                         <span class="font-thirteen">Hall, 85 Guest</span>
-                                       </a>
-                                       <div class="custom-dropdown categories-drpdown">
-                                         <div class="drpdown-item cat-drpdown-item">
-                                           <div class="cat-drpdown-content">
-                                             <ul class="list-unstyled">
-                                               <li><a href="#">Museums</a></li>
-                                               <li><a href="#">Town Hall</a></li>
-                                               <li><a href="#">Churches</a></li>
-                                               <li><a href="#">Gallaries</a></li>
-                                             </ul>
-                                           </div>
-                                         </div>
-                                       </div>
-                                       </div> -->
+                                    @endif
+                                    <div class="cal-blk">
+                                        <input type="text" name="booking_name" id="booking_name" value="{{old('booking_name')}}" class="form-control form-control-user" placeholder="Name" required />
                                     </div>
-                                </div>
-                                <div class="cal-blk cal-savings">
-                                    <div class="font-fourteen">
-                                        Your Savings
+                                    <div class="cal-blk">
+                                        <input type="text" name="booking_email" id="booking_email" value="{{old('booking_email')}}" class="form-control form-control-user datetimepicker" autocomplete="off" placeholder="email" required />
                                     </div>
-                                    <div class="font-fourteen">
-                                        £62.00
+                                    <div class="cal-blk">
+                                        <input name="date" id="date" value="{{old('date')}}" class="form-control form-control-user booking_date" placeholder="select date" required>
+                                        @if ($errors->has('date'))
+                                        <div class="alert alert-danger">{{ $errors->first('date') }}</div>
+                                        @endif
                                     </div>
-                                </div>
-                                <div class="cal-total">
-                                    <div class="total">
-                                        <h5 class="font-fourteen">Total</h5>
-                                        <p class="font-thirteen">(incl. of all taxes)</p>
+                                    <input type="text" name="venue_id" id="venue_id" value="{{$venue->id}}" class="form-control form-control-user" placeholder="Name" required style="display:none" />
+                                    <input type="text" name="user_id" id="user_id" value="2" class="form-control form-control-user" placeholder="Name" required style="display:none" />
+                                    <div class="cal-blk cal-savings">
+                                        <div class="font-fourteen">
+                                            Your Savings
+                                        </div>
+                                        <div class="font-fourteen">
+                                            £62.00
+                                        </div>
                                     </div>
-                                    <div class="total-price">
-                                        £{{$venue->booking_price}}
+                                    <div class="cal-total">
+                                        <div class="total">
+                                            <h5 class="font-fourteen">Total</h5>
+                                            <p class="font-thirteen">(incl. of all taxes)</p>
+                                        </div>
+                                        <div class="total-price">
+                                            £{{$venue->booking_price}}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="bk-btn">
-                                    <a href="#" class="btn book-btn">Continue to Book</a>
-                                </div>
+                                    <div class="bk-btn">
+                                        <button type="submit" id="edit-genre-btn" class="btn book-btn">Continue to Book</button>
+                                        <!-- <a type="submit" class="btn book-btn">Continue to Book</a> -->
+                                    </div>
+                                </form>
                                 <div class="cancel-policy">
                                     <p class="font-thirteen m-0">Cancellation Policy</p>
                                     <p class="font-twelve mb-1">Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
@@ -448,110 +426,23 @@
         </div>
     </section>
 </main>
-<!-- <div class="container">
-    <div class="row mt-5">
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-               @if($venue->venue_images->count() > 0)
-                    @foreach($venue->venue_images as $key => $images)
-                        <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
-                    <img class="d-block w-100" height="150" src="{{asset('assets/venue/images/'.$images->name)}}" alt="Venue Images">
-                </div>
-                @endforeach
-                @else
-                <div class="carousel-item active">
-                    <img class="d-block w-100" src="{{asset('frontend/images/download.png')}}" alt="No Image">
-                </div>
-                @endif
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-    </div>
-    <div class="row mt-5">
-        <div class="col-md-12 mb-5">
-            <div class="card">
-                <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <strong>Venue Name</strong>
-                        <h5><span class="badge  badge-pill">{{$venue->name}}</span></h5>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <strong>Location</strong>
-                        <h5><span class="badge  badge-pill">{{$venue->location}}</span></h5>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <strong>Contact</strong>
-                        <h5><span class="badge  badge-pill">{{$venue->contact}}</span></h5>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <strong>Booking Price</strong>
-                        <h5><span class="badge  badge-pill">{{$venue->booking_price}}</span></h5>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <strong>Total Room</strong>
-                        <h5><span class="badge  badge-pill">{{$venue->total_room}}</span></h5>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <strong>Rating</strong>
-                        <h5><span class="badge  badge-pill">{{$venue->average_rating}}</span></h5>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 mb-5">
-            <div class="card-body">
-                <ul class="list-group">
-                    <strong>Amenities Detail</strong>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <h5><span class="badge  badge-pill">{{$venue->amenities_detail}}</span></h5>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-6 mb-5">
-            <div class="card-body">
-                <ul class="list-group">
-                    <strong>Other Information</strong>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <h5><span class="badge  badge-pill">{{$venue->other_information}}</span></h5>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 mb-5">
-            <iframe width="100%" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=10.305385,77.923029&hl=es;z=14&amp;output=embed"></iframe>
-        </div>
-        <div class="col-md-6 mb-5">
-            <div class="card-body">
-                <ul class="list-group">
-                    <p><strong>Contact Detail</strong></p>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <strong>Owner Name</strong>
-                        <h5><span class="badge  badge-pill">{{isset($venue->user->first_name) ? $venue->user->first_name:""}}</span></h5>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <strong>Owner Email</strong>
-                        <h5><span class="badge  badge-pill">{{isset($venue->user->email) ? $venue->user->email:""}}</span></h5>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <strong>Owner Contact</strong>
-                        <h5><span class="badge  badge-pill">{{isset($venue->user->user_detail->mobile) ? $venue->user->user_detail->mobile:""}}</span></h5>
-                    </li>
-                </ul>
-                <a class="btn btn-info mt-4" href="{{route('bookvenue',['id' => $venue->id])}}"> Book Now</a>
-            </div>
-        </div>
-    </div>
-    </div> -->
+
 @endsection
+@section('scripts')
+<link href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        jQuery('body').on('focus', ".booking_date", function() {
+            jQuery(this).datepicker({
+                dateFormat: 'yy-mm-dd',
+                minDate: 0
+            });
+        });
+    });
+
+    jQuery(document).on('focus', 'input', function() {
+        $('.alert').remove();
+    });
+</script>
+@stop

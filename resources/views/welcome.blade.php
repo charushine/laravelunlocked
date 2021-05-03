@@ -173,20 +173,6 @@
                                     <div class="col-md-3 col-4">
                                         <div class="custom-drop cat-drp">
                                             <h3 class="font-eighteen">Category Type</h3>
-                                            <!-- <a href="javscript:void(0)" class="custom-drop-title">
-                                                <span>Categories</span> <i class="fa fa-chevron-down"></i>
-                                            </a>
-                                            <div class="custom-dropdown categories-drpdown">
-                                                <div class="drpdown-item cat-drpdown-item">
-                                                    <div class="cat-drpdown-content">
-                                                        <ul class="list-unstyled">
-                                                            @foreach($categories as $category)
-                                                            <li><a value="{{$category->id}}">{{$category->name}}</a></li>
-                                                            @endforeach
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div> -->
                                             <select class="form-control" id="searchKeyword" name="category_id" required>
                                                 <option value="">Category Type</option>
                                                 @foreach($categories as $category)
@@ -198,21 +184,6 @@
                                     <div class="col-md-3 col-4">
                                         <div class="custom-drop cat-drp">
                                             <h3 class="font-eighteen">Gueste</h3>
-                                            <!-- <a href="javscript:void(0)" class="custom-drop-title">
-                                                <span>1 -100 Guests</span> <i class="fa fa-chevron-down"></i>
-                                            </a>
-                                            <div class="custom-dropdown categories-drpdown">
-                                                <div class="drpdown-item cat-drpdown-item">
-                                                    <div class="cat-drpdown-content">
-                                                        <ul class="list-unstyled">
-                                                            <li><a>100 - 200 Guests</a></li>
-                                                            <li><a>200 - 300 Guests</a></li>
-                                                            <li><a>300 - 400 Guests</a></li>
-                                                            <li><a>400 -500 Guests</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div> -->
                                             <select class="form-control" name="guest">
                                                 <option value="1 - 100">1 - 100 Guests</option>
                                                 <option value="100 - 200">100 - 200 Guests</option>
@@ -225,21 +196,6 @@
                                     <div class="col-md-3 col-4">
                                         <div class="custom-drop cat-drp">
                                             <h3 class="font-eighteen">Location</h3>
-                                            <!-- <a href="javscript:void(0)" class="custom-drop-title">
-                                                <span>center Location</span> <i class="fa fa-chevron-down"></i>
-                                            </a>
-                                            <div class="custom-dropdown categories-drpdown">
-                                                <div class="drpdown-item cat-drpdown-item">
-                                                    <div class="cat-drpdown-content">
-                                                        <ul class="list-unstyled">
-                                                            <li><a value="1">Edinburgh</a></li>
-                                                            <li><a value="2">London</a></li>
-                                                            <li><a value="3">Glasgow</a></li>
-                                                            <li><a value="4">Newcastle</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div> -->
                                             <select class="form-control">
                                                 <option value=5>select locations</option>
                                                 <option value="1">Edinburgh</option>
@@ -252,7 +208,6 @@
                                     <div class="col-md-3 col-12">
                                         <div class="custom-search">
                                             <button class="search-btn btn red-onover" id="searchCategory" type="submit"><img src="{{asset('assets/image/search-icon.svg')}}" alt="search" class="cstm-search-icon">Search</button>
-                                            <!-- <a class="search-btn btn red-onover" id="searchCategory" ><img src="assets/image/search-icon.svg" alt="search" class="cstm-search-icon">Search</a> -->
                                         </div>
                                     </div>
                                 </div>
@@ -697,180 +652,6 @@
     </section>
     <!---unlocked-vanue-section-end -->
 </main>
-
-<!-- old section start-->
-<!-- <div class="container">
-    <div class="row align-items-center my-5">
-        <div class="col-lg-7">
-            <img class="img-fluid rounded mb-4 mb-lg-0" src="{{asset('frontend/images/download2.png')}}" alt="">
-                                </div>
-
-                                <div class="col-lg-5">
-                                    <h1 class="font-weight-light">Popular Venue</h1>
-                                    <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it
-                                        makes a great use of the standard Bootstrap core components. Feel free to use this template for any project
-                                        you want!</p>
-                                    <a class="btn btn-primary" href="#">Call to Action!</a>
-                                </div>
-                            </div>
-                            <div class="card text-white bg-secondary my-5 py-4 text-center">
-                                <div class="card-body">
-                                    <form id="venueSearch">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search Venue" id="searchKeyword" name="searchKeyword">
-                                            <input type="text" autocomplete="off" class="form-control ml-1" placeholder="Start/End Date" id="daterange" name="daterange">
-                                            <input type="number" autocomplete="off" class="form-control ml-1" placeholder="Price" id="price" name="price">
-                                            <input type="number" autocomplete="off" class="form-control ml-1" placeholder="No. of People" id="no_of_people" name="no_of_people">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-info" type="button" id="searchVenue">
-                                                    <i class="fa fa-search"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group ">
-                                        <label>Sort By<span></span></label>
-                                        <div class="col-sm-10">
-                                            <select class="form-control" name="sorting" onchange="venue_search();" id="sorting">
-                                                <option value="">Select Order</option>
-                                                <option value="price-desc">Price- High to Low</option>
-                                                <option value="price-asc">Price- Low to High</option>
-                                                <option value="rating-desc">Rating- Low to High</option>
-                                                <option value="price-asc">Rating- High to Low</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group ">
-                                        <label>Rating<span></span></label>
-                                        <div class="col-sm-10">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="rating" data-value="5">
-                                                <i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-10">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="rating" data-value="4">
-                                                <i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-10">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="rating" data-value="3">
-                                                <i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-10">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="rating" data-value="2">
-                                                <i class="fa fa-star" style="color:green"></i><i class="fa fa-star" style="color:green"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-10">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="rating" data-value="1">
-                                                <i class="fa fa-star" style="color:green"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group ">
-                                        <label>Building Type<span></span></label>
-                                        <div class="col-sm-10">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="building_type" data-value="hotel" value="dfgdf">
-                                                <label class="form-check-label" for="">
-                                                    Hotel
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-10">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="building_type" data-value="guestroom" value="dfdfgd">
-                                                <label class="form-check-label" for="">
-                                                    Guest Room
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group ">
-                                        <label>Amenities<span></span></label>
-                                        <div class="col-sm-10">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="amenity[]" data-value="1" value="1">
-                                                <label class="form-check-label" for="">
-                                                    Air Conditioner
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-10">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="amenity[]" data-value="2" value="2">
-                                                <label class="form-check-label" for="">
-                                                    Parks
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-10">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="amenity[]" data-value="3" value="3">
-                                                <label class="form-check-label" for="">
-                                                    Community Parks
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="displayVenues">
-                                <img class="img-fluid rounded mb-4 mb-lg-0" src="{{asset('frontend/images/loader1.gif')}}" alt="">
-                            </div>
-                            <h2>Testimonials</h2>
-                            <div class="gtco-testimonials row mb-4">
-                                @if($testimonials->count() > 0)
-                                @foreach($testimonials as $testimonial)
-                                <div class="owl-carousel owl-carousel1 owl-theme col-md-4">
-                                    <div class="card text-center">
-                                        @if($testimonial->image !="" && $testimonial->image != null)
-                                        <img class="card-img-top" src="{{asset('assets/testimonial/images/'.$testimonial->image)}}" alt="">
-                                        @else
-                                        <img class="card-img-top" src="{{asset('frontend/images/dummyprofile.jpg')}}" alt="">
-                                        @endif
-                                        <div class="card-body">
-                                            <h5>{{$testimonial->name}} <br />
-                                                <span>{{$testimonial->user_post}} </span></h5>
-                                            <p class="card-text"> {{$testimonial->message}} </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endforeach
-                                @else
-                                <div>
-                                    No Record found
-                                </div>
-                                @endif
-
-                            </div>
-                            <div class="row mb-4">
-                                <iframe width="100%" height="510" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=10.305385,77.923029&hl=es;z=14&amp;output=embed">
-                                </iframe>
-                            </div>
-                        </div> -->
-<!-- old section end-->
-
-
 
 @section('scripts')
 
