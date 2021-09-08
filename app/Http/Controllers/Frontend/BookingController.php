@@ -50,14 +50,7 @@ class BookingController extends Controller
 
         try {
 
-            //Add commission 
-            $commPercentage = 0;
             $venue = Venue::where('id', $request->venue_id)->first();
-            $commission = Commission::first();
-            if ($venue && $commission) {
-                $commPercentage = ($venue->booking_price * $commission->commission_percentage) / 100;
-            }
-
 
             $data = [
                 'venue_id' => $request->venue_id,
@@ -70,23 +63,7 @@ class BookingController extends Controller
 
             $record = Booking::create($data);
             if ($record) {
-                if ($commPercentage > 0) {
-                    $payments = [
-                        'booking_id' => $record->id,
-                        'user_id' => Auth::user()->id,
-                        'price' => $venue->booking_price,
-                        'commission' =>  $commPercentage,
-                        'payable_amount' => ($venue->booking_price - $commPercentage)
-                    ];
-                    BookingPayment::create($payments);
-                }
-
-                $user = User::find($request->user_id);
-                // $this->send_notification("COMPLETE_BOOKING", $user->email, $user->first_name, date('d F Y', strtotime($request->date)));
-
-                $routes = ($request->action == 'saveadd') ? 'booking.add' : 'bookings.list';
-                // return redirect()->route($routes)->with('status', 'success')->with('message', 'Booking ' . Config::get('constants.SUCCESS.CREATE_DONE'));
-                return redirect()->back()->with('status', 'success')->with('message', 'Submit successfully');;
+                return redirect()->back()->with('status', 'success')->with('message', 'Submit successfully');
             }
             return redirect()
                 ->back()->with('status', 'error')
@@ -168,7 +145,6 @@ class BookingController extends Controller
     public function booking_cancel(Request $request)
     {
         try {
-
 
             $bookingDetail = Booking::findOrFail($request->id);
 

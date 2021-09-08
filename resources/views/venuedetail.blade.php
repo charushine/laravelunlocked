@@ -165,14 +165,20 @@
                                     @endif
                                     <div class="cal-blk">
                                         <input type="text" name="booking_name" id="booking_name" value="{{old('booking_name')}}" class="form-control form-control-user" placeholder="Name" required />
+                                        @if ($errors->has('booking_name'))
+                                        <span class="alert alert-danger">{{ $errors->first('booking_name') }}</span>
+                                        @endif
                                     </div>
                                     <div class="cal-blk">
-                                        <input type="text" name="booking_email" id="booking_email" value="{{old('booking_email')}}" class="form-control form-control-user datetimepicker" autocomplete="off" placeholder="email" required />
+                                        <input type="email" name="booking_email" id="booking_email" value="{{old('booking_email')}}" class="form-control form-control-user datetimepicker" autocomplete="off" placeholder="email" required />
+                                        @if ($errors->has('booking_email'))
+                                        <span class="alert alert-danger">{{ $errors->first('booking_email') }}</span>
+                                        @endif
                                     </div>
                                     <div class="cal-blk">
                                         <input name="date" id="date" value="{{old('date')}}" class="form-control form-control-user booking_date" placeholder="select date" required>
                                         @if ($errors->has('date'))
-                                        <div class="alert alert-danger">{{ $errors->first('date') }}</div>
+                                        <span class="alert alert-danger">{{ $errors->first('date') }}</span>
                                         @endif
                                     </div>
                                     <input type="text" name="venue_id" id="venue_id" value="{{$venue->id}}" class="form-control form-control-user" placeholder="Name" required style="display:none" />
@@ -258,18 +264,29 @@
                             <h5 class="font-twenty">Quick enquiry
                             </h5>
                             <p>Speak to our events team</p>
-                            <form class="enquiry-form">
+                            <form class="enquiry-form" name="contact" method="POST" action="{{route('contact_us')}}" enctype="multipart/form-data">
+                                @csrf
+                                @if(session()->has('contact_message'))
+                                <div class="alert alert-success">
+                                    {{ session()->get('contact_message') }}
+                                </div>
+                                @endif
+                                @if(session()->has('contact_message_error'))
+                                <div class="alert alert-danger">
+                                    {{ session()->get('contact_message_error') }}
+                                </div>
+                                @endif
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Name">
+                                    <input type="text" class="form-control" placeholder="Name" name="name" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control" placeholder="Email">
+                                    <input type="email" class="form-control" placeholder="Email" name="email" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Phone Number">
+                                    <input type="text" class="form-control" placeholder="Phone Number" name="phone_number" required>
                                 </div>
                                 <div class="form-group">
-                                    <button class="btn book-btn">Submit</button>
+                                    <button class="btn book-btn" type="submit">Submit</button>
                                 </div>
                             </form>
                         </div>
@@ -285,141 +302,37 @@
             <div class="row">
                 <div class="col-12">
                     <div class="detail-venue-title t-center">
-                        <h3 class="sub-title" data-aos="zoom-in" data-aos-easing="ease" data-aos-delay="500">Similar venues available in London</h3>
+                        <h3 class="sub-title" data-aos="zoom-in" data-aos-easing="ease" data-aos-delay="500">Similar venues available in {{$venue->location}}</h3>
                     </div>
                     <div class="detail-venue-slider venue-sliderbtn">
+                        @if(sizeof($categoryVenue) > 0)
+                        @foreach($categoryVenue as $catVenue)
                         <div class="detail-venue-inner">
                             <div class="card border-0 town-hall-blk">
                                 <div class="town-hall-img">
-                                    <img src="{{asset('assets/image/town1.png')}}" class="img-fluid" alt="town">
+                                    <img src="{{asset('assets/venue/images/'.$catVenue->venue_image)}}" class="img-fluid" alt="town">
                                 </div>
                                 <div class="card-body town-body">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="town-content">
-                                                <h5 class="font-seventeen">Rock and Best Villa</h5>
-                                                <p class="font-thirteen m-0">Liverpool, London</p>
+                                                <h5 class="font-seventeen">{{$catVenue->name}}</h5>
+                                                <p class="font-thirteen m-0">{{$catVenue->name}}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <hr class="filter-border m-0">
                                 <div class="town-body town-body-rate">
-                                    <div class="town-rate">£ 120.00 <span class="font-fourteen">£ 120.00</span></div>
-                                    <a href="#" class="card-link font-twelve">View Details</a>
+                                    <div class="town-rate">{{$catVenue->booking_price}}<span class="font-fourteen">{{$catVenue->booking_price}}</span></div>
+                                    <a href="{{route('venuedetail',[$catVenue->id])}}" class="card-link font-twelve">View Details</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="detail-venue-inner">
-                            <div class="card border-0 town-hall-blk">
-                                <div class="town-hall-img">
-                                    <img src="{{asset('assets/image/town2.png')}}" class="img-fluid" alt="town">
-                                </div>
-                                <div class="card-body town-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="town-content">
-                                                <h5 class="font-seventeen">Rock and Best Villa</h5>
-                                                <p class="font-thirteen m-0">Liverpool, London</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="filter-border m-0">
-                                <div class="town-body town-body-rate">
-                                    <div class="town-rate">£ 120.00 <span class="font-fourteen">£ 120.00</span></div>
-                                    <a href="#" class="card-link font-twelve">View Details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="detail-venue-inner">
-                            <div class="card border-0 town-hall-blk">
-                                <div class="town-hall-img">
-                                    <img src="{{asset('assets/image/town3.png')}}" class="img-fluid" alt="town">
-                                </div>
-                                <div class="card-body town-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="town-content">
-                                                <h5 class="font-seventeen">Rock and Best Villa</h5>
-                                                <p class="font-thirteen m-0">Liverpool, London</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="filter-border m-0">
-                                <div class="town-body town-body-rate">
-                                    <div class="town-rate">£ 120.00 <span class="font-fourteen">£ 120.00</span></div>
-                                    <a href="#" class="card-link font-twelve">View Details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="detail-venue-inner">
-                            <div class="card border-0 town-hall-blk">
-                                <div class="town-hall-img">
-                                    <img src="{{asset('assets/image/town4.png')}}" class="img-fluid" alt="town">
-                                </div>
-                                <div class="card-body town-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="town-content">
-                                                <h5 class="font-seventeen">Rock and Best Villa</h5>
-                                                <p class="font-thirteen m-0">Liverpool, London</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="filter-border m-0">
-                                <div class="town-body town-body-rate">
-                                    <div class="town-rate">£ 120.00 <span class="font-fourteen">£ 120.00</span></div>
-                                    <a href="#" class="card-link font-twelve">View Details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="detail-venue-inner">
-                            <div class="card border-0 town-hall-blk">
-                                <div class="town-hall-img">
-                                    <img src="{{asset('assets/image/town5.png')}}" class="img-fluid" alt="town">
-                                </div>
-                                <div class="card-body town-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="town-content">
-                                                <h5 class="font-seventeen">Rock and Best Villa</h5>
-                                                <p class="font-thirteen m-0">Liverpool, London</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="filter-border m-0">
-                                <div class="town-body town-body-rate">
-                                    <div class="town-rate">£ 120.00 <span class="font-fourteen">£ 120.00</span></div>
-                                    <a href="#" class="card-link font-twelve">View Details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="detail-venue-inner">
-                            <div class="card border-0 town-hall-blk">
-                                <div class="town-hall-img">
-                                    <img src="{{asset('assets/image/town8.png')}}" class="img-fluid" alt="town">
-                                </div>
-                                <div class="card-body town-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="town-content">
-                                                <h5 class="font-seventeen">Rock and Best Villa</h5>
-                                                <p class="font-thirteen m-0">Liverpool, London</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="filter-border m-0">
-                                <div class="town-body town-body-rate">
-                                    <div class="town-rate">£ 120.00 <span class="font-fourteen">£ 120.00</span></div>
-                                    <a href="#" class="card-link font-twelve">View Details</a>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+                        @else
+                        <h2>No match found</h2>
+                        @endif
                     </div>
                 </div>
             </div>

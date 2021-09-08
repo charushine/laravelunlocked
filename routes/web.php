@@ -51,6 +51,8 @@ Route::namespace('Frontend')->group(function () {
 	Route::get('/venue-detail/{id}', 'SiteController@venue_detail')->name("venuedetail");
 	Route::get('/book-venue', 'SiteController@book_venue')->name("bookvenue");
 	Route::post('/user-booking', 'BookingController@booking')->name("booking_user");
+	Route::post('/contactus/user', 'SiteController@contactUs')->name("contact_us");
+
 
 	//Rating Routes
 	Route::get('rating/add', 'RatingController@add_form')->name("rating.add");

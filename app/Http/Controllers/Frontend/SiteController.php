@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Cookie, Session, DB, Auth;
-use App\{Venue, Testimonial, SearchLog, Category};
+use App\{Venue, Testimonial, SearchLog, Category, Contact};
 use Illuminate\Support\Facades\Validator;
 
 
@@ -33,6 +33,40 @@ class SiteController extends Controller
         $categories = Category::where('status', 1)->get();
 
         return view('welcome', compact('venues', 'testimonials', 'categories'));
+    }
+
+    /*
+    Method Name:    contactUs
+    Developer:      Shine Dezign
+    Created Date:   2021-03-31 (yyyy-mm-dd)
+    Purpose:        To show category filter Venues
+    Params:         [keyword]
+    */
+    public function contactUs(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'phone_number' => 'required',
+        ], [
+            'name.required' => 'Name must be required',
+            'email.required' => 'Email must be vaild',
+            'phone_number.required' => 'Phone number is required',
+        ]);
+
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'status' => 1
+        ];
+
+        try {
+            $contact = Contact::create($data);
+            return redirect()->back()->with('status', 'success')->with('contact_message', 'Submit successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('status', 'error')->with('contact_message_error', $e->getMessage());
+        }
     }
 
 
@@ -64,8 +98,6 @@ class SiteController extends Controller
             ->join('venue_images', 'venue_images.venue_id', '=', 'venues.id')
             ->whereIn('venues.category_id', $request->category_arr)->where(['venues.status' => 1])
             ->get();
-
-        // var_dump(sizeof($venues));
 
         $html = '';
         if (sizeof($venues) > 0) {
@@ -110,13 +142,6 @@ class SiteController extends Controller
     */
     public function getCategoryVenue(Request $request)
     {
-        // print_r($request->all());
-        // die();
-        // $request->validate([
-        //     'category_id' => 'required',
-        //     'guest' => 'required'
-        // ]);
-
         $rules = [
             'category_id' => 'required|numeric',
         ];
@@ -276,7 +301,9 @@ class SiteController extends Controller
     {
 
         $venue =  Venue::find($id);
-        return view('venuedetail', compact('venue'));
+        // $categoryVenue = Venue::Where(['location' => $venue->location, 'status' => $venue->status, 'category_id' => $venue->category_id])->get();
+        $categoryVenue =  DB::table('venues')->select('venues.name', 'venues.id', 'venues.location', 'venue_images.id', 'venue_images.name as venue_image', 'venues.booking_price', 'venues.average_rating')->join('venue_images', 'venue_images.venue_id', '=', 'venues.id')->where(['venues.category_id' => $venue->category_id, 'venues.status' => 1, 'venues.location' => $venue->location])->whereNotIn('venues.id', [$venue->id])->get();
+        return view('venuedetail', compact('venue', 'categoryVenue'));
     }
 
     function book_venue(Request $request)
